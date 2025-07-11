@@ -1,0 +1,85 @@
+/* Header Styles */
+/* main header with flexbox layout for name and links */
+header {
+    background-color: var(--primary-bg);
+    padding: 1.5rem 2rem 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+/* title styling */
+header h1 {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--accent-color);
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+/* hidden on desktop, shown on mobile */
+.name-short {
+    display: none;
+}
+
+/* links container */
+.header-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* individual link styling */
+.header-links a {
+    color: var(--muted-text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    transition: color 0.2s ease;
+}
+
+.header-links a:hover {
+    color: var(--accent-color);
+}
+
+/* Mobile Footer */
+/* footer that appears at bottom of mobile screens */
+.mobile-footer {
+    display: none;
+    text-align: center;
+    padding: 3rem 2rem 2rem 2rem;
+    background-color: var(--primary-bg);
+    margin-top: 2rem;
+}
+
+/* site name in footer */
+.mobile-footer h3 {
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+/* social links container in footer */
+.mobile-footer-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* individual social links in footer */
+.mobile-footer-links a {
+    color: var(--muted-text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    transition: color 0.2s ease;
+}
+
+.mobile-footer-links a:hover {
+    color: var(--accent-color);
+}

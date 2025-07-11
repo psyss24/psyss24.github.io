@@ -1,0 +1,149 @@
+/* Mobile Styles */
+/* mobile breakpoint styles */
+@media (max-width: 768px) {
+    /* hide header on mobile */
+    header {
+        display: none;
+    }
+    
+    /* show footer on mobile */
+    .mobile-footer {
+        display: block;
+    }
+    
+    /* mobile container takes up 95% of screen width */
+    .container {
+        width: 95%;
+        padding: 1rem 1vw 4rem 1vw;
+    }
+    
+    /* closer navigation tabs */
+    .nav-tabs {
+        gap: 1.5rem;
+    }
+    
+    /* smaller blog post padding */
+    .blog-post {
+        padding: 1.5rem;
+    }
+    
+    /* smaller blog post titles */
+    .blog-post h2 {
+        font-size: 1.1rem;
+    }
+    
+    /* smaller blog post text */
+    .blog-post p {
+        font-size: 13px;
+    }
+    
+    /* smaller project cards */
+    .project-card {
+        padding: 1.25rem;
+        gap: 1rem;
+    }
+    
+    /* smaller project icons */
+    .project-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    /* smaller project titles */
+    .project-card h3 {
+        font-size: 1rem;
+    }
+    
+    /* smaller project descriptions */
+    .project-card p {
+        font-size: 12px;
+    }
+}
+
+/* very small mobile screens */
+@media (max-width: 480px) {
+    /* header padding for very small screens */
+    header {
+        padding: 1rem 1rem 0.5rem 1rem;
+    }
+    
+    /* small header title */
+    header h1 {
+        font-size: 1rem;
+    }
+    
+    /* hide full name on very small screens */
+    .name-full {
+        display: none;
+    }
+    
+    /* show short name on very small screens */
+    .name-short {
+        display: inline;
+    }
+    
+    /* minimal container padding */
+    .container {
+        padding: 0.5rem 1rem 4rem 1rem;
+    }
+    
+    /* very close navigation tabs */
+    .nav-tabs {
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* minimal blog post padding */
+    .blog-post {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* small blog post titles */
+    .blog-post h2 {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    /* small blog post text */
+    .blog-post p {
+        font-size: 12px;
+        margin-bottom: 1rem;
+    }
+    
+    /* small read more link */
+    .read-more {
+        font-size: 11px;
+    }
+    
+    /* stack project cards vertically on very small screens */
+    .project-card {
+        padding: 1rem;
+        gap: 0.75rem;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    /* very small project icons */
+    .project-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+    
+    /* very small project titles */
+    .project-card h3 {
+        font-size: 0.9rem;
+    }
+    
+    /* very small project descriptions */
+    .project-card p {
+        font-size: 11px;
+    }
+    
+    /* center project links on very small screens */
+    .project-links {
+        justify-content: center;
+    }
+}

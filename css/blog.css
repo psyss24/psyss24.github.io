@@ -1,0 +1,97 @@
+/* Blog Post Styles */
+/* minimal cards for blog entries */
+.blog-post {
+    background-color: var(--secondary-bg);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* subtle gradient line that appears on hover */
+.blog-post::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent-color), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.blog-post:hover::before {
+    opacity: 0.3;
+}
+
+/* hover effect for blog posts */
+.blog-post:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px var(--subtle-shadow);
+    border-color: var(--muted-text);
+}
+
+/* blog post title */
+.blog-post h2 {
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+}
+
+/* blog post title link */
+.blog-post h2 a {
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.blog-post h2 a:hover {
+    border-bottom-color: var(--accent-color);
+}
+
+/* blog post excerpt */
+.blog-post p {
+    color: var(--muted-text);
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+/* read more link with arrow */
+.read-more {
+    display: inline-flex;
+    align-items: center;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    padding: 0.5rem 0;
+}
+
+.read-more:hover {
+    color: var(--text-color);
+    transform: translateX(2px);
+}
+
+/* animated arrow after read more text */
+.read-more::after {
+    content: '→';
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+    font-size: 14px;
+}
+
+.read-more:hover::after {
+    transform: translateX(2px);
+}

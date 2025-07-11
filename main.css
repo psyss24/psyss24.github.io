@@ -1,0 +1,16 @@
+/* Main Stylesheet */
+/* import all modular css files in correct order */
+
+/* 1. css variables and global styles */
+@import url('css/variables.css');
+
+/* 2. component-specific styles */
+@import url('css/header.css');
+@import url('css/navigation.css');
+@import url('css/blog.css');
+@import url('css/projects.css');
+@import url('css/utilities.css');
+
+/* 3. responsive breakpoints */
+@import url('css/desktop.css');
+@import url('css/mobile.css');

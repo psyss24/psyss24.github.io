@@ -1,0 +1,115 @@
+/* Desktop Styles */
+/* desktop breakpoint with zoomed in layout */
+@media (min-width: 769px) {
+    /* desktop-specific zoomed in layout */
+    .container {
+        max-width: 85vw;
+        width: 85%;
+        padding: 1rem 4rem 4rem 4rem;
+    }
+    
+    /* larger header spacing */
+    header {
+        padding: 2rem 4rem 1.5rem 4rem;
+    }
+    
+    /* larger site title */
+    header h1 {
+        font-size: 1.4rem;
+        letter-spacing: 2px;
+    }
+    
+    /* more space between social links */
+    .header-links {
+        gap: 2rem;
+    }
+    
+    /* larger social link text */
+    .header-links a {
+        font-size: 1rem;
+        font-weight: 500;
+        letter-spacing: 0.8px;
+    }
+    
+    /* centered navigation with more space */
+    .nav-tabs {
+        gap: 4rem;
+        margin-bottom: 2.5rem;
+        justify-content: center;
+    }
+    
+    /* larger navigation tabs */
+    .nav-tab {
+        font-size: 1.1rem;
+        font-weight: 500;
+        padding: 1rem 0;
+        letter-spacing: 0.8px;
+    }
+    
+    /* wider blog post cards */
+    .blog-post {
+        padding: 1.5rem 3rem;
+        margin-bottom: 2.5rem;
+    }
+    
+    /* larger blog post titles */
+    .blog-post h2 {
+        font-size: 1.4rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    /* larger blog post text */
+    .blog-post p {
+        font-size: 16px;
+        margin-bottom: 1.2rem;
+        line-height: 1.5;
+    }
+    
+    /* larger read more link */
+    .read-more {
+        font-size: 14px;
+    }
+    
+    /* wider project cards */
+    .project-card {
+        padding: 1.5rem 3rem;
+        gap: 2.5rem;
+        margin-bottom: 2.5rem;
+    }
+    
+    /* larger project icons */
+    .project-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 28px;
+    }
+    
+    /* larger project titles */
+    .project-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* larger project descriptions */
+    .project-card p {
+        font-size: 15px;
+        margin-bottom: 0.8rem;
+        line-height: 1.4;
+    }
+    
+    /* more space for project tags */
+    .project-tags {
+        margin-bottom: 0.8rem;
+    }
+    
+    /* larger project tags */
+    .project-tag {
+        font-size: 12px;
+        padding: 0.3rem 0.6rem;
+    }
+    
+    /* larger project links */
+    .project-link {
+        font-size: 13px;
+    }
+}

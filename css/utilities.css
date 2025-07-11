@@ -1,0 +1,48 @@
+/* Code Styles */
+/* syntax highlighting for code blocks */
+pre[class*="language-"] {
+    margin: 1.5em 0;
+    padding: 1.5em;
+    background: #f8f9fa !important;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+/* inline code styling */
+code:not([class*="language-"]) {
+    background: #f1f5f9;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 0.85em;
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+    color: var(--accent-color);
+}
+
+/* Back to Home Link */
+/* navigation link for individual blog posts */
+.back-to-home {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 1rem;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+}
+
+.back-to-home:hover {
+    color: var(--text-color);
+}
+
+/* animated arrow before back to home text */
+.back-to-home::before {
+    content: '←';
+    margin-right: 0.5rem;
+    transition: transform 0.2s ease;
+}
+
+.back-to-home:hover::before {
+    transform: translateX(-3px);
+}

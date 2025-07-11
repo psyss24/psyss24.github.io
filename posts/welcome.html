@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to My Blog</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+    <style>
+        /* Copy the same styles from index.html */
+        :root {
+            --primary-bg: #f5f5dc;
+            --secondary-bg: #e8e8d0;
+            --text-color: #333;
+            --accent-color: #8b7355;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+        }
+
+        header {
+            background-color: var(--secondary-bg);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        nav {
+            padding: 1rem;
+            text-align: center;
+            background-color: var(--secondary-bg);
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1.1rem;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .blog-post {
+            background-color: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .blog-post h1 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .date {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .back-to-home {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-to-home:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--secondary-bg);
+            margin-top: 2rem;
+        }
+
+        /* Code block styling */
+        pre[class*="language-"] {
+            margin: 1.5em 0;
+            padding: 1em;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        code:not([class*="language-"]) {
+            background: #f4f4f4;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-size: 0.9em;
+            font-family: 'Consolas', monospace;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Personal Blog</h1>
+        <p>Thoughts, ideas, and stories</p>
+    </header>
+
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#blog">Blog</a>
+        <a href="../index.html#contact">Contact</a>
+    </nav>
+
+    <div class="container">
+        <article class="blog-post">
+            <h1>Welcome to My Blog</h1>
+            <div class="date">Posted on March 19, 2024</div>
+            <p>
+                Welcome to my personal blog! This is where I'll share my thoughts, experiences, and insights about various topics that interest me. Feel free to explore and engage with the content.
+            </p>
+            <p>
+                For example, here's how code will look in my blog posts:
+            </p>
+            <pre><code class="language-python"># Example of a simple Python function
+def greet_visitor(name):
+    return f"Welcome to my blog, {name}!"
+
+# Let's use it
+message = greet_visitor("Friend")
+print(message)</code></pre>
+            <p>
+                In this blog, you'll find posts about various topics including technology, lifestyle, and personal development. I believe in sharing knowledge and experiences that might help others in their journey.
+            </p>
+            <p>
+                You can also include inline code like this: <code>print("Hello Reader!")</code> within paragraphs.
+            </p>
+            <p>
+                Stay tuned for more interesting content coming your way!
+            </p>
+            <p><a href="../index.html" class="back-to-home">← Back to Home</a></p>
+        </article>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 My Personal Blog. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+</body>
+</html> 
