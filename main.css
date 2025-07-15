@@ -807,7 +807,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0.1em 0.3em;
     margin: 0 0.1em;
     border-radius: 4px;
-    transition: none;
+    transition: all 0.2s ease;
     display: inline;
     text-decoration: none;
     white-space: nowrap;
@@ -828,7 +828,7 @@ h1, h2, h3, h4, h5, h6 {
     z-index: -1;
     mask: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='black' stroke-width='1' stroke-dasharray='3,3' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
     -webkit-mask: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='black' stroke-width='1' stroke-dasharray='3,3' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
-    transition: none;
+    transition: background 0.2s ease;
 }
 
 .definition-term:hover {
@@ -862,7 +862,7 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
     opacity: 0;
     visibility: hidden;
-    transition: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
     z-index: 1000;
     pointer-events: none;
     border: 1px solid var(--border-color);
@@ -915,7 +915,7 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 1;
     visibility: visible;
     transform: translateY(-50%);
-    transition: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
     pointer-events: auto;
 }
 
@@ -1069,7 +1069,7 @@ h1, h2, h3, h4, h5, h6 {
     .definition-tooltip {
         opacity: 0;
         visibility: hidden;
-        transition: none;
+        transition: opacity 0.2s ease, visibility 0.2s ease;
         pointer-events: none;
     }
     
