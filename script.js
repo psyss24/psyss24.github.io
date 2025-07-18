@@ -35,6 +35,106 @@ function setupThemeToggle() {
     });
 }
 
+    // --- Estimated Reading Time ---
+    function estimateReadingTime(text) {
+        const wordsPerMinute = 200;
+        const words = text.trim().split(/\s+/).length;
+        const minutes = Math.max(1, Math.round(words / wordsPerMinute));
+        return minutes;
+    }
+
+    function insertReadingTime() {
+        const postPage = document.querySelector('.post-page');
+        if (!postPage) return;
+        // Try to get all text content except nav, tags, etc.
+        let content = '';
+        // Prefer main content blocks, fallback to all text
+        const mainBlocks = postPage.querySelectorAll('p, li, blockquote');
+        if (mainBlocks.length) {
+            mainBlocks.forEach(el => { content += ' ' + el.textContent; });
+        } else {
+            content = postPage.textContent;
+        }
+        const minutes = estimateReadingTime(content);
+        // Create or update the reading time element
+        let timeElem = postPage.querySelector('.reading-time');
+        if (!timeElem) {
+            timeElem = document.createElement('div');
+            timeElem.className = 'reading-time';
+            // Insert after h1 if present, else at top
+            const h1 = postPage.querySelector('h1');
+            if (h1) {
+                if (h1.nextElementSibling) {
+                    h1.parentNode.insertBefore(timeElem, h1.nextElementSibling);
+                } else {
+                    h1.parentNode.appendChild(timeElem);
+                }
+            } else {
+                postPage.insertBefore(timeElem, postPage.firstChild);
+            }
+        }
+        timeElem.textContent = `Estimated read: ${minutes} min${minutes > 1 ? 's' : ''}`;
+        // Ensure always visible
+        timeElem.style.display = 'block';
+        timeElem.style.fontSize = '1rem';
+        timeElem.style.margin = '0.5rem 0 1.5rem 0';
+        timeElem.style.color = 'inherit';
+        timeElem.style.fontWeight = '500';
+        timeElem.style.letterSpacing = '0.01em';
+    }
+insertReadingTime();
+
+// --- Mobile tooltip positioning for definition terms ---
+// --- Reading Progress Bar ---
+function createReadingProgressBar() {
+  if (document.querySelector('.reading-progress-bar')) return;
+  const bar = document.createElement('div');
+  bar.className = 'reading-progress-bar';
+  const inner = document.createElement('div');
+  inner.className = 'reading-progress-bar__inner';
+  bar.appendChild(inner);
+  document.body.appendChild(bar);
+}
+
+function updateReadingProgressBar() {
+  const bar = document.querySelector('.reading-progress-bar__inner');
+  if (!bar) return;
+  // Find the main content area for posts
+  const post = document.querySelector('.post-page') || document.querySelector('.post');
+  if (!post) return;
+  // Get computed genre gradient/color from the post
+  let genreGradient = getComputedStyle(post).getPropertyValue('--genre-gradient');
+  let genreColor = getComputedStyle(post).getPropertyValue('--genre-color');
+  let accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-color');
+  // Always prefer genre gradient, fallback to accent
+  bar.style.background = genreGradient || accentColor;
+  bar.style.boxShadow = `0 1px 8px 0 ${genreColor || accentColor}`;
+  // Progress calculation
+  const rect = post.getBoundingClientRect();
+  const scrollTop = window.scrollY || window.pageYOffset;
+  const start = rect.top + scrollTop;
+  const end = rect.bottom + scrollTop - window.innerHeight;
+  const total = Math.max(end - start, 1);
+  const progress = Math.min(Math.max((scrollTop - start) / total, 0), 1);
+  // Use requestAnimationFrame for ultra-smooth update
+  if (bar._raf) cancelAnimationFrame(bar._raf);
+  const targetWidth = (progress * 100) + '%';
+  function animateWidth() {
+    bar.style.width = targetWidth;
+  }
+  bar._raf = requestAnimationFrame(animateWidth);
+}
+
+// Only show on post/journal pages
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.querySelector('.post-page')) {
+    createReadingProgressBar();
+    window.addEventListener('scroll', updateReadingProgressBar, { passive: true });
+    window.addEventListener('resize', updateReadingProgressBar);
+    updateReadingProgressBar();
+  }
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     // Set initial theme
     setTheme(getThemePref());
