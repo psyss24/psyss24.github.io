@@ -1,4 +1,134 @@
+// --- Theme Toggle Logic ---
+function setTheme(isDark) {
+    if (isDark) {
+        document.body.classList.add('dark-theme');
+    } else {
+        document.body.classList.remove('dark-theme');
+    }
+    // Update all theme-toggle buttons
+    document.querySelectorAll('#theme-toggle').forEach(btn => {
+        btn.textContent = isDark ? 'Lights on' : 'Lights off';
+    });
+}
+
+function getThemePref() {
+    if (localStorage.getItem('theme')) {
+        return localStorage.getItem('theme') === 'dark';
+    }
+    // Default: match system
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+
+function saveThemePref(isDark) {
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
+
+function setupThemeToggle() {
+    // Attach to all theme-toggle buttons (header and footer)
+    document.querySelectorAll('#theme-toggle').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const isDark = !document.body.classList.contains('dark-theme');
+            setTheme(isDark);
+            saveThemePref(isDark);
+        });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Set initial theme
+    setTheme(getThemePref());
+    setupThemeToggle();
+});
+// --- Mobile tooltip positioning for definition terms ---
+function adjustMobileTooltip(term) {
+    const tooltip = term.querySelector('.definition-tooltip');
+    if (!tooltip) return;
+    tooltip.classList.add('tooltip-below');
+    tooltip.classList.remove('shift-left', 'shift-right');
+    // Make tooltip absolutely positioned for mobile
+    tooltip.style.position = 'absolute';
+    // Save previous styles
+    const prevOpacity = tooltip.style.opacity;
+    const prevPointer = tooltip.style.pointerEvents;
+    const prevDisplay = tooltip.style.display;
+    const prevVisibility = tooltip.style.visibility;
+    // For measurement, make tooltip invisible but measurable
+    tooltip.style.opacity = '0';
+    tooltip.style.pointerEvents = 'none';
+    tooltip.style.display = 'block';
+    tooltip.style.visibility = 'hidden';
+    // Reset positioning
+    tooltip.style.left = '';
+    tooltip.style.right = '';
+    tooltip.style.top = '';
+    tooltip.style.transform = '';
+    tooltip.style.marginLeft = '';
+    tooltip.style.marginRight = '';
+    function doAdjust() {
+        const termRect = term.getBoundingClientRect();
+        const viewportWidth = window.innerWidth;
+        const padding = 32;
+        // Make tooltip as close as possible vertically to the term
+        let top = termRect.bottom + window.scrollY;
+        // Set tooltip width to container width (viewport width minus padding)
+        const containerWidth = viewportWidth - (padding * 2);
+        tooltip.style.width = containerWidth + 'px';
+        tooltip.style.minWidth = containerWidth + 'px';
+        tooltip.style.maxWidth = containerWidth + 'px';
+        // Position tooltip below, left-aligned to viewport container start
+        const leftPosition = padding;
+        // Force the positioning with !important if needed
+        tooltip.style.setProperty('left', leftPosition + 'px', 'important');
+        tooltip.style.setProperty('top', top + 'px', 'important');
+        tooltip.style.setProperty('position', 'fixed', 'important'); // Try fixed instead of absolute
+        tooltip.style.transform = 'none';
+        tooltip.style.marginLeft = '0';
+        tooltip.style.marginRight = '0';
+        // Restore visibility
+        tooltip.style.visibility = '';
+        tooltip.style.display = '';
+        tooltip.style.opacity = prevOpacity;
+        tooltip.style.pointerEvents = prevPointer;
+        // More detailed debug logs
+        console.log('[Tooltip Debug] termRect:', termRect);
+        console.log('[Tooltip Debug] Set tooltip width to:', containerWidth);
+        console.log('[Tooltip Debug] Final left:', leftPosition, 'top:', top);
+        console.log('[Tooltip Debug] Computed styles after setting:', {
+          position: getComputedStyle(tooltip).position,
+          left: getComputedStyle(tooltip).left,
+          top: getComputedStyle(tooltip).top,
+          transform: getComputedStyle(tooltip).transform
+        });
+        console.log('[Tooltip Debug] Tooltip getBoundingClientRect:', tooltip.getBoundingClientRect());
+    }
+    setTimeout(doAdjust, 10);
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Animate journal post page on load
+    const postPage = document.querySelector('.post-page');
+    if (postPage) {
+        setTimeout(() => {
+            postPage.classList.add('page-animate-in');
+        }, 60); // slight delay for smoothness
+
+        // Animate back-to-home with smooth exit, only if .back-to-home exists
+        const backHome = document.querySelector('.back-to-home');
+        if (backHome) {
+            backHome.addEventListener('click', function(e) {
+                e.preventDefault();
+                postPage.classList.remove('page-animate-in');
+                postPage.classList.add('page-animate-out');
+                // Smooth scroll to top, then trigger fade-out
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setTimeout(() => {
+                    window.location.href = backHome.getAttribute('href');
+                }, 1300); // match exit duration
+            });
+        }
+    }
 
     const tabs = document.querySelectorAll('.nav-tab');
     const contents = document.querySelectorAll('.tab-content');
@@ -6,20 +136,53 @@ document.addEventListener('DOMContentLoaded', function() {
     tabs.forEach(tab => {
         tab.addEventListener('click', function(e) {
             e.preventDefault();
-            
             // get rid of active class from all tabs and contents
             tabs.forEach(t => t.classList.remove('active'));
             contents.forEach(c => c.classList.remove('active'));
-            
             // add active class to clicked tab
             this.classList.add('active');
-            
             // show corresponding content
             const targetId = this.getAttribute('data-tab');
             document.getElementById(targetId).classList.add('active');
         });
     });
-    
+
+    // Attach mobile tooltip tap handler after definitions are parsed
+    function attachMobileTooltipHandler() {
+        document.querySelectorAll('.definition-term').forEach(term => {
+            if (term._mobileTooltipHandlerAttached) return;
+            term._mobileTooltipHandlerAttached = true;
+            term.addEventListener('click', function(e) {
+                if (window.innerWidth > 768) return; // Only on mobile
+                e.stopPropagation();
+                // Toggle this one, close others
+                const isActive = term.classList.contains('tooltip-active');
+                document.querySelectorAll('.definition-term.tooltip-active').forEach(other => {
+                    if (other !== term) other.classList.remove('tooltip-active');
+                });
+                if (isActive) {
+                    term.classList.remove('tooltip-active');
+                } else {
+                    term.classList.add('tooltip-active');
+                    adjustMobileTooltip(term);
+                }
+            });
+        });
+        // Close tooltip if tapping outside
+        if (!window._mobileTooltipGlobalHandlerAttached) {
+            document.body.addEventListener('click', function(e) {
+                if (window.innerWidth > 768) return;
+                document.querySelectorAll('.definition-term.tooltip-active').forEach(term => {
+                    term.classList.remove('tooltip-active');
+                });
+            });
+            window._mobileTooltipGlobalHandlerAttached = true;
+        }
+    }
+
+    // Attach after definitions are parsed
+    setTimeout(attachMobileTooltipHandler, 200);
+
     // loaad post previews automatically
     loadPostPreviews();
 });
@@ -500,3 +663,106 @@ function normaliseTag(tag) {
     
     return tagMap[tag.toLowerCase()] || 'other';
 }
+
+// Simple mobile scroll animations
+function initMobileScrollAnimations() {
+    const cards = document.querySelectorAll('.post, .project-card');
+    if (window.innerWidth > 768) {
+        // On desktop, remove animation classes
+        cards.forEach(card => {
+            card.classList.remove('animate-ready', 'animate-in');
+        });
+        return;
+    }
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+                entry.target.classList.remove('animate-ready');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Only add .animate-ready and observe cards not already animated in
+    cards.forEach(card => {
+        if (!card.classList.contains('animate-in')) {
+            card.classList.add('animate-ready');
+            observer.observe(card);
+        } else {
+            card.classList.remove('animate-ready');
+        }
+    });
+}
+
+// Initialize mobile scroll animations when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    initMobileScrollAnimations();
+});
+
+// Re-initialize on window resize
+window.addEventListener('resize', () => {
+    setTimeout(() => {
+        initMobileScrollAnimations();
+    }, 100);
+});
+
+// Mobile tap-to-toggle for definition tooltips
+function isMobileDevice() {
+    return window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+}
+
+function closeAllTooltips(except) {
+    document.querySelectorAll('.definition-term.tooltip-active').forEach(term => {
+        if (term !== except) {
+            term.classList.remove('tooltip-active');
+        }
+    });
+}
+
+// Attach mobile tap-to-toggle handler to a term (no clone, just toggle)
+function attachMobileTooltipHandler(term) {
+    if (term._tooltipHandlerAttached) return;
+    term._tooltipHandlerAttached = true;
+    term.addEventListener('click', function(e) {
+        if (e.target.closest('a')) return;
+        const wasActive = term.classList.contains('tooltip-active');
+        closeAllTooltips();
+        if (!wasActive) {
+            term.classList.add('tooltip-active');
+            setTimeout(() => adjustMobileTooltip(term), 0);
+        }
+        e.stopPropagation();
+    });
+}
+
+// Hide tooltip when tapping outside (only once)
+let outsideTooltipListenerAdded = false;
+function addOutsideTooltipListener() {
+    if (outsideTooltipListenerAdded) return;
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.definition-term')) {
+            closeAllTooltips();
+        }
+    });
+    outsideTooltipListenerAdded = true;
+}
+
+// Patch parseDefinitions to attach tap handler on mobile, and fix double-tap toggle
+const origParseDefinitions = window.parseDefinitions;
+window.parseDefinitions = function(element) {
+    origParseDefinitions(element);
+    if (isMobileDevice()) {
+        element.querySelectorAll('.definition-term').forEach(term => {
+            attachMobileTooltipHandler(term);
+        });
+        addOutsideTooltipListener();
+    }
+};
