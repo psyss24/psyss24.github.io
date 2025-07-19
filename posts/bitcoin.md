@@ -82,4 +82,3 @@ The transformation began in August 2020 when MicroStrategy announced it would ad
 The decision would spark a trend among corporations, with companies like Tesla, Square, and others adding Bitcoin to their balance sheets.
 The institutional adoption accelerated dramatically in 2024 with the approval of spot Bitcoin ETFs by the U.S. Securities and Exchange Commission. These investment vehicles, led by BlackRock’s IBIT and others, made Bitcoin accessible to mainstream investors without the complexities of direct ownership. By 2025, institutional investors had poured $68 billion into Bitcoin ETFs, which represented a fundamental shift in how the asset is perceived and traded.
 
-## Conclusion...

@@ -115,7 +115,7 @@ But this new freedom came with cost. Inflation becomes a matter of psychology, i
 
 Fiat money enables virtually unlimited borrowing by governments, corporations, and individuals which powers growth, but also creates systemic risk. The 2008 crash was triggered by excessive credit creation in housing. Today’s concerns lie in sovereign debt levels, private leverage, and speculative bubbles in assets like tech stocks and cryptocurrencies.
 
-## Conclusion...
+
 
 [1]:	https://hascmarinebiology.weebly.com/uploads/7/6/8/7/7687070/cowry_as_money_2.pdf
 [2]:	https://www.ashmolean.org/article/brass-manilla-west-africa
