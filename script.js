@@ -35,54 +35,24 @@ function setupThemeToggle() {
     });
 }
 
-    // --- Estimated Reading Time ---
-    function estimateReadingTime(text) {
-        const wordsPerMinute = 200;
-        const words = text.trim().split(/\s+/).length;
-        const minutes = Math.max(1, Math.round(words / wordsPerMinute));
-        return minutes;
-    }
-
-    function insertReadingTime() {
-        const postPage = document.querySelector('.post-page');
-        if (!postPage) return;
-        // Try to get all text content except nav, tags, etc.
-        let content = '';
-        // Prefer main content blocks, fallback to all text
-        const mainBlocks = postPage.querySelectorAll('p, li, blockquote');
-        if (mainBlocks.length) {
-            mainBlocks.forEach(el => { content += ' ' + el.textContent; });
-        } else {
-            content = postPage.textContent;
-        }
-        const minutes = estimateReadingTime(content);
-        // Create or update the reading time element
-        let timeElem = postPage.querySelector('.reading-time');
-        if (!timeElem) {
-            timeElem = document.createElement('div');
-            timeElem.className = 'reading-time';
-            // Insert after h1 if present, else at top
-            const h1 = postPage.querySelector('h1');
-            if (h1) {
-                if (h1.nextElementSibling) {
-                    h1.parentNode.insertBefore(timeElem, h1.nextElementSibling);
-                } else {
-                    h1.parentNode.appendChild(timeElem);
-                }
-            } else {
-                postPage.insertBefore(timeElem, postPage.firstChild);
-            }
-        }
-        timeElem.textContent = `Estimated read: ${minutes} min${minutes > 1 ? 's' : ''}`;
-        // Ensure always visible
-        timeElem.style.display = 'block';
-        timeElem.style.fontSize = '1rem';
-        timeElem.style.margin = '0.5rem 0 1.5rem 0';
-        timeElem.style.color = 'inherit';
-        timeElem.style.fontWeight = '500';
-        timeElem.style.letterSpacing = '0.01em';
-    }
-insertReadingTime();
+function insertReadingTime() {
+  const postPage = document.querySelector('.post-page');
+  if (!postPage) return;
+  const timeElem = postPage.querySelector('.reading-time');
+  if (!timeElem) return;
+  // Find the main content (excluding .reading-time and .loading)
+  let text = '';
+  postPage.childNodes.forEach(node => {
+    if (node.nodeType === Node.ELEMENT_NODE && (node.classList.contains('reading-time') || node.classList.contains('loading'))) return;
+    if (node.nodeType === Node.TEXT_NODE) text += node.textContent + ' ';
+    if (node.nodeType === Node.ELEMENT_NODE) text += node.innerText + ' ';
+  });
+  // Fallback: if nothing, try innerText
+  if (!text.trim()) text = postPage.innerText || '';
+  const words = text.trim().split(/\s+/).length;
+  const minutes = Math.max(1, Math.round(words / 200));
+  timeElem.textContent = `Estimated read: ${minutes} min${minutes > 1 ? 's' : ''}`;
+}
 
 // --- Mobile tooltip positioning for definition terms ---
 // --- Reading Progress Bar ---
@@ -227,6 +197,31 @@ document.addEventListener('DOMContentLoaded', function() {
                     window.location.href = backHome.getAttribute('href');
                 }, 1300); // match exit duration
             });
+        }
+    }
+
+    // Insert reading time after post content is loaded (for post.html)
+    if (window.location.pathname.endsWith('/posts/post.html')) {
+        const observer = new MutationObserver(() => {
+            const postPage = document.querySelector('.post-page');
+            if (!postPage) return;
+            const loading = postPage.querySelector('.loading');
+            if (loading) return;
+            // Ensure .reading-time is present as first child
+            let timeElem = postPage.querySelector('.reading-time');
+            if (!timeElem) {
+                timeElem = document.createElement('div');
+                timeElem.className = 'reading-time';
+                postPage.insertBefore(timeElem, postPage.firstChild);
+            }
+            // Only fill if not already filled
+            if (timeElem && !timeElem.textContent.trim()) {
+                insertReadingTime();
+            }
+        });
+        const postPage = document.querySelector('.post-page');
+        if (postPage) {
+            observer.observe(postPage, { childList: true, subtree: true });
         }
     }
 

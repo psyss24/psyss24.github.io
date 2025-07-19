@@ -1,3 +1,93 @@
+/* Blockquote quote mark and cite opacity/color for desktop only */
+@media (min-width: 769px) {
+  .post-page blockquote::after,
+  .post-page blockquote cite {
+    opacity: 0.5;
+    color: var(--muted-text);
+    transition: opacity 0.3s ease;
+  }
+
+  .post-page blockquote:hover::after,
+  .post-page blockquote:hover cite {
+    opacity: 1;
+  }
+}
+
+/* --- Reading Time Estimate Styling --- */
+
+
+.reading-time {
+  display: block;
+  font-size: 1.1rem;
+  margin: 0 0 1.5rem 0;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background: var(--primary-bg);
+  border-radius: 0.5em;
+  padding: 0.25em 0.75em;
+  width: fit-content;
+  box-shadow: 0 1px 6px 0 rgba(0,0,0,0.04);
+  z-index: 10;
+  position: relative;
+  transition: background 0.3s;
+  color: var(--genre-color, var(--accent-color, #444));
+}
+
+
+body.dark-theme .reading-time {
+  background: rgba(24,26,27,0.92);
+  color: var(--genre-color, var(--accent-color, #eee));
+}
+
+/* Gradient text for reading time if multiple tags (when --genre-gradient is set) */
+.reading-time {
+  background-clip: padding-box;
+}
+
+.post-page:has(.genre-tag ~ .genre-tag) > .reading-time {
+  background: rgba(255,255,255,0.85);
+  background-clip: padding-box;
+  color: transparent;
+  background-image: var(--genre-gradient, var(--genre-color));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  box-shadow: 0 1px 6px 0 rgba(0,0,0,0.08);
+}
+body.dark-theme .post-page:has(.genre-tag ~ .genre-tag) > .reading-time {
+  background: rgba(24,26,27,0.92);
+  background-clip: padding-box;
+  color: transparent;
+  background-image: var(--genre-gradient, var(--genre-color));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  box-shadow: 0 1px 6px 0 rgba(0,0,0,0.18);
+}
+
+/* Fallback for single-tag posts in dark mode: ensure text is visible */
+body.dark-theme .reading-time {
+  color: var(--genre-color, var(--accent-color, #eee));
+}
+
+/* Fallback for single-tag posts in dark mode: ensure text is visible */
+body.dark-theme .post-page:not(:has(.genre-tag ~ .genre-tag)) > .reading-time {
+  background: rgba(24,26,27,0.92);
+  color: var(--genre-color, var(--accent-color, #eee));
+}
+
+/* Ensure .reading-time is not overlapped by sticky headers or progress bar */
+.reading-time {
+  margin-top: 1.2em;
+}
+
+/* If inside .post-page, add extra spacing below title */
+.post-page > .reading-time {
+  margin-top: 0.5em;
+  margin-bottom: 1.5em;
+}
 .reading-progress-bar__inner {
   height: 100%;
   width: 0%;
@@ -378,23 +468,6 @@ header h1 {
     box-shadow: 0 1px 6px rgba(60, 64, 67, 0.02);
 }
 
-.post::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--genre-gradient, var(--accent-color));
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    mask: linear-gradient(90deg, transparent 0%, black 25%, black 75%, transparent 100%);
-    -webkit-mask: linear-gradient(90deg, transparent 0%, black 25%, black 75%, transparent 100%);
-}
-
-.post:hover::before {
-    opacity: 0.6;
-}
 
 .post:hover {
     transform: translateY(-2px);
@@ -430,7 +503,7 @@ header h1 {
 
 .post:hover h2::after {
     width: 100%;
-    opacity: 0.6;
+    opacity: 0.5;
 }
 
 .post h2 a {
@@ -732,6 +805,9 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0.8;
 }
 
+
+/* Blockquote quote mark: half opacity on desktop, full on hover, always full on mobile */
+/* Blockquote quote mark: half opacity on desktop, full on hover */
 .post-page blockquote::after {
     content: '\201D';
     position: absolute;
@@ -739,21 +815,23 @@ h1, h2, h3, h4, h5, h6 {
     right: 4rem;
     font-size: 4rem;
     font-weight: 300;
-    color: var(--muted-text);
-    opacity: 0.6;
-    font-family: 'Times New Roman', Times, serif;
-    line-height: 1;
-    pointer-events: none;
-    transition: color 0.3s ease, opacity 0.3s ease;
-    transform: translateY(-50%);
-}
-
-.post-page blockquote:hover::after {
     background: var(--genre-gradient, var(--accent-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    opacity: 0.8;
+    color: transparent;
+    opacity: 0.7 !important;
+    font-family: 'Times New Roman', Times, serif;
+    line-height: 1;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    transform: translateY(-50%);
+}
+
+/* On hover, full opacity and gradient text */
+
+.post-page blockquote:hover::after {
+    opacity: 1 !important;
 }
 
 .post-page blockquote p {
@@ -766,6 +844,8 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
 }
 
+
+/* Blockquote citation: half opacity on desktop, full on hover, always full on mobile */
 .post-page blockquote cite {
     position: absolute;
     bottom: 0.5rem;
@@ -773,17 +853,26 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
     font-size: 0.9rem;
     font-style: normal;
-    color: var(--muted-text);
-    opacity: 0.8;
-    text-align: right;
-    transition: color 0.3s ease;
-}
-
-.post-page blockquote:hover cite {
     background: var(--genre-gradient, var(--accent-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    color: transparent;
+    opacity: 0.7 !important;
+    text-align: right;
+    transition: opacity 0.3s ease;
+}
+
+
+/* On hover, full opacity and gradient text */
+.post-page blockquote:hover cite {
+    opacity: 1 !important;
+}
+@media (max-width: 768px) {
+  .post-page blockquote::after,
+  .post-page blockquote cite {
+    opacity: 1 !important;
+  }
 }
 
 /* Genre Tag Styles */
