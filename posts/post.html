@@ -23,8 +23,9 @@
 
     <div class="container">
 
+
         <article class="post-page" id="post-content">
-            <div class="reading-time"></div>
+            <!-- .post-meta-row will be injected after <h1> by JS/Markdown -->
             <div class="loading">Loading post...</div>
         </article>
 
@@ -224,7 +225,10 @@
             
             return html
                 // Style main title (first h1) and add genre tags below it
-                .replace(/^<h1>(.*?)<\/h1>/, `<h1>$1</h1><div class="tag-container">${genreTags}</div>`)
+                .replace(
+  /^<h1>(.*?)<\/h1>/,
+  `<h1>$1</h1><div class="post-meta-row"><div class="reading-time"></div><div class="tag-container">${genreTags}</div></div>`
+)
                 // publication date next (first em in italics)
                 .replace(/^<p><em>Published on (.*?)<\/em><\/p>/, '<div class="post-date">Published on $1</div>')
                 // then intro quote (first blockquote as intro)

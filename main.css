@@ -1,3 +1,61 @@
+/* Post meta row: reading time left, tags right */
+
+.post-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  margin-bottom: 1.2em;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.post-meta-row > .reading-time {
+  min-width: auto;
+  flex-shrink: 0;
+}
+.post-meta-row > .tag-container {
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+.post-meta-row .reading-time {
+  margin: 0;
+  padding: 0.1em 0.75em 0.1em 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  width: auto;
+  box-shadow: none;
+}
+
+.post-meta-row .tag-container {
+  margin: 0;
+  gap: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .post-meta-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    margin-bottom: 1em;
+  }
+  .post-meta-row .reading-time {
+    padding: 0.1em 0 0.1em 0;
+    font-size: 1rem;
+    text-align: right;
+    margin-left: 0;
+    margin-right: 0;
+    display: block;
+  }
+  .post-meta-row .tag-container {
+    justify-content: flex-start;
+    gap: 0.3rem;
+  }
+}
 /* Blockquote quote mark and cite opacity/color for desktop only */
 @media (min-width: 769px) {
   .post-page blockquote::after,
@@ -16,6 +74,7 @@
 /* --- Reading Time Estimate Styling --- */
 
 
+
 .reading-time {
   display: block;
   font-size: 1.1rem;
@@ -26,7 +85,7 @@
   border-radius: 0.5em;
   padding: 0.25em 0.75em;
   width: fit-content;
-  box-shadow: 0 1px 6px 0 rgba(0,0,0,0.04);
+  box-shadow: none;
   z-index: 10;
   position: relative;
   transition: background 0.3s;
@@ -44,7 +103,8 @@ body.dark-theme .reading-time {
   background-clip: padding-box;
 }
 
-.post-page:has(.genre-tag ~ .genre-tag) > .reading-time {
+/* Gradient reading time for multiple tags (now inside .post-meta-row) */
+.post-meta-row:has(.genre-tag ~ .genre-tag) > .reading-time {
   background: rgba(255,255,255,0.85);
   background-clip: padding-box;
   color: transparent;
@@ -52,10 +112,10 @@ body.dark-theme .reading-time {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-fill-color: transparent;
-  box-shadow: 0 1px 6px 0 rgba(0,0,0,0.08);
+  /* text-fill-color: transparent; */
+  box-shadow: none;
 }
-body.dark-theme .post-page:has(.genre-tag ~ .genre-tag) > .reading-time {
+body.dark-theme .post-meta-row:has(.genre-tag ~ .genre-tag) > .reading-time {
   background: rgba(24,26,27,0.92);
   background-clip: padding-box;
   color: transparent;
@@ -63,8 +123,8 @@ body.dark-theme .post-page:has(.genre-tag ~ .genre-tag) > .reading-time {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-fill-color: transparent;
-  box-shadow: 0 1px 6px 0 rgba(0,0,0,0.18);
+  /* text-fill-color: transparent; */
+  box-shadow: none;
 }
 
 /* Fallback for single-tag posts in dark mode: ensure text is visible */
@@ -372,6 +432,11 @@ header h1 {
 .project-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 32px var(--subtle-shadow);
+.post-meta-row > .reading-time,
+.post-meta-row > .tag-container {
+  min-width: 0;
+  flex-shrink: 1;
+}
     border-color: var(--muted-text);
 }
 

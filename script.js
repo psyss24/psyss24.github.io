@@ -200,19 +200,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Insert reading time after post content is loaded (for post.html)
+    // Insert reading time into .post-meta-row after post content is loaded (for post.html)
     if (window.location.pathname.endsWith('/posts/post.html')) {
         const observer = new MutationObserver(() => {
             const postPage = document.querySelector('.post-page');
             if (!postPage) return;
             const loading = postPage.querySelector('.loading');
             if (loading) return;
-            // Ensure .reading-time is present as first child
-            let timeElem = postPage.querySelector('.reading-time');
+            // Ensure .reading-time is present inside .post-meta-row
+            const metaRow = postPage.querySelector('.post-meta-row');
+            if (!metaRow) return;
+            let timeElem = metaRow.querySelector('.reading-time');
             if (!timeElem) {
                 timeElem = document.createElement('div');
                 timeElem.className = 'reading-time';
-                postPage.insertBefore(timeElem, postPage.firstChild);
+                metaRow.insertBefore(timeElem, metaRow.firstChild);
             }
             // Only fill if not already filled
             if (timeElem && !timeElem.textContent.trim()) {
