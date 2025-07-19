@@ -260,8 +260,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (isActive) {
                     term.classList.remove('tooltip-active');
                 } else {
-                    term.classList.add('tooltip-active');
-                    adjustMobileTooltip(term);
+            // On mobile, hide tooltip before positioning to prevent flash
+            const tooltip = term.querySelector('.definition-tooltip');
+            if (window.innerWidth <= 768 && tooltip) {
+                tooltip.style.visibility = 'hidden';
+            }
+            term.classList.add('tooltip-active');
+            adjustMobileTooltip(term);
+            // After positioning, show the tooltip
+            if (window.innerWidth <= 768 && tooltip) {
+                setTimeout(() => { tooltip.style.visibility = ''; }, 20);
+            }
                 }
             });
         });

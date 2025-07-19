@@ -1082,7 +1082,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0.1em 0.3em;
     margin: 0 0.1em;
     border-radius: 4px;
-    transition: -webkit-text-fill-color 0.2s ease, color 0.2s ease;
+    transition: -webkit-text-fill-color 0.3s cubic-bezier(0.4,0,0.2,1), color 0.3s cubic-bezier(0.4,0,0.2,1), background 0.3s cubic-bezier(0.4,0,0.2,1);
     display: inline;
     text-decoration: none;
     white-space: nowrap;
@@ -1103,7 +1103,7 @@ h1, h2, h3, h4, h5, h6 {
     z-index: -1;
     mask: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='black' stroke-width='1' stroke-dasharray='3,3' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
     -webkit-mask: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='black' stroke-width='1' stroke-dasharray='3,3' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
-    transition: background 0.2s ease;
+    transition: background 0.3s cubic-bezier(0.4,0,0.2,1);
 }
 
 .definition-term:hover {
@@ -1262,6 +1262,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Desktop Styles */
 @media (min-width: 769px) {
+    .definition-term {
+        transition: -webkit-text-fill-color 0.3s cubic-bezier(0.4,0,0.2,1), color 0.3s cubic-bezier(0.4,0,0.2,1), background 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .definition-term::before {
+        transition: background 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
     .container {
         max-width: 1200px;
         width: 85%;
