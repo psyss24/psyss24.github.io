@@ -807,7 +807,6 @@ h1, h2, h3, h4, h5, h6 {
 
 
 /* Blockquote quote mark: half opacity on desktop, full on hover, always full on mobile */
-/* Blockquote quote mark: half opacity on desktop, full on hover */
 .post-page blockquote::after {
     content: '\201D';
     position: absolute;
@@ -838,7 +837,13 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0;
     font-size: 1rem;
     line-height: 1.5;
-    padding-right: 5rem;
+    padding-right: 7rem;
+    padding-bottom: 1.2em;
+@media (max-width: 768px) {
+  .post-page blockquote p {
+    padding-bottom: 0 !important;
+  }
+}
     flex: 1;
     display: flex;
     align-items: center;
@@ -850,7 +855,12 @@ h1, h2, h3, h4, h5, h6 {
     position: absolute;
     bottom: 0.5rem;
     right: 1.5rem;
-    margin-top: 0;
+    margin-top: 2em;
+@media (max-width: 768px) {
+  .post-page blockquote cite {
+    margin-top: 0em;
+  }
+}
     font-size: 0.9rem;
     font-style: normal;
     background: var(--genre-gradient, var(--accent-color));
