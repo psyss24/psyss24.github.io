@@ -62,11 +62,11 @@ A core issue that the previous forms faced and had not yet resolved, were mobili
 On land they could be subject to theft whilst overseas bad weather could be catastrophic to ships carrying large amounts of gold. As such, long distance trade had a larger risk factor. Furthermore if the gold had arrived safely, there’d need to be assurances of its veracity; coins need to be weighted and tested to verify metal content and authenticity, which add more logistical challenges to trade.
 
 The next development sought to ease these issues. Banknotes, physical instruments with no intrinsic value, functioned purely as representative claims to gold. In 7th century China, during the Tang Dynasty, traders used [promissory notes][6] to replace bulky copper coins. By the time of the Song Dynasty in the 11th century, the state began issuing official paper money known as [Jiaozi][7], underwritten by the imperial treasury. 
-This system flourished for centuries, providing an early example of a functioning fiat currency, until excessive issuance led to inflation and eroded public trust—a familiar consequence of pushing symbolic value beyond its limits.
+This system flourished for centuries, providing an early example of a functioning fiat currency, until excessive issuance led to inflation and eroded public trust (a familiar consequence of pushing symbolic value beyond its limits).
 
-In Europe, the emergence of banks was tied to merchants and goldsmiths. In 17th century London, goldsmiths began storing precious metals for clients in secure vaults. They issued deposit receipts, [which customers started trading as payment][8] — these receipts were safer and easier to move than gold. 
-Over time, these goldsmiths realised they could issue more receipts than the gold they held — the birth of (fractional reserve banking)[ a banking system in which banks are only required to keep a fraction of customer deposits in reserve, either in cash or at the central bank, while the rest is loaned out to borrowers](). This practice worked because not everyone redeemed their receipts at once. As long as the public retained confidence in the issuer, the receipts could circulate as currency. 
-These [goldsmith bankers evolved into full fledged banks][10], formalising lending operations and expanding credit in the economy. With each loan made, they effectively created new money — money that existed not in substance, but in agreement. 
+In Europe, the emergence of banks was tied to merchants and goldsmiths. In 17th century London, goldsmiths began storing precious metals for clients in secure vaults. They issued deposit receipts, [which customers started trading as payment][8]; these receipts were safer and easier to move than gold. 
+Over time, these goldsmiths realised they could issue more receipts than the gold they held, the birth of (fractional reserve banking)[ a banking system in which banks are only required to keep a fraction of customer deposits in reserve, either in cash or at the central bank, while the rest is loaned out to borrowers](). This practice worked because not everyone redeemed their receipts at once. As long as the public retained confidence in the issuer, the receipts could circulate as currency. 
+These [goldsmith bankers evolved into full fledged banks][10], formalising lending operations and expanding credit in the economy. With each loan made, they effectively created new money; money that existed not in substance, but in agreement. 
 
 The establishment of the Bank of England in 1694 marked a turning point. It was chartered to [lend money to the government][11], and in exchange, it received the right to issue standardised banknotes. These notes were initially convertible to gold, but that tie weakened over time. 
 As convertibility faded, trust in the institution itself and not the underlying metal became paramount. 
@@ -77,7 +77,7 @@ But this growth carried risk. The more abstract money became, the more fragile i
 
 ## Fiat, a final decoupling of value
 
-As the abstraction of money progressed — from barter to commodity, to coinage and then to banknotes, there was still throughout this history, an anchoring principle: money stood in for something real. Gold, silver, salt — whether carried, stored, or promised, were seen as the underlying guarantors of value. 
+As the abstraction of money progressed, from barter to commodity, to coinage and then to banknotes, there was still throughout this history, an anchoring principle: money stood in for something real. Gold, silver, salt; whether carried, stored, or promised, were seen as the underlying guarantors of value. 
 
 Fiat money would eventually sever that tie but like before, the next evolution didn’t emerge overnight, but out of economic stress, geopolitical necessity, and the hard practical limits of commodity backed systems.
 
