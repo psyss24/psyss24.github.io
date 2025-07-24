@@ -22,10 +22,10 @@ Before the advent of coins or credit, barter was the system in place and trade w
 
 Many of the goods up for trade were also perishable, like food, and subject to volatile supply conditions (a bad harvest, for example, could disrupt entire trade cycles). This made transactions inconvenient and often unequal. Suppose a villager with surplus fish seeking firewood from someone who has no use for fish; unless a third party comes along who wants fish and has firewood to offer, trade will break down and the value could be wasted as the fish could perish before being used. 
 
-As communities expanded and inter-village trade emerged, the inefficiencies grew. In regional marketplaces where strangers met, how could two people agree on the worth of a goat versus a bushel of grain without a shared metric? Without standardisation, every transaction became a fresh negotiation — exhausting and unscalable.
+As communities expanded and inter village trade emerged, the inefficiencies grew. In regional marketplaces where strangers met, how could two people agree on the worth of a goat versus a bushel of grain without a shared metric? Without standardisation, every transaction became a fresh negotiation, exhausting and unscalable.
 
 While barter did not prevent the growth of trade, it couldn’t keep up with it. A step toward abstraction became necessary, from trading goods for goods to using specific goods like salt, gold, or silver to stand in for value in exchange. 
-This wasn’t yet symbolic money, but it marked a turning point; the traded good no longer held value solely through use, but through what it stood for in an exchange. It was value one step removed from utility, an early abstraction of trust — where belief in the object’s acceptability began to matter more than the object itself.
+This wasn’t yet symbolic money, but it marked a turning point; the traded good no longer held value solely through use, but through what it stood for in an exchange. It was value one step removed from utility, an early abstraction of trust, where belief in the object’s acceptability began to matter more than the object itself.
 
 ## Commodity Money
 
@@ -34,7 +34,7 @@ Commodity money brought other major advantages.
 
 It solved the coincidence of wants problem and enabled trade between strangers by anchoring value in something tangible. It was also more durable; metals didn’t rot like fruit or fish, and salt could be stored or broken into smaller quantities. 
 
-In particular, gold and silver were valued across many cultures, giving rise to earlier forms of cross-cultural trade. These commodities were better placed at functioning as a uniform measure of value;  people could compare the worth of disparate goods through gold or grain — for example, a set amount of grain might be worth one sheep, and that sheep might be equivalent in value to a fixed amount of silver.
+In particular, gold and silver were valued across many cultures, giving rise to earlier forms of cross-cultural trade. These commodities were better placed at functioning as a uniform measure of value;  people could compare the worth of disparate goods through gold or grain. For example, a set amount of grain might be worth one sheep, and that sheep might be equivalent in value to a fixed amount of silver.
 
 Over time, certain commodities came to dominate certain economies. In ancient China, [cowry shells][1] were widely used as currency due to their rarity, durability, and recognisable form whereas iron bars and [manillas][2] were used as both currency and status symbols in West Africa. Tobacco leaves, the [dominant cash crop][3] in colonial America, were used as payment and in formal ledgers. These forms of commodity money were practical as they were embedded in the local economy and culture, reinforcing their legitimacy.
 
@@ -44,14 +44,14 @@ These difficulties accelerated the shift from using money with practical utility
 
 ## Emergence of the state in money
 
-As economies grew and trade networks expanded, it became clear that money needed more than utility - it needed consistency, recognisability, and above all, trust. The state stepped in to provide this. By centralising the production of money, governments could guarantee its weight and purity, reducing disputes and increasing confidence in exchange.
+As economies grew and trade networks expanded, it became clear that money needed more than utility; it needed consistency, recognisability, and above all, trust. The state stepped in to provide this. By centralising the production of money, governments could guarantee its weight and purity, reducing disputes and increasing confidence in exchange.
 
 A stamped coin, even though it’s still made of metal, is different from earlier forms of money because its value isn’t from the metal itself. Instead, its worth also comes from what it represents, a promise or guarantee by a trusted authority. This change made money easier to standardise, carry, and trust, helping economies grow bigger and more complex.
 A coin minted by the Roman Empire carried weight not only because of its silver content but because it was backed by the authority of Rome. People trusted that the coin could be used anywhere in the empire for taxes, goods, and services. The coin became a symbol of reliable value, accepted beyond the intrinsic worth of the metal it was made from.
 
 The Kingdom of Lydia is [credited][4] with issuing the first official stamped coins in the 7th century BCE. These coins were made of electrum, a naturally occurring alloy of gold and silver, and stamped with the image of a lion (a mark of state authority). This practice spread to ancient Greece and Persia, where coinage systems became more widespread and sophisticated.
 
-With the state's control over money came not only influence but responsibility; governments gained the power to issue and regulate currency, and they also bore the consequences of mismanaging it. While this central role allowed for greater consistency and trust, it introduced new risks; especially when short-term political needs conflicted with long-term economic stability. A clear example of this tension resides in the Roman Empire, where state control over coinage eventually contributed to monetary collapse.
+With the state's control over money came not only influence but responsibility; governments gained the power to issue and regulate currency, and they also bore the consequences of mismanaging it. While this central role allowed for greater consistency and trust, it introduced new risks; especially when short term political needs conflicted with long term economic stability. A clear example of this tension resides in the Roman Empire, where state control over coinage eventually contributed to monetary collapse.
 
 In ancient Rome, emperors routinely minted coins bearing their own image and during times of war or crisis, they could alter the metal content of coins to stretch their fiscal capacity, though at the cost of inflation.
 In fact, in the 3rd century CE, the silver content of the denarius fell drastically; [from over 90% to less than 5%][5], as emperors debased the currency to fund military expenses. As trust eroded, the illusion of value collapsed — people no longer believed the coin was worth what it claimed. Without that shared belief, the currency lost credibility, triggering rampant inflation, economic turmoil, and the failure of a monetary order sustained by the abstraction of value and trust.”
@@ -61,17 +61,17 @@ In fact, in the 3rd century CE, the silver content of the denarius fell drastica
 A core issue that the previous forms faced and had not yet resolved, were mobility and scalability; large transactions of metals were infeasible and at high risk when simply transporting them. 
 On land they could be subject to theft whilst overseas bad weather could be catastrophic to ships carrying large amounts of gold. As such, long distance trade had a larger risk factor. Furthermore if the gold had arrived safely, there’d need to be assurances of its veracity; coins need to be weighted and tested to verify metal content and authenticity, which add more logistical challenges to trade.
 
-The next development sought to ease these issues. Banknotes, physical instruments with no intrinsic value, functioned purely as representative claims to gold. In 7th-century China, during the Tang Dynasty, traders used [promissory notes][6] to replace bulky copper coins. By the time of the Song Dynasty in the 11th century, the state began issuing official paper money known as [Jiaozi][7], underwritten by the imperial treasury. 
+The next development sought to ease these issues. Banknotes, physical instruments with no intrinsic value, functioned purely as representative claims to gold. In 7th century China, during the Tang Dynasty, traders used [promissory notes][6] to replace bulky copper coins. By the time of the Song Dynasty in the 11th century, the state began issuing official paper money known as [Jiaozi][7], underwritten by the imperial treasury. 
 This system flourished for centuries, providing an early example of a functioning fiat currency, until excessive issuance led to inflation and eroded public trust—a familiar consequence of pushing symbolic value beyond its limits.
 
-In Europe, the emergence of banks was tied to merchants and goldsmiths. In 17th-century London, goldsmiths began storing precious metals for clients in secure vaults. They issued deposit receipts, [which customers started trading as payment][8] — these receipts were safer and easier to move than gold. 
+In Europe, the emergence of banks was tied to merchants and goldsmiths. In 17th century London, goldsmiths began storing precious metals for clients in secure vaults. They issued deposit receipts, [which customers started trading as payment][8] — these receipts were safer and easier to move than gold. 
 Over time, these goldsmiths realised they could issue more receipts than the gold they held — the birth of (fractional reserve banking)[ a banking system in which banks are only required to keep a fraction of customer deposits in reserve, either in cash or at the central bank, while the rest is loaned out to borrowers](). This practice worked because not everyone redeemed their receipts at once. As long as the public retained confidence in the issuer, the receipts could circulate as currency. 
-These [goldsmith-bankers evolved into full-fledged banks][10], formalising lending operations and expanding credit in the economy. With each loan made, they effectively created new money — money that existed not in substance, but in agreement. 
+These [goldsmith bankers evolved into full fledged banks][10], formalising lending operations and expanding credit in the economy. With each loan made, they effectively created new money — money that existed not in substance, but in agreement. 
 
 The establishment of the Bank of England in 1694 marked a turning point. It was chartered to [lend money to the government][11], and in exchange, it received the right to issue standardised banknotes. These notes were initially convertible to gold, but that tie weakened over time. 
 As convertibility faded, trust in the institution itself and not the underlying metal became paramount. 
 
-Abstraction had now matured into a national system. Banking rapidly professionalized. Central banks emerged as lenders of last resort, regulators of money supply, and guardians of financial stability. Commercial banks expanded deposit-taking and lending activities. Their balance sheets, composed largely of claims and obligations, became the modern economy’s beating heart. 
+Abstraction had now matured into a national system. Banking rapidly professionalized. Central banks emerged as lenders of last resort, regulators of money supply, and guardians of financial stability. Commercial banks expanded deposit taking and lending activities. Their balance sheets, composed largely of claims and obligations, became the modern economy’s beating heart. 
 
 But this growth carried risk. The more abstract money became, the more fragile its foundation, confidence. [Bank runs, financial panics, and monetary collapses][12] often stemmed not from psychological shifts than material shortages. If people stopped believing the promise printed on the note, or the solvency of the bank, the system could crumble. In the end, banknotes and banking didn't just extend abstraction: they [institutionalised it][13] and built an economy where value moves no longer in metal or grain, but in promises, debts, and expectations.
 
@@ -79,7 +79,7 @@ But this growth carried risk. The more abstract money became, the more fragile i
 
 As the abstraction of money progressed — from barter to commodity, to coinage and then to banknotes, there was still throughout this history, an anchoring principle: money stood in for something real. Gold, silver, salt — whether carried, stored, or promised, were seen as the underlying guarantors of value. 
 
-Fiat money would eventually sever that tie but like before, the next evolution didn’t emerge overnight, but out of economic stress, geopolitical necessity, and the hard practical limits of commodity-backed systems.
+Fiat money would eventually sever that tie but like before, the next evolution didn’t emerge overnight, but out of economic stress, geopolitical necessity, and the hard practical limits of commodity backed systems.
 
 In the 19th and early 20th centuries, much of the world adhered to the [gold standard][14]. This meant that currencies were redeemable in a fixed amount of gold held in national treasuries. It was an elegant solution: gold constrained overspending, and paper money simply made the system more portable. 
 It was abstraction, yes, but still tethered to a tangible reserve. For example, under the Classical Gold Standard (1870s–1914), the British pound sterling was convertible into a precise weight of gold. Other countries followed suit, and the international exchange was [“ushered into a period of unprecedented stability and prosperity”][15]. 
@@ -90,9 +90,9 @@ The gold standard’s first major test and subsequent fracture came with World W
 
 This was a practical decision and it worked. The war was financed. 
 
-But it also seeded long-term instability. Post-war attempts to return to gold were [messy and painful][17]. 
+But it also seeded long term instability. Post war attempts to return to gold were [messy and painful][17]. 
 
-Britain, under Winston Churchill, restored the gold standard in 1925 — but at pre-war exchange rates. The result was deflation, industrial stagnation, and widespread unrest. Economist John Maynard Keynes famously warned against the return to a “[barbarous relic][18],” arguing it sacrificed economic health for symbolic stability.
+Britain, under Winston Churchill, restored the gold standard in 1925 but at pre war exchange rates. The result was deflation, industrial stagnation, and widespread unrest. Economist John Maynard Keynes famously warned against the return to a “[barbarous relic][18],” arguing it sacrificed economic health for symbolic stability.
 
 In Germany, money printing after the war led to one of history’s most infamous collapses. The hyperinflation crisis of 1923 meant the German mark became worthless. People carted wheelbarrows of cash for a loaf of bread. When trust evaporated, the currency reverted back to nothing more than paper.
 
@@ -107,7 +107,7 @@ By 1971, the U.S. was facing an untenable position; gold was flowing out, inflat
 That “temporary” measure was never reversed and the world had just transitioned into a fully fiat system. Currencies were no longer backed by anything material but were now sustained entirely by confidence.
 
 With the end of gold convertibility, central banks gained powerful new tools; they could print money freely and set interest rates to steer the economy by adjusting the cost of borrowing. This meant they could respond dynamically to recessions or crises.
-For example in the US, 2008 saw a catastrophic collapse in housing markets and the ensuing credit crunch meant interest rates were already approaching zero; the U.S. Federal Reserve then initiated (quantitative easing)[a policy of creating digital money to buy financial assets like government bonds and mortgage-backed securities]. 
+For example in the US, 2008 saw a catastrophic collapse in housing markets and the ensuing credit crunch meant interest rates were already approaching zero; the U.S. Federal Reserve then initiated (quantitative easing)[a policy of creating digital money to buy financial assets like government bonds and mortgage backed securities]. 
 
 The goal was to inject liquidity into a frozen banking system. By doing so, the Fed expanded its balance sheet from under [$1 trillion in 2007 to over $4 trillion by 2014][21]. It powerfully showcased fiat’s might; limitless money creation used to shore up fragile banks and prop up financial institutions.
 
