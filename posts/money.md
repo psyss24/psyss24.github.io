@@ -9,8 +9,8 @@
 
 Money is defined as an item of exchange that symbolises value and can be accepted as a payment for goods and services. It allows for *value* to be transferred, measured and stored. Crucially, money performs three essential functions:
 - It is a **medium of exchange** - it lets people trade with one another without both parties having to possess items that the other desires, people can transact using money, which is universally accepted.
-- It is a **measure of value** - It provides a common standard to measure and compare the value of goods, services, and labour. Wages, for instance, reflect how society values different types of work.
-- It is a **store of value** - It preserves purchasing power over time, allowing individuals to save and spend in the future.
+- It is a **measure of value** - it provides a common standard to measure and compare the value of goods, services, and labour. Wages, for instance, reflect how society values different types of work.
+- It is a **store of value** - it preserves purchasing power over time, allowing individuals to save and spend in the future.
 
 In earlier forms, value was inherently present in the medium of exchange and overlapped with tangible goods; cattle, salt or grain were useful items people actually needed and worked as currency because their utility was obvious. 
 
