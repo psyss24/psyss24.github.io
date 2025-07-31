@@ -31,7 +31,7 @@
 
         <div id="projects" class="tab-content">
             <div class="project-card">
-                <div class="project-icon">📊</div>
+                <div class="project-icon"><img id="macroscope-icon" src="media/macroscope-icon.svg" alt="MacroScope chart icon" style="width: 60px; height: 60px; display: block;" /></div>
                 <div class="project-content">
                     <h3>MacroScope</h3>
                     <p>A comprehensive financial analysis platform providing real-time market data, macroeconomic indicators, and interactive visualizations. Built with React frontend and Python backend.</p>
@@ -75,5 +75,25 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+      // Theme-aware MacroScope icon swap
+      function setMacroscopeIcon() {
+        var icon = document.getElementById('macroscope-icon');
+        if (!icon) return;
+        var isDark = document.body.classList.contains('dark-theme');
+        icon.src = isDark ? 'media/macroscope-icon-dark.svg' : 'media/macroscope-icon.svg';
+      }
+      setMacroscopeIcon();
+      // Listen for theme toggle if available
+      var themeToggle = document.getElementById('theme-toggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+          setTimeout(setMacroscopeIcon, 10);
+        });
+      }
+      // Also listen for class changes on body (for programmatic theme changes)
+      var observer = new MutationObserver(setMacroscopeIcon);
+      observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    </script>
 </body>
 </html>

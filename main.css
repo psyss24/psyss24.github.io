@@ -300,6 +300,25 @@ body {
     background-size: 32px 32px;
 }
 
+body.post-page {
+    /* Lighter dot pattern for blog/post pages */
+    background-image:
+      radial-gradient(circle, rgba(60,64,67,0.04) 2px, transparent 2px) !important;
+    background-size: 32px 32px !important;
+}
+body.dark-theme {
+    /* Keep dots more visible in dark mode */
+    background-image:
+      radial-gradient(circle, rgba(60,64,67,0.22) 2px, transparent 2px);
+    background-size: 32px 32px;
+}
+body.dark-theme.post-page {
+    /* Lighter dot pattern for blog/post pages in dark mode */
+    background-image:
+      radial-gradient(circle, rgba(60,64,67,0.08) 2px, transparent 2px) !important;
+    background-size: 32px 32px !important;
+}
+
 
 .container {
     max-width: 900px;
@@ -321,6 +340,22 @@ header {
     background-size: 32px 32px;
 }
 
+body.post-page header {
+    background-image:
+      radial-gradient(circle, rgba(60,64,67,0.04) 2px, transparent 2px) !important;
+    background-size: 32px 32px !important;
+}
+body.dark-theme header {
+    background-image:
+      radial-gradient(circle, rgba(60,64,67,0.22) 2px, transparent 2px);
+    background-size: 32px 32px;
+}
+body.dark-theme.post-page header {
+    background-image:
+      radial-gradient(circle, rgba(60,64,67,0.08) 2px, transparent 2px) !important;
+    background-size: 32px 32px !important;
+}
+
 body.dark-theme, body.dark-theme header {
     /* Keep dots more visible in dark mode */
     background-image:
@@ -328,19 +363,7 @@ body.dark-theme, body.dark-theme header {
     background-size: 32px 32px;
 }
 
-/* Lighter dot pattern for blog/post pages */
-.post-page,
-.post-page header {
-    background-image:
-      radial-gradient(circle, rgba(60,64,67,0.04) 2px, transparent 2px) !important;
-    background-size: 32px 32px !important;
-}
-body.dark-theme .post-page,
-body.dark-theme .post-page header {
-    background-image:
-      radial-gradient(circle, rgba(60,64,67,0.08) 2px, transparent 2px) !important;
-    background-size: 32px 32px !important;
-}
+
 
 
 header h1 {
