@@ -287,13 +287,17 @@ html {
 body {
     font-family: var(--font-body);
     line-height: 1.6;
-    background-color: var(--primary-bg);
+    background: var(--primary-bg);
     color: var(--text-color);
     font-size: 18px;
     font-weight: 400;
     font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Stronger dot pattern for index page (default) */
+    background-image:
+      radial-gradient(circle, rgba(60,64,67,0.12) 2px, transparent 2px);
+    background-size: 32px 32px;
 }
 
 
@@ -311,6 +315,31 @@ header {
     align-items: center;
     padding: 1.5rem 2rem 1rem 2rem;
     background-color: var(--primary-bg);
+    /* Dotted background pattern for header, matches body */
+    background-image:
+      radial-gradient(circle, rgba(60,64,67,0.12) 2px, transparent 2px);
+    background-size: 32px 32px;
+}
+
+body.dark-theme, body.dark-theme header {
+    /* Keep dots more visible in dark mode */
+    background-image:
+      radial-gradient(circle, rgba(60,64,67,0.22) 2px, transparent 2px);
+    background-size: 32px 32px;
+}
+
+/* Lighter dot pattern for blog/post pages */
+.post-page,
+.post-page header {
+    background-image:
+      radial-gradient(circle, rgba(60,64,67,0.04) 2px, transparent 2px) !important;
+    background-size: 32px 32px !important;
+}
+body.dark-theme .post-page,
+body.dark-theme .post-page header {
+    background-image:
+      radial-gradient(circle, rgba(60,64,67,0.08) 2px, transparent 2px) !important;
+    background-size: 32px 32px !important;
 }
 
 
