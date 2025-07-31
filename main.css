@@ -1,107 +1,54 @@
-/* Post meta row: reading time left, tags right */
 
-.post-meta-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1em;
-  margin-bottom: 1.2em;
-  flex-wrap: nowrap;
-  width: 100%;
-}
+/* --- Dot Pattern Backgrounds: Only Four Encodings --- */
+body {
+  /* Light mode, home page (and base for all pages) */
+  --dot-opacity: 0.14;
+  background-image: radial-gradient(circle, rgba(60,64,67,var(--dot-opacity)) 2px, transparent 2px);
+  background-size: 48px 48px;
+  background-color: var(--primary-bg);
 
-.post-meta-row > .reading-time {
-  min-width: auto;
-  flex-shrink: 0;
-}
-.post-meta-row > .tag-container {
-  min-width: 0;
-  flex-shrink: 1;
-}
-
-.post-meta-row .reading-time {
-  margin: 0;
-  padding: 0.1em 0.75em 0.1em 0;
-  font-size: 1.05rem;
-  font-weight: 600;
-  width: auto;
-  box-shadow: none;
-}
-
-.post-meta-row .tag-container {
-  margin: 0;
-  gap: 0.4rem;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-@media (max-width: 768px) {
-  .post-meta-row {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.5rem;
-    margin-bottom: 1em;
-  }
-  .post-meta-row .reading-time {
-    padding: 0.1em 0 0.1em 0;
-    font-size: 1rem;
-    text-align: right;
-    margin-left: 0;
-    margin-right: 0;
-    display: block;
-  }
-  .post-meta-row .tag-container {
-    justify-content: flex-start;
-    gap: 0.3rem;
-  }
-}
-/* Blockquote quote mark and cite opacity/color for desktop only */
-@media (min-width: 769px) {
-  .post-page blockquote::after,
-  .post-page blockquote cite {
-    opacity: 0.5;
-    color: var(--muted-text);
-    transition: opacity 0.3s ease;
-  }
-
-  .post-page blockquote:hover::after,
-  .post-page blockquote:hover cite {
-    opacity: 1;
-  }
-}
-
-/* --- Reading Time Estimate Styling --- */
-
-
-
-.reading-time {
-  display: block;
-  font-size: 1.1rem;
-  margin: 0 0 1.5rem 0;
-  font-weight: 600;
+  font-family: var(--font-body);
+  font-size: 17px;
+  color: var(--text-color);
+  font-weight: 400;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   letter-spacing: 0.01em;
-  background: var(--primary-bg);
-  border-radius: 0.5em;
-  padding: 0.25em 0.75em;
-  width: fit-content;
-  box-shadow: none;
-  z-index: 10;
-  position: relative;
-  transition: background 0.3s;
-  color: var(--genre-color, var(--accent-color, #444));
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+body.dark-theme {
+  /* Dark mode, home page (and base for all dark pages) */
+  --dot-opacity: 0.4;
+  background-image: radial-gradient(circle, rgba(60,64,67,var(--dot-opacity)) 2px, transparent 2px);
+  background-size: 48px 48px;
+  background-color: var(--primary-bg);
+}
+body.post-body {
+  /* Blog post page: lower dot opacity for readability */
+  --dot-opacity: 0.03;
+}
+
+/* Header styles */
+body.dark-theme.post-body {
+  /* Blog post page in dark mode: lower dot opacity for readability */
+  --dot-opacity: 0.22;
+}
+
+/* Header styles */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem 1rem 2rem;
+  background-color: var(--primary-bg);
+  /* Inherit dot pattern from body for perfect sync */
+  background-image: inherit;
+  background-size: inherit;
 }
 
 
-body.dark-theme .reading-time {
-  background: rgba(24,26,27,0.92);
-  color: var(--genre-color, var(--accent-color, #eee));
-}
-
-/* Gradient text for reading time if multiple tags (when --genre-gradient is set) */
-.reading-time {
-  background-clip: padding-box;
-}
 
 /* Gradient reading time for multiple tags (now inside .post-meta-row) */
 .post-meta-row:has(.genre-tag ~ .genre-tag) > .reading-time {
@@ -284,42 +231,8 @@ html {
 
 
 
-body {
-    font-family: var(--font-body);
-    line-height: 1.6;
-    background: var(--primary-bg);
-    color: var(--text-color);
-    font-size: 18px;
-    font-weight: 400;
-    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    /* Stronger dot pattern for index page (default) */
-    background-image:
-      radial-gradient(circle, rgba(60,64,67,0.32) 2px, transparent 2px);
-    background-size: 32px 32px;
-}
 
-body.post-page {
-    /* Lighter dot pattern for blog/post pages */
-    background-image:
-      radial-gradient(circle, rgba(60,64,67,0.008) 2px, transparent 2px) !important;
-    background-size: 32px 32px !important;
-    background-color: var(--primary-bg) !important;
-}
-body.dark-theme {
-    /* Keep dots more visible in dark mode (home page) */
-    background-image:
-      radial-gradient(circle, rgba(60,64,67,0.48) 2px, transparent 2px);
-    background-size: 32px 32px;
-}
-body.dark-theme.post-page {
-    /* Lighter dot pattern for blog/post pages in dark mode */
-    background-image:
-      radial-gradient(circle, rgba(60,64,67,0.008) 2px, transparent 2px) !important;
-    background-size: 32px 32px !important;
-    background-color: var(--primary-bg) !important;
-}
+/* Removed duplicate/old dot pattern background-image rules. Only the four encodings at the top remain. */
 
 
 .container {
@@ -331,39 +244,16 @@ body.dark-theme.post-page {
 
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 2rem 1rem 2rem;
-    background-color: var(--primary-bg);
-    /* Dotted background pattern for header, matches body */
-    background-image:
-      radial-gradient(circle, rgba(60,64,67,0.32) 2px, transparent 2px);
-    background-size: 32px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem 1rem 2rem;
+  background-color: var(--primary-bg);
+  /* Inherit dot pattern from body for perfect sync */
+  background-image: inherit;
+  background-size: inherit;
 }
 
-body.post-page header {
-    background-image:
-      radial-gradient(circle, rgba(60,64,67,0.008) 2px, transparent 2px) !important;
-    background-size: 32px 32px !important;
-}
-body.dark-theme header {
-    background-image:
-      radial-gradient(circle, rgba(60,64,67,0.48) 2px, transparent 2px);
-    background-size: 32px 32px;
-}
-body.dark-theme.post-page header {
-    background-image:
-      radial-gradient(circle, rgba(60,64,67,0.008) 2px, transparent 2px) !important;
-    background-size: 32px 32px !important;
-}
-
-body.dark-theme, body.dark-theme header {
-    /* Keep dots more visible in dark mode */
-    background-image:
-      radial-gradient(circle, rgba(60,64,67,0.22) 2px, transparent 2px);
-    background-size: 32px 32px;
-}
 
 
 

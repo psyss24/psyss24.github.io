@@ -7,6 +7,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
     <link href="main.css" rel="stylesheet" />
     <link rel="icon" type="image/jpeg" href="favicon.jpg">
+
 </head>
 <body>
     <header>
@@ -16,7 +17,6 @@
             <a href="https://github.com/psyss24" target="_blank">GitHub</a>
             <a href="https://www.linkedin.com/in/saad-saqib-866a27244/" target="_blank">LinkedIn</a>
         </div>
-
     </header>
 
     <div class="container">
@@ -50,7 +50,7 @@
                 <div class="project-icon"><img id="personal-icon" src="media/personal-icon.svg" alt="Personal site icon" style="width: 60px; height: 60px; display: block;" /></div>
                 <div class="project-content">
                     <h3>Personal Site</h3>
-                    <p>This very webpage, which is built with vanilla HTML, CSS, and JavaScript.</p>
+                    <p>This very webpage, which is built with vanilla HTML + CSS + JavaScript.</p>
                     <div class="project-tags">
                         <span class="project-tag" style="background-color:#e34c26;color:#fff;">HTML</span>
                         <span class="project-tag" style="background-color:#563d7c;color:#fff;">CSS</span>
@@ -74,31 +74,6 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
-    <script>
-      // Theme-aware MacroScope and Personal Site icon swap
-      function setProjectIcons() {
-        var macroIcon = document.getElementById('macroscope-icon');
-        var personalIcon = document.getElementById('personal-icon');
-        var isDark = document.body.classList.contains('dark-theme');
-        if (macroIcon) {
-          macroIcon.src = isDark ? 'media/macroscope-icon-dark.svg' : 'media/macroscope-icon.svg';
-        }
-        if (personalIcon) {
-          personalIcon.src = isDark ? 'media/personal-icon-dark.svg' : 'media/personal-icon.svg';
-        }
-      }
-      setProjectIcons();
-      // Listen for theme toggle if available
-      var themeToggle = document.getElementById('theme-toggle');
-      if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
-          setTimeout(setProjectIcons, 10);
-        });
-      }
-      // Also listen for class changes on body (for programmatic theme changes)
-      var observer = new MutationObserver(setProjectIcons);
-      observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-    </script>
+</body>
 </body>
 </html>
