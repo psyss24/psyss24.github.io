@@ -34,7 +34,7 @@
                 <div class="project-icon"><img id="macroscope-icon" src="media/macroscope-icon.svg" alt="MacroScope chart icon" style="width: 60px; height: 60px; display: block;" /></div>
                 <div class="project-content">
                     <h3>MacroScope</h3>
-                    <p>A comprehensive financial analysis platform providing real-time market data, macroeconomic indicators, and interactive visualizations. Built with React frontend and Python backend.</p>
+                    <p>A comprehensive financial analysis platform providing real-time market data, macroeconomic indicators, and interactive visualisations. Built in React and Python.</p>
                     <div class="project-tags">
                         <span class="project-tag" style="background-color:#6f42c1;color:#fff;">React</span>
                         <span class="project-tag" style="background-color:#3572A5;color:#fff;">Python</span>
@@ -47,10 +47,10 @@
             </div>
 
             <div class="project-card">
-                <div class="project-icon">📱</div>
+                <div class="project-icon"><img id="personal-icon" src="media/personal-icon.svg" alt="Personal site icon" style="width: 60px; height: 60px; display: block;" /></div>
                 <div class="project-content">
                     <h3>Personal Site</h3>
-                    <p>A personal webpage built with vanilla HTML, CSS, and JavaScript.</p>
+                    <p>This very webpage, which is built with vanilla HTML, CSS, and JavaScript.</p>
                     <div class="project-tags">
                         <span class="project-tag" style="background-color:#e34c26;color:#fff;">HTML</span>
                         <span class="project-tag" style="background-color:#563d7c;color:#fff;">CSS</span>
@@ -76,23 +76,28 @@
 
     <script src="script.js"></script>
     <script>
-      // Theme-aware MacroScope icon swap
-      function setMacroscopeIcon() {
-        var icon = document.getElementById('macroscope-icon');
-        if (!icon) return;
+      // Theme-aware MacroScope and Personal Site icon swap
+      function setProjectIcons() {
+        var macroIcon = document.getElementById('macroscope-icon');
+        var personalIcon = document.getElementById('personal-icon');
         var isDark = document.body.classList.contains('dark-theme');
-        icon.src = isDark ? 'media/macroscope-icon-dark.svg' : 'media/macroscope-icon.svg';
+        if (macroIcon) {
+          macroIcon.src = isDark ? 'media/macroscope-icon-dark.svg' : 'media/macroscope-icon.svg';
+        }
+        if (personalIcon) {
+          personalIcon.src = isDark ? 'media/personal-icon-dark.svg' : 'media/personal-icon.svg';
+        }
       }
-      setMacroscopeIcon();
+      setProjectIcons();
       // Listen for theme toggle if available
       var themeToggle = document.getElementById('theme-toggle');
       if (themeToggle) {
         themeToggle.addEventListener('click', function() {
-          setTimeout(setMacroscopeIcon, 10);
+          setTimeout(setProjectIcons, 10);
         });
       }
       // Also listen for class changes on body (for programmatic theme changes)
-      var observer = new MutationObserver(setMacroscopeIcon);
+      var observer = new MutationObserver(setProjectIcons);
       observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
     </script>
 </body>
