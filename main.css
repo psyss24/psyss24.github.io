@@ -1,10 +1,65 @@
+body.post-body .container {
+  background: none !important;
+}
+.post-animated-dots.dots-faded {
+  /* Use a mask gradient to fade out the dots after the tags */
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) var(--dots-fade-start, 200px), rgba(0,0,0,0.2) calc(var(--dots-fade-start, 200px) + 80px), rgba(0,0,0,0.08) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) var(--dots-fade-start, 200px), rgba(0,0,0,0.2) calc(var(--dots-fade-start, 200px) + 80px), rgba(0,0,0,0.08) 100%);
+  --dot-opacity: 0.12;
+  background-size: 32px 32px;
+}
+.header-animated-dots {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  --dot-opacity: 0.3;
+  background-image: radial-gradient(circle, rgba(60,64,67,var(--dot-opacity)) 0.8px, transparent 0.8px);
+  background-size: 24px 24px;
+  background-color: var(--primary-bg);
+  animation: move-dots 10s linear infinite;
+  pointer-events: none;
+}
+
+body.dark-theme .header-animated-dots {
+  --dot-opacity: 0.2;
+  background-image: radial-gradient(circle, rgba(200,200,210,var(--dot-opacity)) 0.8px, transparent 0.8px);
+  background-size: 24px 24px;
+  background-color: var(--primary-bg);
+  animation: move-dots 10s linear infinite;
+}
+
+
+/* Animated dots bar for post page header area */
+
+/* Animated dots overlay for top 10% of post page */
+/* Animated dots overlay for top of post page, behind content */
+/* Animated dots overlay for header, fills header and sits behind content */
+/* Animated dots overlay for header and tags area, behind all content */
+
+
+/* CSS dot animation disabled - using canvas animation only */
+body.index-page {
+  --dot-opacity: 0.2;
+  background-color: var(--primary-bg);
+  /* Static/CSS dots removed in favor of animated canvas dots */
+}
+
+@keyframes move-dots {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 24px 24px;
+  }
+}
 
 /* --- Dot Pattern Backgrounds: Only Four Encodings --- */
 body {
   /* Light mode, home page (and base for all pages) */
-  --dot-opacity: 0.14;
-  background-image: radial-gradient(circle, rgba(60,64,67,var(--dot-opacity)) 2px, transparent 2px);
-  background-size: 48px 48px;
+  --dot-opacity: 0.3;
   background-color: var(--primary-bg);
 
   font-family: var(--font-body);
@@ -19,14 +74,14 @@ body {
 }
 body.dark-theme {
   /* Dark mode, home page (and base for all dark pages) */
-  --dot-opacity: 0.4;
-  background-image: radial-gradient(circle, rgba(60,64,67,var(--dot-opacity)) 2px, transparent 2px);
-  background-size: 48px 48px;
+  --dot-opacity: 0.2;
   background-color: var(--primary-bg);
 }
 body.post-body {
-  /* Blog post page: lower dot opacity for readability */
-  --dot-opacity: 0.03;
+  /* Blog post page: no static dot background, only animated dots from JS */
+  --dot-opacity: 0.2;
+  background-image: none;
+  background-color: var(--primary-bg);
 }
 
 /* Header styles */
@@ -38,56 +93,137 @@ body.dark-theme.post-body {
 /* Header styles */
 
 header {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2rem 1rem 2rem;
-  background-color: var(--primary-bg);
-  /* Inherit dot pattern from body for perfect sync */
-  background-image: inherit;
+  background: transparent !important;
+  background-image: none !important;
   background-size: inherit;
 }
 
 
 
-/* Gradient reading time for multiple tags (now inside .post-meta-row) */
-.post-meta-row:has(.genre-tag ~ .genre-tag) > .reading-time {
-  background: rgba(255,255,255,0.85);
-  background-clip: padding-box;
-  color: transparent;
-  background-image: var(--genre-gradient, var(--genre-color));
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  /* text-fill-color: transparent; */
-  box-shadow: none;
+/* Unified border system for genre tags and single-tag reading time - clean, no glow */
+.genre-tag,
+.reading-time {
+  background: var(--hover-bg);
+  border: 1px solid var(--border-color, rgba(100, 181, 246, 0.3));
+  transition: all 0.2s ease;
 }
-body.dark-theme .post-meta-row:has(.genre-tag ~ .genre-tag) > .reading-time {
-  background: rgba(24,26,27,0.92);
-  background-clip: padding-box;
+
+/* Gradient border system for multiple-tag reading time */
+.reading-time.multiple-tags {
   color: transparent;
-  background-image: var(--genre-gradient, var(--genre-color));
-  background-clip: text;
+  background-image: var(--genre-gradient);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
-  /* text-fill-color: transparent; */
+  border: 1px solid transparent;
+  position: relative;
   box-shadow: none;
 }
 
-/* Fallback for single-tag posts in dark mode: ensure text is visible */
+.reading-time.multiple-tags::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--genre-gradient);
+  border-radius: inherit;
+  opacity: 0.3;
+  z-index: -2;
+}
+
+.reading-time.multiple-tags::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  background: var(--hover-bg);
+  border-radius: calc(4px - 1px);
+  z-index: -1;
+}
+
+/* Dark theme reading time styling */
 body.dark-theme .reading-time {
-  color: var(--genre-color, var(--accent-color, #eee));
+  /* Dark theme uses same hollow style */
+  background-color: var(--hover-bg) !important;
+  color: var(--genre-color, var(--accent-color)) !important;
 }
 
-/* Fallback for single-tag posts in dark mode: ensure text is visible */
-body.dark-theme .post-page:not(:has(.genre-tag ~ .genre-tag)) > .reading-time {
-  background: rgba(24,26,27,0.92);
-  color: var(--genre-color, var(--accent-color, #eee));
+body.dark-theme .reading-time.multiple-tags {
+  /* Dark theme gradient styling for multiple tags */
+  background-color: var(--hover-bg) !important;
+  color: transparent !important;
+  background-image: var(--genre-gradient) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
 }
 
 /* Ensure .reading-time is not overlapped by sticky headers or progress bar */
 .reading-time {
   margin-top: 1.2em;
+  /* Style reading time exactly like genre tags - unified approach */
+  font-family: var(--font-ui);
+  display: inline-block;
+  width: fit-content;
+  padding: 0.3rem 0.6rem;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 0;
+  margin-left: 0;
+  flex-shrink: 0;
+  font-size: 12px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--genre-color, var(--accent-color));
+}
+
+/* Unified genre color system */
+.post-page:has(.genre-tag.economics),
+.post:has(.genre-tag.economics) {
+  --genre-color: #4caf50;
+  --border-color: rgba(76, 175, 80, 0.3);
+  --glow-color: rgba(76, 175, 80, 0.35);
+  --highlight-color: rgba(76, 175, 80, 0.1);
+}
+
+.post-page:has(.genre-tag.neuroscience),
+.post:has(.genre-tag.neuroscience) {
+  --genre-color: #ba68c8;
+  --border-color: rgba(186, 104, 200, 0.3);
+  --glow-color: rgba(186, 104, 200, 0.35);
+  --highlight-color: rgba(186, 104, 200, 0.1);
+}
+
+.post-page:has(.genre-tag.technology),
+.post:has(.genre-tag.technology) {
+  --genre-color: #64b5f6;
+  --border-color: rgba(100, 181, 246, 0.3);
+  --glow-color: rgba(100, 181, 246, 0.35);
+  --highlight-color: rgba(100, 181, 246, 0.1);
+}
+
+.post-page:has(.genre-tag.other),
+.post:has(.genre-tag.other) {
+  --genre-color: #ffb74d;
+  --border-color: rgba(255, 183, 77, 0.3);
+  --glow-color: rgba(255, 183, 77, 0.35);
+  --highlight-color: rgba(255, 183, 77, 0.1);
+}
+
+/* Post meta row layout for proper alignment */
+.post-meta-row {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
 }
 
 /* If inside .post-page, add extra spacing below title */
@@ -176,22 +312,7 @@ body.dark-theme {
   }
 
 }
-/* Fade-out only for back-to-home */
-.post-page.page-animate-out {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1.3s cubic-bezier(0.4, 0, 0.2, 1), transform 1.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-/* Journal post page load animation */
-.post-page {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.post-page.page-animate-in {
-    opacity: 1;
-    transform: translateY(0);
-}
+
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -236,6 +357,7 @@ html {
 
 
 .container {
+    position: relative;
     max-width: 900px;
     width: 80%;
     margin: 0 auto;
@@ -248,9 +370,8 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2rem 1rem 2rem;
-  background-color: var(--primary-bg);
-  /* Inherit dot pattern from body for perfect sync */
-  background-image: inherit;
+  background: transparent !important;
+  background-image: none !important;
   background-size: inherit;
 }
 
@@ -472,7 +593,6 @@ body.dark-theme .project-icon {
     background: var(--card-gradient, linear-gradient(135deg, var(--secondary-bg) 0%, #ffffff 100%));
     padding: 1.5rem 1.5rem 0.75rem 1.5rem;
     margin-bottom: 1.5rem;
-    border: 1px solid var(--border-color);
     border-radius: 16px;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
@@ -484,7 +604,6 @@ body.dark-theme .project-icon {
 .post:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(60, 64, 67, 0.04);
-    border-color: rgba(60, 64, 67, 0.12);
 }
 
 
@@ -916,40 +1035,25 @@ h1, h2, h3, h4, h5, h6 {
     transition: all 0.2s ease;
 }
 
+/* Individual genre tag colors - direct application */
 .genre-tag.economics {
-    background-color: var(--hover-bg);
     color: #4caf50;
-    border: 1px solid rgba(76, 175, 80, 0.3);
-}
-
-.post:has(.genre-tag.economics) {
-    --genre-color: #4caf50;
+    border-color: rgba(76, 175, 80, 0.3);
 }
 
 .genre-tag.neuroscience {
-    background-color: var(--hover-bg);
     color: #ba68c8;
-    border: 1px solid rgba(186, 104, 200, 0.3);
-}
-
-.post:has(.genre-tag.neuroscience) {
-    --genre-color: #ba68c8;
+    border-color: rgba(186, 104, 200, 0.3);
 }
 
 .genre-tag.technology {
-    background-color: var(--hover-bg);
     color: #64b5f6;
-    border: 1px solid rgba(100, 181, 246, 0.3);
-}
-
-.post:has(.genre-tag.technology) {
-    --genre-color: #64b5f6;
+    border-color: rgba(100, 181, 246, 0.3);
 }
 
 .genre-tag.other {
-    background-color: var(--hover-bg);
     color: #ffb74d;
-    border: 1px solid rgba(255, 183, 77, 0.3);
+    border-color: rgba(255, 183, 77, 0.3);
 }
 
 .post:has(.genre-tag.other) {
@@ -1044,13 +1148,13 @@ h1, h2, h3, h4, h5, h6 {
     left: 0;
     right: 0;
     bottom: 0;
-    background: var(--genre-gradient, var(--accent-color));
+    background: var(--hover-bg);
+    border: 1px solid;
+    border-color: rgba(var(--genre-color-rgb, 100, 181, 246), 0.3);
     border-radius: 4px;
     pointer-events: none;
     z-index: -1;
-    mask: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='black' stroke-width='1' stroke-dasharray='3,3' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
-    -webkit-mask: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='black' stroke-width='1' stroke-dasharray='3,3' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
-    transition: background 0.3s cubic-bezier(0.4,0,0.2,1);
+    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
 }
 
 .definition-term:hover {
@@ -1157,23 +1261,23 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .economics .definition-term {
-    --genre-color-rgb: 34, 139, 34;
+    --genre-color-rgb: 76, 175, 80;
 }
 
 .technology .definition-term {
-    --genre-color-rgb: 79, 172, 254;
+    --genre-color-rgb: 100, 181, 246;
 }
 
 .philosophy .definition-term {
-    --genre-color-rgb: 138, 43, 226;
+    --genre-color-rgb: 186, 104, 200;
 }
 
 .personal .definition-term {
-    --genre-color-rgb: 255, 140, 0;
+    --genre-color-rgb: 255, 183, 77;
 }
 
 .other .definition-term {
-    --genre-color-rgb: 108, 117, 125;
+    --genre-color-rgb: 255, 183, 77;
 }
 
 /*  positioning tooltip below term when at edge of screen */
@@ -1335,7 +1439,7 @@ h1, h2, h3, h4, h5, h6 {
         margin: 0 !important;
         filter: none !important;
         content: '' !important;
-        z-index: 2;
+        /* z-index removed to avoid stacking context issues with background dots */
     }
     header {
         display: none;
@@ -1561,5 +1665,53 @@ h1, h2, h3, h4, h5, h6 {
     }
     
     /* Removed duplicate .post-page h1 and h2 rules that override the above */
+}
+
+/* Dot Transition Animation Styles */
+.dot-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    pointer-events: none;
+    background: var(--primary-bg);
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dot-transition-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9998;
+    pointer-events: none;
+    transition: opacity 0.8s cubic-bezier(0.2, 0, 0.2, 1), 
+                transform 0.8s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+/* Smooth page navigation */
+body {
+    transition: opacity 0.2s ease;
+}
+
+/* Post links hover effect enhancement for transition feedback */
+.post h2 a {
+    transition: all 0.3s ease;
+}
+
+.post h2 a:hover {
+    transform: translateX(2px);
+}
+
+.read-more {
+    transition: all 0.3s ease;
+}
+
+.read-more:hover {
+    transform: translateX(3px);
 }
 

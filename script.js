@@ -35,6 +35,121 @@ function setupThemeToggle() {
     });
 }
 
+// Attach dot transition animation to post links
+function attachDotTransitionToPostLinks() {
+    // Find all post links (both h2 links and read-more links)
+    const postLinks = document.querySelectorAll('a[href^="posts/post.html"]');
+    
+    postLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get the URL we're navigating to
+            const targetUrl = this.href;
+            
+            // Create the dot fade-out animation
+            createDotTransitionAnimation(() => {
+                // Navigate to the post page after animation completes
+                window.location.href = targetUrl;
+            });
+        });
+    });
+}
+
+// Attach reverse transition for back-to-home links
+function attachBackToHomeTransition() {
+    // Find all back-to-home links (including header logo on post pages)
+    const backLinks = document.querySelectorAll('a[href="../index.html"], a[href="index.html"], a[href$="/index.html"]');
+    
+    backLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Set flag for dots fade-in animation
+            localStorage.setItem('comingFromPost', 'true');
+            
+            // Get the URL we're navigating to
+            const targetUrl = this.href;
+            
+            // Create the reverse transition (fade to background, then navigate)
+            createReverseTransition(() => {
+                window.location.href = targetUrl;
+            });
+        });
+    });
+}
+
+// Create dot transition animation (fade out)
+function createDotTransitionAnimation(callback) {
+    const overlay = document.createElement('div');
+    overlay.className = 'dot-transition-overlay';
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+        pointer-events: none;
+        background: var(--primary-bg);
+        opacity: 0;
+        transition: opacity 0.6s ease;
+    `;
+    
+    document.body.appendChild(overlay);
+    
+    // Trigger the fade
+    requestAnimationFrame(() => {
+        overlay.style.opacity = '1';
+    });
+    
+    // Execute callback and clean up after animation
+    setTimeout(() => {
+        callback();
+        setTimeout(() => {
+            document.body.removeChild(overlay);
+        }, 100);
+    }, 600);
+}
+
+// Create reverse transition (from post back to index)
+function createReverseTransition(callback) {
+    const overlay = document.createElement('div');
+    overlay.className = 'dot-transition-overlay';
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+        pointer-events: none;
+        background: var(--primary-bg);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    `;
+    
+    document.body.appendChild(overlay);
+    
+    // Trigger the fade
+    requestAnimationFrame(() => {
+        overlay.style.opacity = '1';
+    });
+    
+    // Execute callback and clean up after animation
+    setTimeout(() => {
+        callback();
+        setTimeout(() => {
+            document.body.removeChild(overlay);
+        }, 100);
+    }, 500);
+}
+
+// Export functions to global scope for post pages
+window.attachDotTransitionToPostLinks = attachDotTransitionToPostLinks;
+window.attachBackToHomeTransition = attachBackToHomeTransition;
+window.createReverseTransition = createReverseTransition;
+
 function insertReadingTime() {
   const postPage = document.querySelector('.post-page');
   if (!postPage) return;
@@ -629,7 +744,129 @@ async function loadPostPreviews() {
     
     // add the cool arrows to readmore
     addReadMoreArrows();
+    
+    // Attach dot transition animation to post links
+    attachDotTransitionToPostLinks();
 }
+
+// Dot transition animation when clicking post links
+function attachDotTransitionToPostLinks() {
+    // Find all post links (both h2 links and read-more links)
+    const postLinks = document.querySelectorAll('a[href^="posts/post.html"]');
+    
+    postLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get the URL we're navigating to
+            const targetUrl = this.href;
+            
+            // Create the dot fade-out animation
+            createDotTransitionAnimation(() => {
+                // Navigate to the post page after animation completes
+                window.location.href = targetUrl;
+            });
+        });
+    });
+}
+
+// Create the dot fade-out transition animation
+function createDotTransitionAnimation(callback) {
+    // Only run on index page with dots
+    if (!document.body.classList.contains('index-page')) {
+        callback();
+        return;
+    }
+    
+    // Create a subtle transition overlay for smoothness
+    const transitionOverlay = document.createElement('div');
+    transitionOverlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+        pointer-events: none;
+        background: var(--primary-bg);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    `;
+    document.body.appendChild(transitionOverlay);
+    
+    // Brief overlay for smooth transition
+    requestAnimationFrame(() => {
+        transitionOverlay.style.opacity = '0.3';
+    });
+    
+    // Navigate quickly so dots can linger on the new page
+    setTimeout(() => {
+        transitionOverlay.remove();
+        callback();
+    }, 200);
+}
+
+// Create reverse transition animation for back-to-home navigation
+function createReverseTransition(callback) {
+    // Only run on post pages
+    if (!document.body.classList.contains('post-body')) {
+        callback();
+        return;
+    }
+    
+    // Create transition overlay that fades to background
+    const transitionOverlay = document.createElement('div');
+    transitionOverlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+        pointer-events: none;
+        background: var(--primary-bg);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    `;
+    document.body.appendChild(transitionOverlay);
+    
+    // Fade overlay in
+    requestAnimationFrame(() => {
+        transitionOverlay.style.opacity = '1';
+    });
+    
+    // Navigate after fade completes - dots will fade in naturally on index page
+    setTimeout(() => {
+        transitionOverlay.remove();
+        callback();
+    }, 400);
+}
+
+// Attach reverse transition for back-to-home links
+function attachBackToHomeTransition() {
+    // Find all back-to-home links (including header logo on post pages)
+    const backLinks = document.querySelectorAll('a[href="../index.html"], a[href="index.html"], a[href$="/index.html"]');
+    
+    backLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Set flag for dots fade-in animation
+            localStorage.setItem('comingFromPost', 'true');
+            
+            // Get the URL we're navigating to
+            const targetUrl = this.href;
+            
+            // Create the reverse transition (fade to background, then navigate)
+            createReverseTransition(() => {
+                window.location.href = targetUrl;
+            });
+        });
+    });
+}
+
+// Make function available globally for post pages
+window.attachBackToHomeTransition = attachBackToHomeTransition;
 
 // extract excerpt from markdown (italic text after title)
 function extractExcerptFromMarkdown(markdown) {
