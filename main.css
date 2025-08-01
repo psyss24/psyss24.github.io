@@ -1149,21 +1149,17 @@ h1, h2, h3, h4, h5, h6 {
     right: 0;
     bottom: 0;
     background: var(--hover-bg);
-    border: 1px solid;
-    border-color: rgba(var(--genre-color-rgb, 100, 181, 246), 0.3);
     border-radius: 4px;
     pointer-events: none;
     z-index: -1;
     transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
 }
 
+/* Multi-tag gradient border system for definition terms - removed to eliminate colored lines */
+
 .definition-term:hover {
     -webkit-text-fill-color: var(--text-color);
     color: var(--text-color);
-}
-
-.definition-term:hover::before {
-    background: var(--text-color);
 }
 
 .definition-tooltip {
