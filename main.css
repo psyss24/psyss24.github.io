@@ -1,60 +1,6 @@
 body.post-body .container {
   background: none !important;
 }
-.post-animated-dots.dots-faded {
-  /* Use a mask gradient to fade out the dots after the tags */
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) var(--dots-fade-start, 200px), rgba(0,0,0,0.2) calc(var(--dots-fade-start, 200px) + 80px), rgba(0,0,0,0.08) 100%);
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) var(--dots-fade-start, 200px), rgba(0,0,0,0.2) calc(var(--dots-fade-start, 200px) + 80px), rgba(0,0,0,0.08) 100%);
-  --dot-opacity: 0.12;
-  background-size: 32px 32px;
-}
-.header-animated-dots {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  --dot-opacity: 0.3;
-  background-image: radial-gradient(circle, rgba(60,64,67,var(--dot-opacity)) 0.8px, transparent 0.8px);
-  background-size: 24px 24px;
-  background-color: var(--primary-bg);
-  animation: move-dots 10s linear infinite;
-  pointer-events: none;
-}
-
-body.dark-theme .header-animated-dots {
-  --dot-opacity: 0.2;
-  background-image: radial-gradient(circle, rgba(200,200,210,var(--dot-opacity)) 0.8px, transparent 0.8px);
-  background-size: 24px 24px;
-  background-color: var(--primary-bg);
-  animation: move-dots 10s linear infinite;
-}
-
-
-/* Animated dots bar for post page header area */
-
-/* Animated dots overlay for top 10% of post page */
-/* Animated dots overlay for top of post page, behind content */
-/* Animated dots overlay for header, fills header and sits behind content */
-/* Animated dots overlay for header and tags area, behind all content */
-
-
-/* CSS dot animation disabled - using canvas animation only */
-body.index-page {
-  --dot-opacity: 0.2;
-  background-color: var(--primary-bg);
-  /* Static/CSS dots removed in favor of animated canvas dots */
-}
-
-@keyframes move-dots {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 24px 24px;
-  }
-}
 
 /* --- Dot Pattern Backgrounds: Only Four Encodings --- */
 body {
@@ -417,7 +363,7 @@ header h1 {
     display: none;
     text-align: center;
     padding: 1.5rem 2rem 1rem 2rem;
-    background-color: var(--primary-bg);
+    background-color: transparent;
     margin-top: 1.5rem;
 }
 
@@ -1419,23 +1365,104 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Mobile Responsive Styles */
 @media (max-width: 768px) {
-    /* Fix tooltip arrow for mobile: center at top of tooltip */
+    /* Prevent horizontal scrolling on mobile */
+    html, body {
+        overflow-x: hidden;
+        max-width: 100%;
+    }
+    
+    /* Ensure all elements respect viewport width */
+    * {
+        max-width: 100%;
+    }
+    
+    /* Mobile post-meta-row responsive layout */
+    .post-meta-row {
+        display: flex;
+        gap: 0.4rem;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+    
+    /* Reading time stays on left */
+    .post-meta-row > .reading-time {
+        flex: 0 0 auto;
+        order: 1;
+    }
+    
+    /* Tag container on right, tags stack vertically */
+    .post-meta-row > .tag-container {
+        flex: 0 0 auto;
+        order: 2;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        align-items: flex-end;
+        min-width: 0;
+    }
+    
+    /* Mobile layout states for post-meta-row */
+    .post-meta-row.mobile-stacked {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.6rem !important;
+    }
+    
+    .post-meta-row.mobile-stacked > .tag-container {
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+    }
+    
+    .post-meta-row.mobile-cramped {
+        gap: 0.2rem !important;
+    }
+    
+    /* Mobile tooltip - positioned below the term, JS controls horizontal positioning */
+    .definition-tooltip {
+        position: absolute !important;
+        top: calc(100% + 0.5rem) !important;
+        /* Remove fixed left/transform - let JS control positioning */
+        margin: 0 !important;
+        max-width: calc(100vw - 2rem) !important;
+        min-width: min(240px, calc(100vw - 4rem)) !important;
+        width: auto !important;
+        z-index: 1000 !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    .definition-tooltip.tooltip-below {
+        position: absolute !important;
+        top: calc(100% + 0.5rem) !important;
+        /* Remove fixed left/transform - let JS control positioning */
+        margin: 0 !important;
+        max-width: calc(100vw - 2rem) !important;
+        min-width: min(240px, calc(100vw - 4rem)) !important;
+        width: auto !important;
+        z-index: 1000 !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    /* Add arrow pointing up to the term - positioned via CSS custom properties */
     .definition-tooltip::after,
     .definition-tooltip.tooltip-below::after {
-        left: 50% !important;
+        content: '' !important;
+        position: absolute !important;
         top: -7px !important;
-        transform: translateX(-50%) !important;
+        left: var(--arrow-left, 50%) !important;
+        transform: var(--arrow-transform, translateX(-50%)) !important;
+        width: 0 !important;
+        height: 0 !important;
         border-left: 7px solid transparent !important;
         border-right: 7px solid transparent !important;
         border-bottom: 7px solid var(--secondary-bg) !important;
         border-top: none !important;
-        width: 0 !important;
-        height: 0 !important;
-        position: absolute !important;
         margin: 0 !important;
-        filter: none !important;
-        content: '' !important;
-        /* z-index removed to avoid stacking context issues with background dots */
+        z-index: 1 !important;
     }
     header {
         display: none;
@@ -1449,6 +1476,37 @@ h1, h2, h3, h4, h5, h6 {
     .container {
         width: 95%;
         padding: 1rem;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    /* Mobile tag container styling - tags stack vertically */
+    .post-page .tag-container {
+        width: auto !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        justify-content: flex-end !important;
+    }
+    
+    /* Ensure proper spacing between tags when stacked */
+    .post-page .tag-container .genre-tag {
+        margin-bottom: 0 !important;
+    }
+    
+    /* Mobile layout states for post-meta-row */
+    .post-meta-row.mobile-stacked {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.6rem !important;
+    }
+    
+    .post-meta-row.mobile-stacked > .tag-container {
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+    }
+    
+    .post-meta-row.mobile-cramped {
+        gap: 0.2rem !important;
     }
     
     .nav-tabs {
@@ -1463,6 +1521,8 @@ h1, h2, h3, h4, h5, h6 {
         box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         gap: 1.5rem;
         justify-content: flex-start;
+        max-width: 100%;
+        overflow-x: hidden;
     }
     
     #journal, #projects {
@@ -1574,7 +1634,7 @@ h1, h2, h3, h4, h5, h6 {
     .definition-tooltip {
         /* JS will set width to match .definition-term on mobile */
         width: auto;
-        min-width: 140px;
+        min-width: min(120px, calc(100vw - 4rem));
         min-height: 3.2em;
         padding: 0.7rem 0.9rem;
         font-size: 0.75rem;

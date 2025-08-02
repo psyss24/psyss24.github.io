@@ -167,6 +167,55 @@ function insertReadingTime() {
   const words = text.trim().split(/\s+/).length;
   const minutes = Math.max(1, Math.round(words / 200));
   timeElem.textContent = `Estimated read: ${minutes} min${minutes > 1 ? 's' : ''}`;
+  
+  // Check mobile layout spacing after inserting reading time
+  setTimeout(() => checkMobileMetaRowLayout(), 100);
+}
+
+// Check if reading time and tags are too close on mobile and adjust layout
+function checkMobileMetaRowLayout() {
+  if (window.innerWidth > 768) return; // Only on mobile
+  
+  const metaRow = document.querySelector('.post-meta-row');
+  if (!metaRow) return;
+  
+  const readingTime = metaRow.querySelector('.reading-time');
+  const tagContainer = metaRow.querySelector('.tag-container');
+  if (!readingTime || !tagContainer) return;
+  
+  // Reset layout classes
+  metaRow.classList.remove('mobile-stacked', 'mobile-cramped');
+  
+  // Force horizontal layout temporarily to measure
+  metaRow.style.flexDirection = 'row';
+  metaRow.style.flexWrap = 'nowrap';
+  
+  // Measure the elements
+  const metaRowRect = metaRow.getBoundingClientRect();
+  const readingTimeRect = readingTime.getBoundingClientRect();
+  const tagContainerRect = tagContainer.getBoundingClientRect();
+  
+  // Calculate available space and minimum padding needed
+  const usedWidth = readingTimeRect.width + tagContainerRect.width;
+  const availableWidth = metaRowRect.width;
+  const currentGap = parseFloat(getComputedStyle(metaRow).gap) || 4;
+  const minPadding = 16; // Minimum padding between elements
+  
+  // Reset inline styles
+  metaRow.style.flexDirection = '';
+  metaRow.style.flexWrap = '';
+  
+  // Determine layout based on available space
+  if (usedWidth + minPadding > availableWidth) {
+    // Not enough space - stack vertically
+    metaRow.classList.add('mobile-stacked');
+  } else if (usedWidth + currentGap < availableWidth - minPadding) {
+    // Enough space - keep horizontal but check if it's cramped
+    const remainingSpace = availableWidth - usedWidth - currentGap;
+    if (remainingSpace < minPadding) {
+      metaRow.classList.add('mobile-cramped');
+    }
+  }
 }
 
 // --- Mobile tooltip positioning for definition terms ---
@@ -217,6 +266,13 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', updateReadingProgressBar, { passive: true });
     window.addEventListener('resize', updateReadingProgressBar);
     updateReadingProgressBar();
+    
+    // Check mobile layout after DOM is loaded
+    setTimeout(() => {
+      if (typeof checkMobileMetaRowLayout === 'function') {
+        checkMobileMetaRowLayout();
+      }
+    }, 200);
   }
 });
 
@@ -229,65 +285,69 @@ document.addEventListener('DOMContentLoaded', function() {
 function adjustMobileTooltip(term) {
     const tooltip = term.querySelector('.definition-tooltip');
     if (!tooltip) return;
+    
+    // Force tooltip below positioning for mobile
     tooltip.classList.add('tooltip-below');
     tooltip.classList.remove('shift-left', 'shift-right');
-    // Make tooltip absolutely positioned for mobile
-    tooltip.style.position = 'absolute';
-    // Save previous styles
-    const prevOpacity = tooltip.style.opacity;
-    const prevPointer = tooltip.style.pointerEvents;
-    const prevDisplay = tooltip.style.display;
-    const prevVisibility = tooltip.style.visibility;
-    // For measurement, make tooltip invisible but measurable
-    tooltip.style.opacity = '0';
-    tooltip.style.pointerEvents = 'none';
-    tooltip.style.display = 'block';
-    tooltip.style.visibility = 'hidden';
-    // Reset positioning
+    
+    // Reset any desktop positioning
     tooltip.style.left = '';
     tooltip.style.right = '';
     tooltip.style.top = '';
     tooltip.style.transform = '';
     tooltip.style.marginLeft = '';
     tooltip.style.marginRight = '';
-    function doAdjust() {
-        const termRect = term.getBoundingClientRect();
+    tooltip.style.position = '';
+    tooltip.style.width = '';
+    tooltip.style.minWidth = '';
+    tooltip.style.maxWidth = '';
+    
+    // Check if tooltip would overflow viewport and adjust if needed
+    setTimeout(() => {
+        const rect = tooltip.getBoundingClientRect();
         const viewportWidth = window.innerWidth;
-        const padding = 32;
-        // Make tooltip as close as possible vertically to the term
-        let top = termRect.bottom + window.scrollY;
-        // Set tooltip width to container width (viewport width minus padding)
-        const containerWidth = viewportWidth - (padding * 2);
-        tooltip.style.width = containerWidth + 'px';
-        tooltip.style.minWidth = containerWidth + 'px';
-        tooltip.style.maxWidth = containerWidth + 'px';
-        // Position tooltip below, left-aligned to viewport container start
-        const leftPosition = padding;
-        // Force the positioning with !important if needed
-        tooltip.style.setProperty('left', leftPosition + 'px', 'important');
-        tooltip.style.setProperty('top', top + 'px', 'important');
-        tooltip.style.setProperty('position', 'fixed', 'important'); // Try fixed instead of absolute
-        tooltip.style.transform = 'none';
-        tooltip.style.marginLeft = '0';
-        tooltip.style.marginRight = '0';
-        // Restore visibility
-        tooltip.style.visibility = '';
-        tooltip.style.display = '';
-        tooltip.style.opacity = prevOpacity;
-        tooltip.style.pointerEvents = prevPointer;
-        // More detailed debug logs
-        console.log('[Tooltip Debug] termRect:', termRect);
-        console.log('[Tooltip Debug] Set tooltip width to:', containerWidth);
-        console.log('[Tooltip Debug] Final left:', leftPosition, 'top:', top);
-        console.log('[Tooltip Debug] Computed styles after setting:', {
-          position: getComputedStyle(tooltip).position,
-          left: getComputedStyle(tooltip).left,
-          top: getComputedStyle(tooltip).top,
-          transform: getComputedStyle(tooltip).transform
-        });
-        console.log('[Tooltip Debug] Tooltip getBoundingClientRect:', tooltip.getBoundingClientRect());
-    }
-    setTimeout(doAdjust, 10);
+        const termRect = term.getBoundingClientRect();
+        
+        // Calculate ideal centered position relative to term
+        const termCenter = termRect.left + (termRect.width / 2);
+        const tooltipHalfWidth = rect.width / 2;
+        
+        // Check for viewport overflow and adjust
+        let leftPosition = termCenter - tooltipHalfWidth;
+        let arrowPosition = '50%'; // Default centered arrow
+        
+        // If tooltip would go off left edge, align with left margin
+        if (leftPosition < 16) {
+            tooltip.style.left = '16px';
+            tooltip.style.transform = 'none';
+            // Position arrow to point to the term center
+            arrowPosition = Math.max(20, termCenter - 16) + 'px';
+        }
+        // If tooltip would go off right edge, align with right margin
+        else if (leftPosition + rect.width > viewportWidth - 16) {
+            tooltip.style.left = 'auto';
+            tooltip.style.right = '16px';
+            tooltip.style.transform = 'none';
+            // Position arrow to point to the term center
+            arrowPosition = Math.max(20, rect.width - (viewportWidth - termCenter - 16)) + 'px';
+        }
+        // Otherwise keep centered
+        else {
+            tooltip.style.left = '50%';
+            tooltip.style.transform = 'translateX(-50%)';
+            arrowPosition = '50%';
+        }
+        
+        // Position the arrow
+        const arrow = tooltip.querySelector('::after') || tooltip;
+        if (arrowPosition === '50%') {
+            tooltip.style.setProperty('--arrow-left', '50%');
+            tooltip.style.setProperty('--arrow-transform', 'translateX(-50%)');
+        } else {
+            tooltip.style.setProperty('--arrow-left', arrowPosition);
+            tooltip.style.setProperty('--arrow-transform', 'none');
+        }
+    }, 0);
 }
 
 
@@ -335,6 +395,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (timeElem && !timeElem.textContent.trim()) {
                 insertReadingTime();
             }
+            
+            // Check mobile layout after content is loaded
+            setTimeout(() => checkMobileMetaRowLayout(), 150);
         });
         const postPage = document.querySelector('.post-page');
         if (postPage) {
@@ -524,6 +587,11 @@ class TooltipManager {
     }
     
     static positionTooltip(termElement) {
+        // Skip positioning on mobile - let mobile-specific handler do it
+        if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
+            return;
+        }
+        
         const tooltip = termElement.tooltip;
         
         // reset positioning 
@@ -1054,8 +1122,13 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('resize', () => {
     setTimeout(() => {
         initMobileScrollAnimations();
+        // Also check mobile meta row layout on resize
+        checkMobileMetaRowLayout();
     }, 100);
 });
+
+// Make function available globally
+window.checkMobileMetaRowLayout = checkMobileMetaRowLayout;
 
 // Mobile tap-to-toggle for definition tooltips
 function isMobileDevice() {
@@ -1080,7 +1153,8 @@ function attachMobileTooltipHandler(term) {
         closeAllTooltips();
         if (!wasActive) {
             term.classList.add('tooltip-active');
-            setTimeout(() => adjustMobileTooltip(term), 0);
+            // Run mobile positioning immediately, not after setTimeout
+            adjustMobileTooltip(term);
         }
         e.stopPropagation();
     });
