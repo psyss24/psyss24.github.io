@@ -302,52 +302,63 @@ function adjustMobileTooltip(term) {
     tooltip.style.minWidth = '';
     tooltip.style.maxWidth = '';
     
-    // Check if tooltip would overflow viewport and adjust if needed
+    // Position tooltip after next frame to ensure proper sizing
     setTimeout(() => {
-        const rect = tooltip.getBoundingClientRect();
-        const viewportWidth = window.innerWidth;
         const termRect = term.getBoundingClientRect();
+        const viewportWidth = window.innerWidth;
+        const margin = 12; // Minimum margin from screen edges
         
-        // Calculate ideal centered position relative to term
+        // Reset positioning to get natural width
+        tooltip.style.left = '0px';
+        tooltip.style.right = 'auto';
+        tooltip.style.transform = 'none';
+        
+        // Force render and get dimensions
+        const tooltipRect = tooltip.getBoundingClientRect();
+        const tooltipWidth = tooltipRect.width;
+        
+        // Calculate term center position
         const termCenter = termRect.left + (termRect.width / 2);
-        const tooltipHalfWidth = rect.width / 2;
+        const tooltipHalfWidth = tooltipWidth / 2;
         
-        // Check for viewport overflow and adjust
+        // Calculate ideal centered position
         let leftPosition = termCenter - tooltipHalfWidth;
-        let arrowPosition = '50%'; // Default centered arrow
+        let arrowLeft = '50%';
+        let arrowTransform = 'translateX(-50%)';
         
-        // If tooltip would go off left edge, align with left margin
-        if (leftPosition < 16) {
-            tooltip.style.left = '16px';
+        // Check boundaries and adjust
+        if (leftPosition < margin) {
+            // Tooltip would overflow left - align to left margin
+            tooltip.style.left = margin + 'px';
+            tooltip.style.right = 'auto';
             tooltip.style.transform = 'none';
-            // Position arrow to point to the term center
-            arrowPosition = Math.max(20, termCenter - 16) + 'px';
-        }
-        // If tooltip would go off right edge, align with right margin
-        else if (leftPosition + rect.width > viewportWidth - 16) {
+            // Calculate arrow position relative to tooltip
+            const arrowOffset = Math.max(8, termCenter - margin);
+            arrowLeft = arrowOffset + 'px';
+            arrowTransform = 'translateX(-50%)';
+        } else if (leftPosition + tooltipWidth > viewportWidth - margin) {
+            // Tooltip would overflow right - align to right margin
             tooltip.style.left = 'auto';
-            tooltip.style.right = '16px';
+            tooltip.style.right = margin + 'px';
             tooltip.style.transform = 'none';
-            // Position arrow to point to the term center
-            arrowPosition = Math.max(20, rect.width - (viewportWidth - termCenter - 16)) + 'px';
-        }
-        // Otherwise keep centered
-        else {
-            tooltip.style.left = '50%';
-            tooltip.style.transform = 'translateX(-50%)';
-            arrowPosition = '50%';
+            // Calculate arrow position from right edge
+            const distanceFromRight = viewportWidth - termCenter - margin;
+            const arrowOffset = Math.max(8, tooltipWidth - distanceFromRight);
+            arrowLeft = arrowOffset + 'px';
+            arrowTransform = 'translateX(-50%)';
+        } else {
+            // Tooltip fits - center it under term
+            tooltip.style.left = leftPosition + 'px';
+            tooltip.style.right = 'auto';
+            tooltip.style.transform = 'none';
+            arrowLeft = '50%';
+            arrowTransform = 'translateX(-50%)';
         }
         
-        // Position the arrow
-        const arrow = tooltip.querySelector('::after') || tooltip;
-        if (arrowPosition === '50%') {
-            tooltip.style.setProperty('--arrow-left', '50%');
-            tooltip.style.setProperty('--arrow-transform', 'translateX(-50%)');
-        } else {
-            tooltip.style.setProperty('--arrow-left', arrowPosition);
-            tooltip.style.setProperty('--arrow-transform', 'none');
-        }
-    }, 0);
+        // Set arrow position using CSS custom properties
+        tooltip.style.setProperty('--arrow-left', arrowLeft);
+        tooltip.style.setProperty('--arrow-transform', arrowTransform);
+    }, 10);
 }
 
 
