@@ -24,7 +24,7 @@ Many of the goods up for trade were also perishable, like food, and subject to v
 
 As communities expanded and inter village trade emerged, the inefficiencies grew. In regional marketplaces where strangers met, how could two people agree on the worth of a goat versus a bushel of grain without a shared metric? Without standardisation, every transaction became a fresh negotiation, exhausting and unscalable.
 
-While barter did not prevent the growth of trade, it couldn’t keep up with it. A step toward abstraction became necessary, from trading goods for goods to using specific goods like salt, gold, or silver to stand in for value in exchange. 
+While the barter system did not prevent the growth of trade, it couldn’t keep up with it. A step toward abstraction became necessary, from trading goods for goods to using specific goods like salt, gold, or silver to stand in for value in exchange. 
 This wasn’t yet symbolic money, but it marked a turning point; the traded good no longer held value solely through use, but through what it stood for in an exchange. It was value one step removed from utility, an early abstraction of trust, where belief in the object’s acceptability began to matter more than the object itself.
 
 ## Commodity Money
@@ -46,7 +46,7 @@ These difficulties accelerated the shift from using money with practical utility
 
 As economies grew and trade networks expanded, it became clear that money needed more than utility; it needed consistency, recognisability, and above all, trust. The state stepped in to provide this. By centralising the production of money, governments could guarantee its weight and purity, reducing disputes and increasing confidence in exchange.
 
-A stamped coin, even though it’s still made of metal, is different from earlier forms of money because its value isn’t from the metal itself. Instead, its worth also comes from what it represents, a promise or guarantee by a trusted authority. This change made money easier to standardise, carry, and trust, helping economies grow bigger and more complex.
+A stamped coin, even though it’s still made of metal, is different from earlier forms of money because its value isn't entirely derived from the metal itself. Instead, its worth also comes from what it represents, a promise or guarantee by a trusted authority. This change made money easier to standardise, carry, and trust, helping economies grow bigger and more complex.
 A coin minted by the Roman Empire carried weight not only because of its silver content but because it was backed by the authority of Rome. People trusted that the coin could be used anywhere in the empire for taxes, goods, and services. The coin became a symbol of reliable value, accepted beyond the intrinsic worth of the metal it was made from.
 
 The Kingdom of Lydia is [credited][4] with issuing the first official stamped coins in the 7th century BCE. These coins were made of electrum, a naturally occurring alloy of gold and silver, and stamped with the image of a lion (a mark of state authority). This practice spread to ancient Greece and Persia, where coinage systems became more widespread and sophisticated.
@@ -54,7 +54,7 @@ The Kingdom of Lydia is [credited][4] with issuing the first official stamped co
 With the state's control over money came not only influence but responsibility; governments gained the power to issue and regulate currency, and they also bore the consequences of mismanaging it. While this central role allowed for greater consistency and trust, it introduced new risks; especially when short term political needs conflicted with long term economic stability. A clear example of this tension resides in the Roman Empire, where state control over coinage eventually contributed to monetary collapse.
 
 In ancient Rome, emperors routinely minted coins bearing their own image and during times of war or crisis, they could alter the metal content of coins to stretch their fiscal capacity, though at the cost of inflation.
-In fact, in the 3rd century CE, the silver content of the denarius fell drastically; [from over 90% to less than 5%][5], as emperors debased the currency to fund military expenses. As trust eroded, the illusion of value collapsed — people no longer believed the coin was worth what it claimed. Without that shared belief, the currency lost credibility, triggering rampant inflation, economic turmoil, and the failure of a monetary order sustained by the abstraction of value and trust.”
+In fact, in the 3rd century CE, the silver content of the denarius fell drastically; [from over 90% to less than 5%][5], as emperors debased the currency to fund military expenses. As trust eroded, the illusion of value collapsed; people no longer believed the coin was worth what it claimed. Without that shared belief, the currency lost credibility, triggering rampant inflation, economic turmoil, and the failure of a monetary order sustained by the abstraction of value and trust.”
 
 ## Birth of banknotes & banking
 
