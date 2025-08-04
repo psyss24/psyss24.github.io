@@ -54,7 +54,7 @@ The Kingdom of Lydia is [credited][4] with issuing the first official stamped co
 With the state's control over money came not only influence but responsibility; governments gained the power to issue and regulate currency, and they also bore the consequences of mismanaging it. While this central role allowed for greater consistency and trust, it introduced new risks; especially when short term political needs conflicted with long term economic stability. A clear example of this tension resides in the Roman Empire, where state control over coinage eventually contributed to monetary collapse.
 
 In ancient Rome, emperors routinely minted coins bearing their own image and during times of war or crisis, they could alter the metal content of coins to stretch their fiscal capacity, though at the cost of inflation.
-In fact, in the 3rd century CE, the silver content of the denarius fell drastically; [from over 90% to less than 5%][5], as emperors debased the currency to fund military expenses. As trust eroded, the illusion of value collapsed; people no longer believed the coin was worth what it claimed. Without that shared belief, the currency lost credibility, triggering rampant inflation, economic turmoil, and the failure of a monetary order sustained by the abstraction of value and trust.”
+In fact, in the 3rd century CE, the silver content of the denarius fell drastically; [from over 90% to less than 5%][5], as emperors debased the currency to fund military expenses.  As trust eroded, the illusion of value collapsed; people no longer believed the coin was worth what it claimed. Without that shared belief, the currency lost credibility. Rampant inflation and economic turmoil followed.
 
 ## Birth of banknotes & banking
 
