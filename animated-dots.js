@@ -1,8 +1,3 @@
-// animated-dots.js
-// Canvas-based animated dots with elegant transitions
-// - Index page: full opacity throughout
-// - Post page: linger briefly, then fade out gracefully
-
 (function() {
   // Detect page type
   const isIndexPage = document.body.classList.contains('index-page');

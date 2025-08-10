@@ -27,7 +27,7 @@
         </nav>
 
         <div id="journal" class="tab-content active">
-            <!-- Posts will be automatically generated from markdown files -->
+            <!-- generate entries from markdown files -->
         </div>
 
         <div id="projects" class="tab-content">
@@ -79,7 +79,6 @@
     <script src="script.js"></script>
     <script src="animated-dots.js"></script>
     <script>
-      // Theme-aware MacroScope and Personal Site icon swap
       function setProjectIcons() {
         var macroIcon = document.getElementById('macroscope-icon');
         var personalIcon = document.getElementById('personal-icon');
@@ -92,14 +91,14 @@
         }
       }
       setProjectIcons();
-      // Listen for theme toggle if available
+
       var themeToggle = document.getElementById('theme-toggle');
       if (themeToggle) {
         themeToggle.addEventListener('click', function() {
           setTimeout(setProjectIcons, 10);
         });
       }
-      // Also listen for class changes on body (for programmatic theme changes)
+
       var observer = new MutationObserver(setProjectIcons);
       observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
     </script>
