@@ -115,6 +115,11 @@ But this new freedom came with cost. Inflation becomes a matter of psychology, i
 
 Fiat money enables virtually unlimited borrowing by governments, corporations, and individuals which powers growth, but also creates systemic risk. The 2008 crash was triggered by excessive credit creation in housing. Today’s concerns lie in sovereign debt levels, private leverage, and speculative bubbles in assets like tech stocks and cryptocurrencies.
 
+Ultimately, the history of money is not really about coins, notes, or ledgers. It is about the stretching of a fragile thread: trust. 
+Every leap: barter to bullion, from gold to paper, from paper to fiat, has been an exercise in testing how far societies will let value drift from the tangible. Each time, the promise holds until it doesn’t, and collapse follows when confidence runs out.
+What is striking is that money keeps surviving these collapses by reinventing itself one layer further into abstraction. Rome’s debased silver gave way to medieval bills of exchange. The collapse of gold led to fiat. And now fiat itself is challenged by cryptocurrencies and central bank digital currencies, experiments that once again wager that belief in code or state decree is enough to anchor value.
+
+There is no final form of money waiting at the end of history. There is only the continuous negotiation between scarcity and imagination, between what we can touch and what we can trust. 
 
 
 [1]:	https://hascmarinebiology.weebly.com/uploads/7/6/8/7/7687070/cowry_as_money_2.pdf
