@@ -1,6 +1,6 @@
 {Economics, Technology}
 
-# The global adoption of Bitcoin
+# Bitcoins, from Rebel Currency to Institutional Asset
 
 ## Bitcoin basics
 Bitcoin is more than code running on computers. It is a decentralised digital network that lets people send value across the internet without asking permission from banks or governments. At its heart is the blockchain, a public ledger maintained by thousands of independent nodes. Every transaction is recorded in this ledger, and because the records are cryptographically linked, they cannot be faked or quietly rewritten. For the first time, money could exist as pure information, verified not by institutions but by mathematics.
