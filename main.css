@@ -177,14 +177,6 @@ body.dark-theme .reading-time.multiple-tags {
   margin-top: 0.5em;
   margin-bottom: 1.5em;
 }
-.reading-progress-bar__inner {
-  height: 100%;
-  width: 0%;
-  background: var(--genre-gradient, var(--genre-color));
-  border-radius: 0 2px 2px 0;
-  box-shadow: none;
-  will-change: width;
-}
 
 /* Reading Progress Bar */
 .reading-progress-bar {
@@ -192,16 +184,19 @@ body.dark-theme .reading-time.multiple-tags {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 4px;
+  height: 2px;
   background: transparent;
   z-index: 9999;
 }
 .reading-progress-bar__inner {
   height: 100%;
   width: 0%;
-  background: var(--genre-gradient, var(--accent-color));
+  background: var(--genre-gradient, var(--genre-color));
+  border-radius: 0;
+  box-shadow: none !important;
+  filter: none !important;
+  will-change: width;
   transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 0 2px 2px 0;
 }
 
 
