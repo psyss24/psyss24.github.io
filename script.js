@@ -1022,11 +1022,13 @@ function createPostCard(post, tags) {
     
     article.innerHTML = `
         <h2><a href="posts/post.html?post=${post.filename}">${post.title}</a></h2>
-        <p>${post.excerpt}</p>
-        <div class="post-footer">
+        <div style="position: relative;">
+            <p>${post.excerpt}</p>
             <div class="post-tags">
                 ${genreTags}
             </div>
+        </div>
+        <div class="post-footer">
             <a href="posts/post.html?post=${post.filename}" class="read-more">Read More</a>
         </div>
     `;
