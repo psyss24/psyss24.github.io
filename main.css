@@ -692,6 +692,20 @@ body.dark-theme .project-icon {
 .post .genre-tag {
     margin-top: 0;
     margin-bottom: 0;
+    margin-right: 0;
+}
+
+.post-tags {
+    position: absolute;
+    top: 0.65rem; /* Slightly adjusted for perfect visual alignment with text baseline */
+    right: 0; /* Right at the edge */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: flex-start;
+    justify-content: flex-end;
+    max-width: 100px; /* Constrain width to prevent overlap */
+    line-height: 1; /* Tighter line-height for tags */
 }
 
 
