@@ -666,7 +666,7 @@ body.dark-theme .project-icon {
 .post-footer {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
     margin-top: 0.5rem;
     gap: 0;
 }
@@ -674,7 +674,7 @@ body.dark-theme .project-icon {
 .post-tags {
     position: absolute;
     top: 0.6rem; /* Align with first line of paragraph text */
-    right: 0; /* Remove extra padding, align to the edge */
+    right: 0.5rem; /* Closer to the right edge */
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
@@ -684,7 +684,7 @@ body.dark-theme .project-icon {
 }
 
 .post-footer .read-more {
-    align-self: flex-end;
+    align-self: flex-start;
     margin-top: 0;
 }
 
