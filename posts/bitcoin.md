@@ -5,7 +5,7 @@
 ## Bitcoin basics
 Bitcoin is more than code running on computers. It is a decentralised digital network that lets people send value across the internet without asking permission from banks or governments. At its heart is the blockchain, a public ledger maintained by thousands of independent nodes. Every transaction is recorded in this ledger, and because the records are cryptographically linked, they cannot be faked or quietly rewritten. For the first time, money could exist as pure information, verified not by institutions but by mathematics.
 
-A block is essentially a page in this ledger. Once miners verify its contents, it becomes part of a chain of previous blocks, forming a tamper resistant history. Mining serves two roles: it issues new bitcoins and secures the network through (proof of work system)[a cryptographic mechanism where participants must solve a computationally difficult puzzle to perform an action, proving they expended real-world computational effort.](#). This mechanism forces participants to exhaust real resources to add blocks, making attacks costly and verification cheap.
+A block is essentially a page in this ledger. Once miners verify its contents, it becomes part of a chain of previous blocks, forming a tamper resistant history. Mining serves two roles: it issues new bitcoins and secures the network through a (proof of work system)[a cryptographic mechanism where participants must solve a computationally difficult puzzle to perform an action, proving they expended real-world computational effort.](#). This mechanism forces participants to exhaust real resources to add blocks, making attacks costly and verification cheap.
 
 Wallets store private keys, the cryptographic credentials that grant control over bitcoins. 
 
