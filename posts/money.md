@@ -1,6 +1,6 @@
 {Economics}
 
-# The movement of money
+# The Movement of Money
 
 
 *The substance of money changes, what doesn't is the trust that gives it life*
