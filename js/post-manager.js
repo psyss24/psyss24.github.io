@@ -75,7 +75,7 @@ function createPostCard(post, tags) {
     }).join('');
     
     article.innerHTML = `
-        <h2><a href="html/posts/post.html?post=${post.filename}">${post.title}</a></h2>
+        <h2><a href="html/post.html?post=${post.filename}">${post.title}</a></h2>
         <div style="position: relative;">
             <p>${post.excerpt}</p>
             <div class="post-tags">
@@ -83,7 +83,7 @@ function createPostCard(post, tags) {
             </div>
         </div>
         <div class="post-footer">
-            <a href="html/posts/post.html?post=${post.filename}" class="read-more">Read More</a>
+            <a href="html/post.html?post=${post.filename}" class="read-more">Read More</a>
         </div>
     `;
     
@@ -107,7 +107,7 @@ async function loadPostPreviews() {
     
     for (const post of posts) {
         try {
-            const response = await fetch(`posts/${post.filename}.md`);
+            const response = await fetch(`../posts/${post.filename}.md`);
             if (!response.ok) continue;
             
             const markdown = await response.text();
