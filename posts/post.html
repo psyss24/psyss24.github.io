@@ -9,7 +9,13 @@
     <link href="../main.css" rel="stylesheet" />
     <!-- Markdown parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="../script.js"></script>
+    <script src="../js/core-utils.js"></script>
+    <script src="../js/theme-manager.js"></script>
+    <script src="../js/page-transitions.js"></script>
+    <script src="../js/post-manager.js"></script>
+    <script src="../js/tooltip-system.js"></script>
+    <script src="../js/ui-components.js"></script>
+    <script src="../js/main.js"></script>
 </head>
 
 
@@ -34,6 +40,7 @@
       <a href="../index.html" class="back-to-home">← Back to Home</a>
     </div>
     <footer class="mobile-footer">
+
       <h3>Saad Saqib</h3>
       <div class="mobile-footer-links">
         <a href="#" id="theme-toggle">Lights off</a>
@@ -49,6 +56,64 @@
         const urlParams = new URLSearchParams(window.location.search);
         const postName = urlParams.get('post') || 'money'; // default to money post
         
+        // Fallback functions in case modules don't load
+        function parseTagsFromMarkdown(markdown) {
+            const tagMatch = markdown.match(/^\{([^}]+)\}/m);
+            if (!tagMatch) return ['other'];
+            
+            return tagMatch[1]
+                .split(',')
+                .map(tag => tag.trim().toLowerCase())
+                .filter(tag => tag.length > 0);
+        }
+        
+        function normalizeTag(tag) {
+            const tagMap = {
+                'economics': 'economics',
+                'economy': 'economics',
+                'econ': 'economics',
+                'neuroscience': 'neuroscience',
+                'neuro': 'neuroscience',
+                'ns': 'neuroscience',
+                'technology': 'technology',
+                'tech': 'technology',
+                'ai': 'technology',
+                'programming': 'technology',
+                'other': 'other'
+            };
+            
+            return tagMap[tag.toLowerCase()] || 'other';
+        }
+        
+        function generateGenreColors(normalizedTags, colorMap) {
+            const uniqueTags = [...new Set(normalizedTags)];
+            
+            if (uniqueTags.length === 1) {
+                const color = colorMap[uniqueTags[0]] || colorMap.other;
+                return {
+                    color: color,
+                    gradient: color
+                };
+            } else {
+                const colors = uniqueTags.map(tag => colorMap[tag] || colorMap.other);
+                const primaryColor = colors[0];
+                
+                let gradient;
+                if (colors.length === 2) {
+                    gradient = `linear-gradient(135deg, ${colors[0]}, ${colors[1]})`;
+                } else if (colors.length === 3) {
+                    gradient = `linear-gradient(135deg, ${colors[0]}, ${colors[1]}, ${colors[2]})`;
+                } else {
+                    gradient = `linear-gradient(135deg, ${colors.slice(0, 4).join(', ')})`;
+                }
+                
+                return {
+                    color: primaryColor,
+                    gradient: gradient
+                };
+            }
+        }
+        
         // Load and render markdown
         async function loadPost(postName) {
             try {
@@ -58,7 +123,7 @@
                 const markdown = await response.text();
                 
                 // Parse tags from markdown
-                const tags = parseTagsFromMarkdown(markdown);
+                const tags = window.PostManager ? window.PostManager.parseTagsFromMarkdown(markdown) : parseTagsFromMarkdown(markdown);
                 
                 // Remove tags from markdown before parsing
                 let cleanMarkdown = markdown.replace(/^\{[^}]+\}\s*\n?/m, '');
@@ -86,8 +151,12 @@
                 
                 // Parse definitions after content is loaded
                 const postContent = document.querySelector('.post-page');
-                if (postContent && window.parseDefinitions) {
-                    window.parseDefinitions(postContent);
+                if (postContent) {
+                    if (window.TooltipSystem && window.TooltipSystem.parseDefinitions) {
+                        window.TooltipSystem.parseDefinitions(postContent);
+                    } else if (window.parseDefinitions) {
+                        window.parseDefinitions(postContent);
+                    }
                 }
                 
             } catch (error) {
@@ -147,12 +216,12 @@
             
             // Add genre classes based on tags
             tags.forEach(tag => {
-                const normalizedTag = normalizeTag(tag);
+                const normalizedTag = window.ColorUtils ? window.ColorUtils.normaliseTag(tag) : normalizeTag(tag);
                 postPage.classList.add(normalizedTag);
             });
             
             // Set CSS custom property for genre colors and gradients
-            const normalizedTags = tags.map(tag => normalizeTag(tag));
+            const normalizedTags = tags.map(tag => window.ColorUtils ? window.ColorUtils.normaliseTag(tag) : normalizeTag(tag));
             const colorMap = {
                 'economics': '#4caf50',
                 'neuroscience': '#ba68c8',
@@ -160,7 +229,7 @@
                 'other': '#ffb74d'
             };
             
-            const genreColors = generateGenreColors(normalizedTags, colorMap);
+            const genreColors = window.ColorUtils ? window.ColorUtils.generateGenreColors(normalizedTags, colorMap) : generateGenreColors(normalizedTags, colorMap);
             postPage.style.setProperty('--genre-color', genreColors.color);
             postPage.style.setProperty('--genre-gradient', genreColors.gradient);
         }
@@ -221,7 +290,7 @@
         // Apply custom styling to markdown HTML
         function styleMarkdownContent(html, tags) {
             const genreTags = tags.map(tag => {
-                const normalizedTag = normalizeTag(tag);
+                const normalizedTag = window.ColorUtils ? window.ColorUtils.normaliseTag(tag) : normalizeTag(tag);
                 const displayName = tag.charAt(0).toUpperCase() + tag.slice(1);
                 return `<div class="genre-tag ${normalizedTag}"><span>${displayName}</span></div>`;
             }).join('');
@@ -247,8 +316,10 @@
         loadPost(postName);
         
         // Setup back-to-home transition after page loads
-        if (window.attachBackToHomeTransition) {
-            attachBackToHomeTransition();
+        if (window.PageTransitions && window.PageTransitions.attachBackToHomeTransition) {
+            window.PageTransitions.attachBackToHomeTransition();
+        } else if (window.attachBackToHomeTransition) {
+            window.attachBackToHomeTransition();
         }
 
 
