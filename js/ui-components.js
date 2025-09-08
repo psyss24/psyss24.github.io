@@ -1,7 +1,7 @@
-// UI Components Module
-// Handles reading progress bar, read-more arrows, reading time calculation, and mobile layouts
+// ui components module
+// handles reading progress bar, read-more arrows, reading time calculation, and mobile layouts
 
-// Reading Progress Bar
+// reading progress bar
 function createReadingProgressBar() {
     if (document.querySelector('.reading-progress-bar')) return;
     const bar = document.createElement('div');
@@ -67,26 +67,57 @@ function addReadMoreArrows() {
     });
 }
 
-// Reading time calculation
+// reading time calculation
 function insertReadingTime() {
     const postPage = document.querySelector('.post-page');
     if (!postPage) return;
     const timeElem = postPage.querySelector('.reading-time');
     if (!timeElem) return;
-    // Find the main content (excluding .reading-time and .loading)
+    
+    // get the raw markdown content if available, otherwise use processed html
     let text = '';
-    postPage.childNodes.forEach(node => {
-        if (node.nodeType === Node.ELEMENT_NODE && (node.classList.contains('reading-time') || node.classList.contains('loading'))) return;
-        if (node.nodeType === Node.TEXT_NODE) text += node.textContent + ' ';
-        if (node.nodeType === Node.ELEMENT_NODE) text += node.innerText + ' ';
-    });
-    // Fallback: if nothing, try innerText
-    if (!text.trim()) text = postPage.innerText || '';
-    const words = text.trim().split(/\s+/).length;
-    const minutes = Math.max(1, Math.round(words / 200));
+    const postContent = document.getElementById('post-content');
+    
+    if (postContent && postContent.dataset.rawMarkdown) {
+        // use raw markdown if available
+        text = postContent.dataset.rawMarkdown;
+        
+        // remove reference link definitions (lines like [1]: https://example.com)
+        text = text.replace(/^\[\d+\]:\s*.+$/gm, '');
+        
+        // remove tooltip definitions (lines like *[API]: Application Programming Interface)
+        text = text.replace(/^\*\[[^\]]+\]:\s*.+$/gm, '');
+        
+        // remove tag definitions at the start
+        text = text.replace(/^\{[^}]+\}\s*\n?/m, '');
+        
+        // remove markdown formatting for more accurate word count
+        text = text
+            .replace(/#+\s/g, '') // remove heading markers
+            .replace(/\*\*(.+?)\*\*/g, '$1') //  bold
+            .replace(/\*(.+?)\*/g, '$1') //  italic
+            .replace(/`(.+?)`/g, '$1') // inline code
+            .replace(/```[\s\S]*?```/g, '') // code blocks
+            .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // keep link text, remove url
+            .replace(/^\s*[-*+]\s/gm, '') // list markers
+            .replace(/^\s*\d+\.\s/gm, '') // numbered list markers
+            .replace(/^>\s*/gm, '') // blockquote markers
+    } else {
+        // fallback to processed html content
+        const clone = postPage.cloneNode(true);
+        
+        // remove elements we don't want to count
+        clone.querySelectorAll('.reading-time, .loading, .post-meta-row, .tag-container, .definition-tooltip').forEach(el => el.remove());
+        
+        text = clone.innerText || '';
+    }
+    
+    // calculate reading time
+    const words = text.trim().split(/\s+/).filter(word => word.length > 0).length;
+    const minutes = Math.max(1, Math.round(words / 250));
     timeElem.textContent = `Estimated read: ${minutes} min${minutes > 1 ? 's' : ''}`;
     
-    // Check mobile layout spacing after inserting reading time
+    // check mobile layout spacing after inserting reading time
     setTimeout(() => {
         if (window.CoreUtils && window.CoreUtils.checkMobileMetaRowLayout) {
             window.CoreUtils.checkMobileMetaRowLayout();
@@ -161,10 +192,7 @@ function initUIComponents() {
     // Animate post page on load
     animatePostPageOnLoad();
     
-    // Insert reading time for post pages
-    if (window.location.pathname.endsWith('/posts/post.html')) {
-        setTimeout(insertReadingTime, 500);
-    }
+    // Note: Reading time is now calculated immediately when post loads in post.html
     
     // Mobile tooltip handlers
     setTimeout(attachMobileTooltipHandler, 200);

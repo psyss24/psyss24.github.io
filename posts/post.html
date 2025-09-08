@@ -144,10 +144,19 @@
                 
                 // Apply custom styling to parsed HTML
                 const styledHTML = styleMarkdownContent(html, tags);
-                document.getElementById('post-content').innerHTML = styledHTML;
+                const postContentElement = document.getElementById('post-content');
+                postContentElement.innerHTML = styledHTML;
+                
+                // Store raw markdown for reading time calculation
+                postContentElement.dataset.rawMarkdown = markdown;
                 
                 // Apply genre colors to post page
                 applyGenreColors(tags);
+                
+                // Calculate and insert reading time immediately
+                if (window.UIComponents && window.UIComponents.insertReadingTime) {
+                    window.UIComponents.insertReadingTime();
+                }
                 
                 // Parse definitions after content is loaded
                 const postContent = document.querySelector('.post-page');
