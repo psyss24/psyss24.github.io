@@ -36,18 +36,8 @@ body.dark-theme.post-body {
   --dot-opacity: 0.22;
 }
 
-/* === LAYOUT COMPONENTS === */
+/* Header styles */
 
-/* --- Container --- */
-.container {
-    position: relative;
-    max-width: 900px;
-    width: 80%;
-    margin: 0 auto;
-    padding: 1rem 2rem 4rem 2rem;
-}
-
-/* --- Header & Navigation --- */
 header {
   position: relative;
   display: flex;
@@ -210,7 +200,6 @@ body.dark-theme .reading-time.multiple-tags {
 }
 
 
-/* === DARK THEME VARIABLES === */
 body.dark-theme {
     --primary-bg: #181a1b;
     --secondary-bg: #232526;
@@ -220,7 +209,20 @@ body.dark-theme {
     --muted-text: #a0a4ab;
     --hover-bg: #232526;
     --subtle-shadow: rgba(0,0,0,0.25);
+
+
     --card-gradient: linear-gradient(135deg, #232526 0%, #23272a 60%, #181a1b 100%);
+}
+/* --- DARK THEME --- */
+body.dark-theme {
+    --primary-bg: #181a1b;
+    --secondary-bg: #232526;
+    --text-color: #e3e6eb;
+    --accent-color: #e3e6eb;
+    --border-color: #232526;
+    --muted-text: #a0a4ab;
+    --hover-bg: #232526;
+    --subtle-shadow: rgba(0,0,0,0.25);
 }
 
 @media (max-width: 768px) {
@@ -253,14 +255,20 @@ body.dark-theme {
 }
 
 
-/* === FONT IMPORTS === */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap');
 
-/* === ROOT VARIABLES === */
+
+/* Light and Dark Theme Variables */
+
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+
 :root {
-    /* Colors - Light Theme */
     --primary-bg: #f8f9fa;
     --secondary-bg: #fdfdfd;
     --text-color: #5a6169;
@@ -270,26 +278,32 @@ body.dark-theme {
     --hover-bg: #f5f7fa;
     --subtle-shadow: rgba(60, 64, 67, 0.05);
 
-    /* Typography */
     --font-headline: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     --font-body: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     --font-mono: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
 }
 
-/* === BASE STYLES === */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html {
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
+
 
 
 /* Removed duplicate/old dot pattern background-image rules. Only the four encodings at the top remain. */
+
+
+.container {
+    position: relative;
+    max-width: 900px;
+    width: 80%;
+    margin: 0 auto;
+    padding: 1rem 2rem 4rem 2rem;
+}
 
 
 header {
@@ -376,7 +390,7 @@ header h1 {
     color: var(--accent-color);
 }
 
-/* --- Navigation Tabs --- */
+
 .nav-tabs {
     display: flex;
     gap: 2rem;
@@ -406,9 +420,7 @@ header h1 {
     color: var(--accent-color);
 }
 
-/* === CARD COMPONENTS === */
 
-/* --- Project Cards --- */
 .project-card {
     background: var(--card-gradient, var(--secondary-bg));
     padding: 1.5rem;
@@ -517,7 +529,7 @@ body.dark-theme .project-icon {
     font-weight: 400;
 }
 
-/* --- Post Cards --- */
+
 .post {
     background: var(--card-gradient, linear-gradient(135deg, var(--secondary-bg) 0%, #ffffff 100%));
     padding: 1.5rem 1.5rem 0.75rem 1.5rem;
@@ -696,9 +708,7 @@ body.dark-theme .project-icon {
     line-height: 1; /* Tighter line-height for tags */
 }
 
-/* === TYPOGRAPHY & CONTENT === */
 
-/* --- Code Blocks --- */
 code, pre {
     font-family: var(--font-mono);
     font-feature-settings: 'kern' 1, 'liga' 1;
@@ -729,14 +739,14 @@ pre code {
     font-size: 0.875rem;
 }
 
-/* --- Headings --- */
+
 h1, h2, h3, h4, h5, h6 {
     font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* --- Tab Content --- */
+
 .tab-content {
     display: none;
 }
@@ -745,7 +755,7 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
 }
 
-/* --- Navigation Links --- */
+
 .back-to-home {
     display: inline-flex;
     align-items: center;
@@ -771,7 +781,7 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateX(-3px);
 }
 
-/* === POST PAGE STYLES === */
+/* Post Page Styles */
 .post-page {
     background: none;
     border: none;
