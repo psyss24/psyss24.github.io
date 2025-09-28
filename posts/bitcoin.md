@@ -80,7 +80,7 @@ Bitcoin had grown into a $2.4 trillion market. It was no longer just a cypherpun
 > Bitcoin turned out not to be a currency. It is an electronic tulip perhaps; but not a currency.
 > <cite>Nassim Nicholas Taleb
 
-Taleb’s polemic assessment pinpoints Bitcoins fundamental flaw with uncompromising precision. Despite the hype and fanfare, Bitcoin has not delivered on the primary ambition articulated in its white paper: to serve as a dependable medium for everyday transactions and commerce.
+Taleb’s assessment pinpoints Bitcoins fundamental flaw with uncompromising precision. Despite the hype and fanfare, Bitcoin has not delivered on the primary ambition articulated in its white paper: to serve as a dependable medium for everyday transactions and commerce.
 
 Rent is not set in Bitcoin, wages are not paid in Bitcoin, grocery receipts do not show BTC because everyday transactions are still conducted in traditional currencies. Volatility destroys Bitcoin’s credibility as money. A currency cannot swing ten percent in a day and still be called a currency. This instability is not a passing stage of adolescence; it is structural, baked into its fixed supply system that reacts violently to speculative flows. Bitcoin’s scarcity makes it a playground for traders rather than a foundation for commerce.
 
