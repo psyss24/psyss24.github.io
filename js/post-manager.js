@@ -17,7 +17,7 @@ function extractExcerptFromMarkdown(markdown) {
                 !line.startsWith('#') && 
                 !line.match(/^\*[^*]+\*$/) && // skip lines that are entirely italic
                 line.length > 50) { // ensure it's substantial content
-                return line.substring(0, 150) + (line.length > 150 ? '...' : '');
+                return line.substring(0, 250) + (line.length > 250 ? '...' : '');
             }
         }
     }
