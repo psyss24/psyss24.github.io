@@ -2,9 +2,8 @@
 
 # The Movement of Money
 
-I examine the evolution of money from tangible commodities like cattle and grain to abstract digital systems, exploring how societies transitioned from inherent value to symbolic representations of trust and why this transformation was both inevitable and necessary.
+I explore the progression and abstraction of money from inherent value to symbolic.
 
-*The substance of money changes, what doesn't is the trust that gives it life*
 
 ## But what even is money, exactly?
 

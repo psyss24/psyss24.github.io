@@ -1,27 +1,31 @@
 // post management module
 // handles post loading, card creation, and markdown processing
 
-// extract excerpt from markdown (italic text after title)
+// extract excerpt from markdown
 function extractExcerptFromMarkdown(markdown) {
     // remove tags first
     const cleanMarkdown = markdown.replace(/^\{[^}]+\}\s*\n?/m, '');
     
-    // find first italic text (between * or _)
-    const excerptMatch = cleanMarkdown.match(/\*([^*]+)\*/);
-    if (excerptMatch) {
-        return excerptMatch[1].trim();
-    }
-    
-    // fallback to first paragraph after title
+    // first, look for intro paragraph (first substantial paragraph after title)
     const lines = cleanMarkdown.split('\n');
     const titleIndex = lines.findIndex(line => line.startsWith('# '));
     if (titleIndex !== -1) {
         for (let i = titleIndex + 1; i < lines.length; i++) {
             const line = lines[i].trim();
-            if (line && !line.startsWith('#')) {
-                return line.substring(0, 120) + (line.length > 120 ? '...' : '');
+            // skip empty lines, headers, and italic-only lines
+            if (line && 
+                !line.startsWith('#') && 
+                !line.match(/^\*[^*]+\*$/) && // skip lines that are entirely italic
+                line.length > 50) { // ensure it's substantial content
+                return line.substring(0, 150) + (line.length > 150 ? '...' : '');
             }
         }
+    }
+    
+    // fallback to first italic text if no substantial paragraph found
+    const excerptMatch = cleanMarkdown.match(/\*([^*]+)\*/);
+    if (excerptMatch) {
+        return excerptMatch[1].trim();
     }
     
     return 'No excerpt available';
