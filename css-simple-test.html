@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple CSS Import Test</title>
+    
+    <!-- Test: Direct CSS file loading -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    
+    <style>
+        .debug {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: black;
+            color: white;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 10000;
+            border-radius: 4px;
+        }
+        .success { background: green !important; }
+        .error { background: red !important; }
+    </style>
+</head>
+<body>
+    <div class="debug" id="debug">Testing CSS Loading...</div>
+    
+    <div style="padding: 20px;">
+        <h1 style="font-family: var(--font-headline, Arial); color: var(--accent-color, red);">
+            Simple CSS Test
+        </h1>
+        
+        <p style="color: var(--text-color, blue); font-family: var(--font-body, Arial);">
+            If this text shows correct colors and fonts, CSS variables are loading.
+        </p>
+        
+        <div style="background: var(--secondary-bg, yellow); padding: 10px; margin: 10px 0; border: 1px solid var(--border-color, red);">
+            Background should be white/light (light mode) or dark (dark mode)
+        </div>
+    </div>
+
+    <script>
+        function testCSS() {
+            const debug = document.getElementById('debug');
+            const style = getComputedStyle(document.documentElement);
+            
+            const primaryBg = style.getPropertyValue('--primary-bg').trim();
+            const accentColor = style.getPropertyValue('--accent-color').trim();
+            const fontHeadline = style.getPropertyValue('--font-headline').trim();
+            
+            console.log('CSS Variables:', {
+                primaryBg,
+                accentColor, 
+                fontHeadline
+            });
+            
+            if (primaryBg && accentColor && fontHeadline) {
+                debug.textContent = `✓ CSS Loaded: ${primaryBg}`;
+                debug.classList.add('success');
+            } else {
+                debug.textContent = `✗ CSS Failed - Check Network tab`;
+                debug.classList.add('error');
+            }
+        }
+        
+        // Test immediately and after load
+        testCSS();
+        window.addEventListener('load', testCSS);
+    </script>
+</body>
+</html>

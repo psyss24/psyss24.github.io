@@ -1,0 +1,52 @@
+/* === CSS MODULE SYSTEM === */
+/* 
+ * Modular CSS Architecture
+ * Entry point that imports all CSS modules in correct order
+ * 
+ * Load Order:
+ * 1. Font imports (external dependencies first)
+ * 2. Variables (CSS custom properties)
+ * 3. Base styles (reset, typography)
+ * 4. Layout components
+ * 5. UI components  
+ * 6. Feature-specific modules
+ * 7. Responsive styles
+ * 8. Animations & effects
+ * 9. Theme overrides
+ */
+
+/* === FONT IMPORTS === */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap');
+
+/* === CORE MODULES === */
+@import 'variables.css';      /* CSS custom properties */
+@import 'base.css';           /* Reset, typography, body */
+@import 'layout.css';         /* Container, header, navigation */
+@import 'components.css';     /* Cards, buttons, reusable UI */
+
+/* === FEATURE MODULES === */
+@import 'genre-system.css';   /* Genre colors, tags, reading time */
+@import 'post-page.css';      /* Post-specific styles */
+@import 'tooltip-system.css'; /* Definition terms & tooltips */
+
+/* === RESPONSIVE & EFFECTS === */
+@import 'responsive.css';     /* Media queries (load late for specificity) */
+@import 'animations.css';     /* Transitions & page effects */
+@import 'theme-dark.css';     /* Dark theme overrides (must load last) */
+
+/* === CRITICAL INLINE STYLES === */
+/* Only styles that must be inline for performance */
+
+/* Prevent flash of unstyled content */
+body {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+/* Essential layout to prevent CLS (Cumulative Layout Shift) */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}

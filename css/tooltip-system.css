@@ -1,0 +1,196 @@
+/* ===================================
+   TOOLTIP SYSTEM MODULE
+   ===================================
+   
+   Definition terms, tooltips, hover states.
+   Depends on: variables.css, base.css, genre-system.css
+   
+   Contents:
+   - Definition terms
+   - Tooltip positioning and styling
+   - Hover interactions
+   - Genre-specific tooltip colors
+*/
+
+/* === DEFINITION TERMS === */
+.definition-term {
+    position: relative;
+    background: var(--genre-gradient, var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 500;
+    padding: 0.1em 0.3em;
+    margin: 0 0.1em;
+    border-radius: 4px;
+    transition: -webkit-text-fill-color 0.3s cubic-bezier(0.4,0,0.2,1), color 0.3s cubic-bezier(0.4,0,0.2,1), background 0.3s cubic-bezier(0.4,0,0.2,1);
+    display: inline;
+    text-decoration: none;
+    white-space: nowrap;
+    max-width: none;
+    width: auto;
+}
+
+.definition-term::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--hover-bg);
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: -1;
+    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+.definition-term:hover {
+    color: var(--text-color);
+    -webkit-text-fill-color: var(--text-color);
+}
+
+/* Invisible bridge to prevent tooltip from disappearing */
+.definition-term::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 0.5rem;
+    height: 100%;
+    background: transparent;
+    z-index: 999;
+}
+
+/* === TOOLTIPS === */
+.definition-tooltip {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    margin-left: 0.5rem;
+    background: var(--secondary-bg);
+    color: var(--text-color);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    font-weight: 400;
+    font-family: var(--font-body);
+    max-width: 400px;
+    min-width: 280px;
+    width: max-content;
+    text-align: left;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    z-index: 1000;
+    pointer-events: none;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    white-space: normal;
+}
+
+.definition-tooltip::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: var(--genre-gradient, #4caf50);
+    border-radius: 8px 0 0 8px;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+.definition-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -6px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-right: 6px solid var(--secondary-bg);
+    filter: drop-shadow(-1px 0 2px rgba(0, 0, 0, 0.04));
+    z-index: 1;
+}
+
+/* === TOOLTIP INTERACTIONS === */
+.definition-term:hover .definition-tooltip,
+.definition-tooltip:hover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%);
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: auto;
+}
+
+/* === POST PAGE TOOLTIP ADJUSTMENTS === */
+.post-page .definition-tooltip {
+    background: var(--secondary-bg);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+.post-page .definition-tooltip::before {
+    background: var(--genre-gradient, #4caf50);
+}
+
+.post-page .definition-tooltip::after {
+    border-right-color: var(--secondary-bg);
+}
+
+/* === TOOLTIP BELOW POSITIONING === */
+.definition-tooltip.tooltip-below {
+    left: 0 !important;
+    top: 100% !important;
+    transform: translateY(0.5rem) !important;
+    margin-left: 0 !important;
+    margin-top: 0 !important;
+}
+
+.definition-tooltip.tooltip-below::after {
+    /* Arrow pointing up when tooltip is below */
+    top: -5px !important;
+    left: 20px !important;
+    transform: none !important;
+    border-left: 5px solid transparent !important;
+    border-right: 5px solid transparent !important;
+    border-bottom: 5px solid var(--secondary-bg) !important;
+    border-top: none !important;
+    border-right: none !important;
+}
+
+.definition-tooltip.tooltip-below::before {
+    /* Keep the left accent line for below positioning */
+    top: 0 !important;
+    left: 0 !important;
+    width: 2px !important;
+    height: 100% !important;
+    background: var(--genre-gradient, #4caf50) !important;
+    border-radius: 8px 0 0 8px !important;
+    opacity: 0.8 !important;
+}
+
+/* === GENRE-SPECIFIC TOOLTIP COLORS === */
+.economics .definition-term {
+    --genre-color-rgb: 76, 175, 80;
+}
+
+.technology .definition-term {
+    --genre-color-rgb: 100, 181, 246;
+}
+
+.philosophy .definition-term {
+    --genre-color-rgb: 186, 104, 200;
+}
+
+.personal .definition-term {
+    --genre-color-rgb: 255, 183, 77;
+}
+
+.other .definition-term {
+    --genre-color-rgb: 255, 183, 77;
+}

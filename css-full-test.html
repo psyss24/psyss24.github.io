@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modular CSS Complete Test</title>
+    
+    <!-- Load our modular CSS system -->
+    <link rel="stylesheet" href="css/main-modular.css">
+    
+    <style>
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .test-card {
+            padding: 1.5rem;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: var(--font-body);
+        }
+        .status-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--accent-color);
+            color: var(--secondary-bg);
+            padding: 0.5rem;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 14px;
+            z-index: 10000;
+        }
+        .genre-demo {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+            border-left: 4px solid var(--genre-color, #ccc);
+        }
+    </style>
+</head>
+<body>
+    <div class="status-bar" id="statusBar">Loading CSS modules...</div>
+    
+    <div class="container">
+        <h1>🎯 CSS Modular System - Full Test</h1>
+        
+        <div class="test-grid">
+            <div class="test-card">
+                <h2>Typography Test</h2>
+                <p style="font-family: var(--font-headline);">Headline Font (Inter)</p>
+                <p style="font-family: var(--font-body);">Body Font (Work Sans)</p>
+                <p style="font-family: var(--font-ui);">UI Font (Inter)</p>
+                <code style="font-family: var(--font-mono);">Monospace (JetBrains)</code>
+            </div>
+            
+            <div class="test-card">
+                <h2>Color System</h2>
+                <div style="background: var(--primary-bg); padding: 0.5rem; margin: 0.25rem 0; border: 1px solid var(--border-color);">Primary Background</div>
+                <div style="background: var(--secondary-bg); padding: 0.5rem; margin: 0.25rem 0; border: 1px solid var(--border-color);">Secondary Background</div>
+                <div style="background: var(--hover-bg); padding: 0.5rem; margin: 0.25rem 0; border: 1px solid var(--border-color);">Hover Background</div>
+                <p style="color: var(--text-color);">Text Color</p>
+                <p style="color: var(--accent-color);">Accent Color</p>
+                <p style="color: var(--muted-text);">Muted Text</p>
+            </div>
+            
+            <div class="test-card">
+                <h2>Genre System</h2>
+                <div class="post economics">
+                    <div class="genre-demo">Economics: Should be green</div>
+                </div>
+                <div class="post technology">
+                    <div class="genre-demo">Technology: Should be blue</div>
+                </div>
+                <div class="post neuroscience">
+                    <div class="genre-demo">Neuroscience: Should be purple</div>
+                </div>
+                <div class="post other">
+                    <div class="genre-demo">Other: Should be orange</div>
+                </div>
+            </div>
+            
+            <div class="test-card">
+                <h2>Interactive Tests</h2>
+                <button onclick="toggleTheme()" style="
+                    background: var(--hover-bg);
+                    color: var(--accent-color);
+                    border: 1px solid var(--border-color);
+                    padding: 0.75rem 1.5rem;
+                    border-radius: 4px;
+                    font-family: var(--font-ui);
+                    cursor: pointer;
+                    margin: 0.5rem 0;
+                    transition: all 0.2s ease;
+                " onmouseover="this.style.background='var(--accent-color)'; this.style.color='var(--secondary-bg)'" onmouseout="this.style.background='var(--hover-bg)'; this.style.color='var(--accent-color)'">
+                    Toggle Dark Theme
+                </button>
+                
+                <p id="themeStatus">Current: Light Theme</p>
+            </div>
+        </div>
+        
+        <div style="margin-top: 3rem; padding: 2rem; background: var(--hover-bg); border-radius: 8px;">
+            <h3>✅ Module Status</h3>
+            <div id="moduleStatus" style="font-family: var(--font-mono); font-size: 14px; line-height: 1.6;">
+                <div>📁 variables.css - <span id="varsStatus">Loading...</span></div>
+                <div>📁 base.css - <span id="baseStatus">Loading...</span></div>
+                <div>📁 layout.css - <span id="layoutStatus">Loading...</span></div>
+                <div>📁 components.css - <span id="compStatus">Loading...</span></div>
+                <div>📁 animations.css - <span id="animStatus">Loading...</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isDark = false;
+        
+        function toggleTheme() {
+            isDark = !isDark;
+            document.body.classList.toggle('dark-theme');
+            document.getElementById('themeStatus').textContent = 
+                `Current: ${isDark ? 'Dark' : 'Light'} Theme`;
+            
+            // Re-test modules after theme change
+            setTimeout(testModules, 100);
+        }
+        
+        function testModules() {
+            const style = getComputedStyle(document.documentElement);
+            const statusBar = document.getElementById('statusBar');
+            
+            // Test variables module
+            const primaryBg = style.getPropertyValue('--primary-bg').trim();
+            const fontHeadline = style.getPropertyValue('--font-headline').trim();
+            document.getElementById('varsStatus').textContent = 
+                (primaryBg && fontHeadline) ? '✅ Loaded' : '❌ Failed';
+            
+            // Test base module (check if body styles applied)
+            const bodyStyle = getComputedStyle(document.body);
+            const bodyFont = bodyStyle.fontFamily;
+            document.getElementById('baseStatus').textContent = 
+                bodyFont.includes('Work Sans') ? '✅ Loaded' : '❌ Failed';
+            
+            // Test layout module (check if container exists)
+            const container = document.querySelector('.container');
+            const containerStyle = container ? getComputedStyle(container) : null;
+            document.getElementById('layoutStatus').textContent = 
+                (containerStyle && containerStyle.maxWidth) ? '✅ Loaded' : '❌ Failed';
+            
+            // Test components and animations
+            document.getElementById('compStatus').textContent = '✅ Placeholder';
+            document.getElementById('animStatus').textContent = '✅ Placeholder';
+            
+            // Test genre colors
+            const economicsEl = document.querySelector('.economics .genre-demo');
+            const economicsStyle = economicsEl ? getComputedStyle(economicsEl) : null;
+            const genreColor = economicsStyle ? economicsStyle.getPropertyValue('--genre-color').trim() : '';
+            
+            const allWorking = primaryBg && fontHeadline && bodyFont.includes('Work Sans') && genreColor;
+            
+            statusBar.textContent = allWorking ? 
+                '🎉 All CSS modules loaded successfully!' : 
+                '⚠️  Some CSS modules may have issues - check console';
+            statusBar.style.background = allWorking ? 'green' : 'orange';
+            
+            console.log('Module Test Results:', {
+                variables: { primaryBg, fontHeadline },
+                base: { bodyFont },
+                genre: { genreColor },
+                theme: isDark ? 'dark' : 'light'
+            });
+        }
+        
+        // Run tests when loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            testModules();
+            
+            // Test genre colors specifically
+            const economicsEl = document.querySelector('.economics');
+            if (economicsEl) {
+                const style = getComputedStyle(economicsEl);
+                console.log('Economics element genre color:', style.getPropertyValue('--genre-color'));
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+/* ===================================
+   ANIMATIONS MODULE
+   ===================================
+   
+   Transitions, transforms, and animations.
+   Depends on: variables.css
+*/
+
+/* === PAGE TRANSITIONS === */
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.fade-in {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* Dot transition overlay */
+.dot-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    pointer-events: none;
+    background: var(--primary-bg);
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dot-transition-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9998;
+    pointer-events: none;
+    transition: opacity 0.8s cubic-bezier(0.2, 0, 0.2, 1), 
+                transform 0.8s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+/* === HOVER EFFECTS === */
+/* Smooth page navigation */
+body {
+    transition: opacity 0.2s ease;
+}
+
+/* Post links hover effect enhancement for transition feedback */
+.post h2 a {
+    transition: all 0.3s ease;
+}
+
+.post h2 a:hover {
+    transform: translateX(2px);
+}
+
+.read-more {
+    transition: all 0.3s ease;
+}
+
+.read-more:hover {
+    transform: translateX(3px);
+}
+
+/* === PAGE TRANSITIONS === */
+.dot-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    pointer-events: none;
+    background: var(--primary-bg);
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dot-transition-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9998;
+    pointer-events: none;
+    transition: opacity 0.8s cubic-bezier(0.2, 0, 0.2, 1), 
+                transform 0.8s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+/* === HOVER EFFECTS === */
+body {
+    transition: opacity 0.2s ease;
+}
+
+/* More animation styles will be extracted here */

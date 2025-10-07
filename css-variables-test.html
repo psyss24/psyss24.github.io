@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Variables Migration Test</title>
+    
+    <!-- Test: Load modular CSS with just variables extracted -->
+    <link rel="stylesheet" href="css/main-modular.css">
+    
+    <style>
+        .comparison {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .test-section {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--secondary-bg);
+        }
+        .status {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: var(--accent-color);
+            color: var(--secondary-bg);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            z-index: 10000;
+        }
+        .success { background: green !important; }
+        .warning { background: orange !important; }
+        .error { background: red !important; }
+    </style>
+</head>
+<body>
+    <div class="status" id="status">Testing Variables...</div>
+    
+    <div class="container">
+        <h1 style="font-family: var(--font-headline); color: var(--accent-color); margin-bottom: 2rem;">
+            CSS Variables Migration Test
+        </h1>
+        
+        <div class="test-section">
+            <h2>Core Variables Test</h2>
+            <div style="color: var(--text-color); font-family: var(--font-body);">
+                <p><strong>Primary BG:</strong> <span style="background: var(--primary-bg); padding: 4px 8px; border: 1px solid var(--border-color);">var(--primary-bg)</span></p>
+                <p><strong>Text Color:</strong> <span style="color: var(--text-color);">var(--text-color)</span></p>
+                <p><strong>Accent:</strong> <span style="color: var(--accent-color);">var(--accent-color)</span></p>
+                <p><strong>Font Headline:</strong> <span style="font-family: var(--font-headline);">var(--font-headline)</span></p>
+                <p><strong>Font Body:</strong> <span style="font-family: var(--font-body);">var(--font-body)</span></p>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Genre Colors Test</h2>
+            <div class="post economics" style="padding: 1rem; margin: 0.5rem 0; background: var(--hover-bg); border-left: 4px solid var(--genre-color, red);">
+                <p style="color: var(--genre-color);">Economics Genre: var(--genre-color) should be green</p>
+            </div>
+            <div class="post technology" style="padding: 1rem; margin: 0.5rem 0; background: var(--hover-bg); border-left: 4px solid var(--genre-color, red);">
+                <p style="color: var(--genre-color);">Technology Genre: var(--genre-color) should be blue</p>
+            </div>
+        </div>
+        
+        <button onclick="toggleTheme()" style="
+            background: var(--hover-bg);
+            color: var(--accent-color);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-family: var(--font-ui);
+            cursor: pointer;
+            margin: 1rem 0;
+        ">
+            Toggle Dark Theme (Test Variables)
+        </button>
+        
+        <div id="results" style="margin-top: 2rem; padding: 1rem; background: var(--hover-bg); border-radius: 8px;">
+            <h3>Test Results:</h3>
+            <ul id="resultsList"></ul>
+        </div>
+    </div>
+
+    <script>
+        function runVariableTests() {
+            const results = [];
+            const status = document.getElementById('status');
+            const resultsList = document.getElementById('resultsList');
+            const style = getComputedStyle(document.documentElement);
+            
+            // Test core variables
+            const tests = [
+                { name: 'Primary BG', var: '--primary-bg', expected: '#f8f9fa' },
+                { name: 'Text Color', var: '--text-color', expected: '#5a6169' },
+                { name: 'Accent Color', var: '--accent-color', expected: '#3c4043' },
+                { name: 'Font Headline', var: '--font-headline', contains: 'Inter' },
+                { name: 'Font Body', var: '--font-body', contains: 'Work Sans' }
+            ];
+            
+            let passed = 0;
+            let total = tests.length;
+            
+            tests.forEach(test => {
+                const value = style.getPropertyValue(test.var).trim();
+                let success = false;
+                
+                if (test.expected) {
+                    success = value === test.expected;
+                } else if (test.contains) {
+                    success = value.includes(test.contains);
+                }
+                
+                results.push({
+                    name: test.name,
+                    expected: test.expected || `contains "${test.contains}"`,
+                    actual: value,
+                    success
+                });
+                
+                if (success) passed++;
+            });
+            
+            // Test genre colors
+            const economicsEl = document.querySelector('.economics');
+            const economicsStyle = getComputedStyle(economicsEl);
+            const genreColor = economicsStyle.getPropertyValue('--genre-color').trim();
+            
+            results.push({
+                name: 'Economics Genre Color',
+                expected: '#4caf50',
+                actual: genreColor,
+                success: genreColor === '#4caf50'
+            });
+            
+            if (genreColor === '#4caf50') passed++;
+            total++;
+            
+            // Update status
+            if (passed === total) {
+                status.textContent = `✓ All ${total} tests passed!`;
+                status.classList.add('success');
+            } else if (passed > total * 0.7) {
+                status.textContent = `⚠ ${passed}/${total} tests passed`;
+                status.classList.add('warning');
+            } else {
+                status.textContent = `✗ ${passed}/${total} tests failed`;
+                status.classList.add('error');
+            }
+            
+            // Display results
+            resultsList.innerHTML = results.map(result => 
+                `<li style="color: ${result.success ? 'green' : 'red'}">
+                    <strong>${result.name}:</strong> 
+                    ${result.success ? '✓' : '✗'} 
+                    Expected: ${result.expected}, Got: ${result.actual || 'undefined'}
+                </li>`
+            ).join('');
+            
+            console.log('Variable Test Results:', results);
+        }
+        
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            setTimeout(runVariableTests, 100); // Re-test after theme change
+        }
+        
+        // Run tests when loaded
+        document.addEventListener('DOMContentLoaded', runVariableTests);
+    </script>
+</body>
+</html>

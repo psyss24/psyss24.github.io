@@ -1,0 +1,283 @@
+/* ===================================
+   COMPONENTS MODULE
+   ===================================
+   
+   Reusable UI components like cards, buttons, tags.
+   Depends on: variables.css, base.css
+   
+   Contents:
+   - Project cards
+   - Post cards  
+   - Post layout components
+   - Interactive elements
+*/
+
+/* === PROJECT CARDS === */
+.project-card {
+    background: var(--card-gradient, var(--secondary-bg));
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.project-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px var(--subtle-shadow);
+    border-color: var(--muted-text);
+}
+
+.project-icon {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    background: none;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    font-weight: 300;
+}
+
+.project-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.project-card h3 {
+    font-family: var(--font-headline);
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+}
+
+.project-card p {
+    color: var(--muted-text);
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.project-tag {
+    background-color: var(--hover-bg);
+    color: var(--accent-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    border: 1px solid var(--border-color);
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.project-link {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+}
+
+.project-link:hover {
+    color: var(--text-color);
+}
+
+.project-status {
+    font-size: 11px;
+    color: var(--muted-text);
+    font-weight: 400;
+}
+
+/* === POST CARDS === */
+.post {
+    background: var(--card-gradient, linear-gradient(135deg, var(--secondary-bg) 0%, #ffffff 100%));
+    padding: 1.5rem 1.5rem 0.75rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 16px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(60, 64, 67, 0.02);
+}
+
+.post:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(60, 64, 67, 0.04);
+}
+
+.post h2 {
+    font-family: var(--font-headline);
+    color: var(--accent-color);
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    font-feature-settings: 'kern' 1, 'ss01' 1;
+    position: relative;
+}
+
+.post h2::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    width: 24px;
+    height: 2px;
+    background: var(--genre-gradient, var(--accent-color));
+    opacity: 0.3;
+    transition: all 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.post:hover h2::after {
+    width: 100%;
+    opacity: 0.5;
+}
+
+.post h2 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.post h2 a:hover {
+    color: var(--text-color);
+}
+
+.post-caption {
+    color: var(--muted-text);
+    font-size: 13px;
+    font-style: italic;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    opacity: 0.75;
+    position: relative;
+    padding-left: 1rem;
+}
+
+.post-caption::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    width: 3px;
+    height: 3px;
+    background: var(--muted-text);
+    border-radius: 50%;
+    opacity: 0.4;
+}
+
+.post p {
+    color: var(--text-color);
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 0.6rem;
+    font-weight: 400;
+    padding-right: 120px; /* Make space for tags on the right */
+    position: relative;
+}
+
+.post p:first-of-type {
+    margin-top: 0.6rem;
+}
+
+.post-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 0.5rem;
+    gap: 0;
+}
+
+.post-tags {
+    position: absolute;
+    top: 0.6rem; /* Align with first line of paragraph text */
+    right: 0.5rem; /* Closer to the right edge */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: flex-start;
+    justify-content: flex-end;
+    max-width: 100px; /* Constrain width to prevent overlap */
+}
+
+.post-footer .read-more {
+    align-self: flex-start;
+    margin-top: 0;
+}
+
+.post-tags {
+    position: absolute;
+    top: 0.65rem; /* Slightly adjusted for perfect visual alignment with text baseline */
+    right: 0; /* Right at the edge */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: flex-start;
+    justify-content: flex-end;
+    max-width: 100px; /* Constrain width to prevent overlap */
+    line-height: 1; /* Tighter line-height for tags */
+}
+
+/* === READ MORE COMPONENT === */
+.read-more {
+    font-family: var(--font-ui);
+    color: var(--accent-color);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+    display: block;
+    width: fit-content;
+    margin-top: 0.25rem;
+    font-feature-settings: 'kern' 1;
+}
+
+.read-more .arrow {
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+    display: inline-block;
+    font-size: 12px;
+    position: relative;
+}
+
+.read-more .arrow::after {
+    content: '→';
+    margin-left: 0.4rem;
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.read-more:hover {
+    color: var(--text-color);
+}
+
+.read-more:hover .arrow::after {
+    transform: translateX(5px);
+}

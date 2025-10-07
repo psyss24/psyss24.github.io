@@ -1,0 +1,127 @@
+/* ===================================
+   LAYOUT MODULE
+   ===================================
+   
+   Container, header, navigation, and layout systems.
+   Depends on: variables.css, base.css
+*/
+
+/* === CONTAINER === */
+.container {
+    position: relative;
+    max-width: 900px;
+    width: 80%;
+    margin: 0 auto;
+    padding: 1rem 2rem 4rem 2rem;
+}
+
+/* === HEADER & NAVIGATION === */
+header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem 1rem 2rem;
+    background: transparent !important;
+    background-image: none !important;
+    background-size: inherit;
+}
+
+header h1 {
+    font-family: var(--font-headline);
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    font-feature-settings: 'kern' 1, 'ss01' 1;
+}
+
+.name-short {
+    display: none;
+}
+
+.header-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.header-links a {
+    font-family: var(--font-ui);
+    color: var(--muted-text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    transition: color 0.2s ease;
+}
+
+.header-links a:hover {
+    color: var(--accent-color);
+}
+
+/* === MOBILE FOOTER === */
+.mobile-footer {
+    display: none;
+    text-align: center;
+    padding: 1.5rem 2rem 1rem 2rem;
+    background-color: transparent;
+    margin-top: 1.5rem;
+}
+
+.mobile-footer h3 {
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.mobile-footer-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.mobile-footer-links a {
+    color: var(--muted-text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    transition: color 0.2s ease;
+}
+
+.mobile-footer-links a:hover {
+    color: var(--accent-color);
+}
+
+/* === NAVIGATION TABS === */
+.nav-tabs {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+    justify-content: center;
+}
+
+.nav-tab {
+    font-family: var(--font-ui);
+    color: var(--muted-text);
+    text-decoration: none;
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    transition: color 0.2s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-tab.active {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+}
+
+.nav-tab:hover {
+    color: var(--accent-color);
+}

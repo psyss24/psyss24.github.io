@@ -1,0 +1,33 @@
+/* ===================================
+   DARK THEME MODULE
+   ===================================
+   
+   Dark theme specific overrides and adjustments.
+   MUST LOAD LAST to override other styles.
+   
+   Depends on: variables.css (theme variables defined there)
+*/
+
+/* Dark theme specific overrides beyond CSS variables */
+
+/* Dark theme project icon adjustments */
+body.dark-theme .project-icon {
+    background: none;
+}
+
+/* Dark theme reading time overrides */
+body.dark-theme .reading-time {
+    background-color: var(--hover-bg) !important;
+    color: var(--genre-color, var(--accent-color)) !important;
+}
+
+body.dark-theme .reading-time.multiple-tags {
+    background-color: var(--hover-bg) !important;
+    color: transparent !important;
+    background-image: var(--genre-gradient) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+/* Additional dark theme specific styles will go here */

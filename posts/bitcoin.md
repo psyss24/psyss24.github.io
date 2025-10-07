@@ -2,6 +2,8 @@
 
 # Bitcoin, from Rebel Currency to Institutional Asset
 
+I trace Bitcoin's evolution from its cryptographic foundations in the 1980s through its current status as an institutional asset, exploring how a decentralized digital currency designed to eliminate trusted third parties became embraced by the very institutions it sought to bypass.
+
 ## Bitcoin basics
 Bitcoin is more than code running on computers. It is a decentralised digital network that lets people send value across the internet without asking permission from banks or governments. At its heart is the blockchain, a public ledger maintained by thousands of independent nodes. Every transaction is recorded in this ledger, and because the records are cryptographically linked, they cannot be faked or quietly rewritten. For the first time, money could exist as pure information, verified not by institutions but by mathematics.
 

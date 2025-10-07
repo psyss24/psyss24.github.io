@@ -1,0 +1,225 @@
+/* ===================================
+   GENRE SYSTEM MODULE
+   ===================================
+   
+   Genre colors, tags, reading time, progress bar.
+   Depends on: variables.css (genre color variables defined there)
+   
+   Contents:
+   - Genre tag styling
+   - Reading time components
+   - Progress bar
+   - Meta layout
+*/
+
+/* === GENRE TAGS & READING TIME === */
+
+/* Unified border system for genre tags and single-tag reading time */
+.genre-tag,
+.reading-time {
+  background: var(--hover-bg);
+  border: 1px solid var(--border-color, rgba(100, 181, 246, 0.3));
+  transition: all 0.2s ease;
+}
+
+/* Gradient border system for multiple-tag reading time */
+.reading-time.multiple-tags {
+  color: transparent;
+  background-image: var(--genre-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border: 1px solid transparent;
+  position: relative;
+  box-shadow: none;
+}
+
+.reading-time.multiple-tags::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--genre-gradient);
+  border-radius: inherit;
+  opacity: 0.3;
+  z-index: -2;
+}
+
+.reading-time.multiple-tags::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  background: var(--hover-bg);
+  border-radius: calc(4px - 1px);
+  z-index: -1;
+}
+
+/* Reading time styling */
+.reading-time {
+  margin-top: 1.2em;
+  font-family: var(--font-ui);
+  display: inline-block;
+  width: fit-content;
+  padding: 0.3rem 0.6rem;
+  margin: 0;
+  flex-shrink: 0;
+  font-size: 12px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--genre-color, var(--accent-color));
+}
+
+/* Post page reading time positioning */
+.post-page > .reading-time {
+  margin-top: 0.5em;
+  margin-bottom: 1.5em;
+}
+
+/* === POST META LAYOUT === */
+.post-meta-row {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.post-meta-row > .reading-time,
+.post-meta-row > .tag-container {
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+/* === READING PROGRESS BAR === */
+.reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 2px;
+  background: transparent;
+  z-index: 9999;
+}
+
+.reading-progress-bar__inner {
+  height: 100%;
+  width: 0%;
+  background: var(--genre-gradient, var(--genre-color));
+  border-radius: 0;
+  box-shadow: none !important;
+  filter: none !important;
+  will-change: width;
+  transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* === GENRE TAG STYLES === */
+.genre-tag {
+    font-family: var(--font-ui);
+    display: block;
+    width: fit-content;
+    padding: 0.4rem 0.6rem;
+    margin-top: 0.9rem;
+    margin-bottom: 0.9rem;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.2s ease;
+}
+
+/* Individual genre tag colors - direct application */
+.genre-tag.economics {
+    color: #4caf50;
+    border-color: rgba(76, 175, 80, 0.3);
+    --genre-color: #4caf50;
+    --genre-color-rgb: 76, 175, 80;
+    --genre-gradient: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+}
+
+.genre-tag.neuroscience {
+    color: #ba68c8;
+    border-color: rgba(186, 104, 200, 0.3);
+    --genre-color: #ba68c8;
+    --genre-color-rgb: 186, 104, 200;
+    --genre-gradient: linear-gradient(135deg, #ba68c8 0%, #ce93d8 100%);
+}
+
+.genre-tag.technology {
+    color: #64b5f6;
+    border-color: rgba(100, 181, 246, 0.3);
+    --genre-color: #64b5f6;
+    --genre-color-rgb: 100, 181, 246;
+    --genre-gradient: linear-gradient(135deg, #64b5f6 0%, #90caf9 100%);
+}
+
+.genre-tag.philosophy {
+    color: #ba68c8;
+    border-color: rgba(186, 104, 200, 0.3);
+    --genre-color: #ba68c8;
+    --genre-color-rgb: 186, 104, 200;
+    --genre-gradient: linear-gradient(135deg, #ba68c8 0%, #ce93d8 100%);
+}
+
+.genre-tag.personal {
+    color: #ffb74d;
+    border-color: rgba(255, 183, 77, 0.3);
+    --genre-color: #ffb74d;
+    --genre-color-rgb: 255, 183, 77;
+    --genre-gradient: linear-gradient(135deg, #ffb74d 0%, #ffcc80 100%);
+}
+
+.genre-tag.other {
+    color: #ffb74d;
+    border-color: rgba(255, 183, 77, 0.3);
+    --genre-color: #ffb74d;
+    --genre-color-rgb: 255, 183, 77;
+    --genre-gradient: linear-gradient(135deg, #ffb74d 0%, #ffcc80 100%);
+}
+
+/* Genre-specific element styling */
+.economics {
+    --genre-color: #4caf50;
+    --genre-color-rgb: 76, 175, 80;
+    --genre-gradient: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+}
+
+.technology {
+    --genre-color: #64b5f6;
+    --genre-color-rgb: 100, 181, 246;
+    --genre-gradient: linear-gradient(135deg, #64b5f6 0%, #90caf9 100%);
+}
+
+.philosophy {
+    --genre-color: #ba68c8;
+    --genre-color-rgb: 186, 104, 200;
+    --genre-gradient: linear-gradient(135deg, #ba68c8 0%, #ce93d8 100%);
+}
+
+.personal {
+    --genre-color: #ffb74d;
+    --genre-color-rgb: 255, 183, 77;
+    --genre-gradient: linear-gradient(135deg, #ffb74d 0%, #ffcc80 100%);
+}
+
+.other {
+    --genre-color: #ffb74d;
+    --genre-color-rgb: 255, 183, 77;
+    --genre-gradient: linear-gradient(135deg, #ffb74d 0%, #ffcc80 100%);
+}
+
+/* Post and post-page specific genre tag adjustments */
+.post .genre-tag {
+    margin: 0;
+}
+
+.post-page .tag-container .genre-tag {
+    margin: 0;
+    flex-shrink: 0;
+    font-size: 12px;
+    padding: 0.3rem 0.6rem;
+    display: inline-block;
+}

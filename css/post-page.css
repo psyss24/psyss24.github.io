@@ -1,0 +1,214 @@
+/* ===================================
+   POST PAGE MODULE
+   ===================================
+   
+   Post-specific typography, blockquotes, links.
+   Depends on: variables.css, base.css, genre-system.css
+   
+   Contents:
+   - Post page layout
+   - Typography (h1, h2, p, lists)
+   - Blockquotes
+   - Links and external link indicators
+*/
+
+/* === POST PAGE LAYOUT === */
+.post-page {
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Tag container positioned below the title */
+.post-page .tag-container {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+/* === POST PAGE TYPOGRAPHY === */
+.post-page h1 {
+    font-family: var(--font-headline);
+    color: var(--accent-color);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    text-align: left;
+    font-feature-settings: 'kern' 1, 'ss01' 1;
+    display: block;
+    width: 100%;
+}
+
+.post-page h2 {
+    font-family: var(--font-headline);
+    color: var(--accent-color);
+    font-size: 1.8rem;
+    margin: 2rem 0 1rem 0;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-align: left;
+}
+
+.post-page p {
+    color: var(--text-color);
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.post-page ol,
+.post-page ul {
+    color: var(--text-color);
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.post-page li {
+    margin-bottom: 0.5rem;
+}
+
+/* === BLOCKQUOTES === */
+.post-page blockquote {
+    position: relative;
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, var(--secondary-bg) 0%, var(--hover-bg) 100%);
+    border: none;
+    border-radius: 12px;
+    font-style: normal;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    min-height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.post-page blockquote::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--genre-gradient, var(--accent-color));
+    opacity: 0.8;
+}
+
+/* Blockquote quote mark */
+.post-page blockquote::after {
+    content: '\201D';
+    position: absolute;
+    top: 50%;
+    right: 4rem;
+    font-size: 4rem;
+    font-weight: 300;
+    background: var(--genre-gradient, var(--accent-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    opacity: 0.7 !important;
+    font-family: 'Times New Roman', Times, serif;
+    line-height: 1;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    transform: translateY(-50%);
+}
+
+.post-page blockquote:hover::after {
+    opacity: 1 !important;
+}
+
+.post-page blockquote p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    padding-right: 6rem;
+    padding-bottom: 1.2em;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.post-page blockquote cite {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 1.5rem;
+    margin-top: 2em;
+    font-size: 0.9rem;
+    font-style: normal;
+    background: var(--genre-gradient, var(--accent-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    opacity: 0.7 !important;
+    text-align: right;
+    transition: opacity 0.3s ease;
+}
+
+.post-page blockquote:hover cite {
+    opacity: 1 !important;
+}
+
+/* === LINKS === */
+.post-page a {
+    background: var(--genre-gradient, var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-decoration: none;
+    position: relative;
+    font-weight: 500;
+    transition: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 1px;
+}
+
+.post-page a:hover {
+    background: none;
+    color: var(--text-color);
+    -webkit-text-fill-color: var(--text-color);
+    border-bottom-color: var(--text-color);
+}
+
+.post-page a:active {
+    transform: translateY(1px);
+}
+
+/* External link indicator */
+.post-page a[href^="http"]::after {
+    content: "↗";
+    font-size: 0.8em;
+    margin-left: 0.2em;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+    background: var(--genre-gradient, var(--accent-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.post-page a[href^="http"]:hover::after {
+    opacity: 1;
+    background: none;
+    color: var(--text-color);
+    -webkit-text-fill-color: var(--text-color);
+}
