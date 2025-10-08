@@ -117,11 +117,8 @@ Fiat money enables virtually unlimited borrowing by governments, corporations, a
 
 ## Faith over form
 
-Ultimately, the history of money is not really about coins, notes, or ledgers. It is about the stretching of a fragile thread: trust. 
-Every leap: barter to bullion, from gold to paper, from paper to fiat, has been an exercise in testing how far societies will let value drift from the tangible. Each time, the promise holds until it doesn’t, and collapse follows when confidence runs out.
-What is notable is that money keeps surviving these collapses by reinventing itself one layer further into abstraction. Rome’s debased silver gave way to medieval bills of exchange. The collapse of gold led to fiat. And now fiat itself is challenged by cryptocurrencies and central bank digital currencies, experiments that once again wager that belief in code or state decree is enough to anchor value.
-
-There is no final form of money waiting at the end of history. There is only the continuous negotiation between scarcity and imagination, between what we can touch and what we can trust. 
+In the end, the story of money is less a straight line of progress than a slow drift of belief. What began as an exchange of things became an exchange of symbols, and then of nothing but trust itself. Each era thought it had found solidity, yet every form proved temporary, absorbed into something more abstract. Still, the thread continues, because people keep agreeing that it should.
+Perhaps there is no final form to arrive at. Only a recurring question: what are we willing to believe has value, and for how long?
 
 
 
