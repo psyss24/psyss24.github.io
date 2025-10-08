@@ -65,11 +65,9 @@ function generateGenreColors(normalizedTags, colorMap) {
 
 // load and render markdown
 async function loadPost(postName) {
-    try {
-        const response = await fetch(`../posts/${postName}.md`);
-        if (!response.ok) throw new Error('Post not found');
-        
-        const markdown = await response.text();
+        try {
+            const response = await fetch(`posts/${postName}.md`);
+            if (!response.ok) throw new Error('Post not found');        const markdown = await response.text();
         
         // parse tags from markdown
         const tags = window.PostManager ? window.PostManager.parseTagsFromMarkdown(markdown) : parseTagsFromMarkdown(markdown);

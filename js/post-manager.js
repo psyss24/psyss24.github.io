@@ -111,7 +111,7 @@ async function loadPostPreviews() {
     
     for (const post of posts) {
         try {
-            const response = await fetch(`../posts/${post.filename}.md`);
+            const response = await fetch(`posts/${post.filename}.md`);
             if (!response.ok) continue;
             
             const markdown = await response.text();
