@@ -17,14 +17,11 @@ body.dark-theme .project-icon {
 
 /* Dark theme reading time overrides */
 body.dark-theme .reading-time {
-    background-color: var(--hover-bg) !important;
     color: var(--genre-color, var(--accent-color)) !important;
 }
 
 body.dark-theme .reading-time.multiple-tags {
-    background-color: var(--hover-bg) !important;
-    color: transparent !important;
-    background-image: var(--genre-gradient) !important;
+    background: var(--genre-gradient) !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;

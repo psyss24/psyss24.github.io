@@ -14,60 +14,32 @@
 
 /* === GENRE TAGS & READING TIME === */
 
-/* Unified border system for genre tags and single-tag reading time */
-.genre-tag,
-.reading-time {
+/* Unified border system for genre tags only */
+.genre-tag {
   background: var(--hover-bg);
   border: 1px solid var(--border-color, rgba(100, 181, 246, 0.3));
   transition: all 0.2s ease;
 }
 
-/* Gradient border system for multiple-tag reading time */
-.reading-time.multiple-tags {
-  position: relative;
-  border: 1px solid transparent;
-  background: var(--genre-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  box-shadow: none;
-}
-
-.reading-time.multiple-tags::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  background: var(--genre-gradient);
-  border-radius: inherit;
-  opacity: 0.3;
-  z-index: -2;
-}
-
-.reading-time.multiple-tags::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--hover-bg);
-  border-radius: calc(4px - 1px);
-  z-index: -1;
-}
-
 /* Reading time styling */
 .reading-time {
-  margin-top: 1.2em;
   font-family: var(--font-ui);
-  display: inline-block;
-  width: fit-content;
-  padding: 0.3rem 0.6rem;
+  display: inline;
   margin: 0;
-  flex-shrink: 0;
   font-size: 12px;
-  border-radius: 4px;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--genre-color, var(--accent-color));
   white-space: nowrap;
+}
+
+/* Multi-tag reading time with gradient text */
+.reading-time.multiple-tags {
+  background: var(--genre-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Post page reading time positioning */
@@ -87,7 +59,10 @@
   width: 100%;
 }
 
-.post-meta-row > .reading-time,
+.post-meta-row > .reading-time {
+  flex-shrink: 0;
+}
+
 .post-meta-row > .tag-container {
   min-width: 0;
   flex-shrink: 1;
