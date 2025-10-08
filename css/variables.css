@@ -6,13 +6,17 @@
    Must load before any other CSS modules.
    
    Contents:
+   - Google Fonts imports
    - Root variables (light theme)
    - Dark theme overrides
    - Body background variants
    - Genre color definitions
-   
-   Note: Google Fonts are loaded via HTML <link> tags for better performance
 */
+
+/* === GOOGLE FONTS === */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap');
 
 /* === ROOT VARIABLES (Light Theme) === */
 :root {
