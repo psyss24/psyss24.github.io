@@ -24,20 +24,19 @@
 
 /* Gradient border system for multiple-tag reading time */
 .reading-time.multiple-tags {
-  color: transparent;
-  background-image: var(--genre-gradient);
+  position: relative;
+  border: 1px solid transparent;
+  background: var(--genre-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  border: 1px solid transparent;
-  position: relative;
   box-shadow: none;
 }
 
 .reading-time.multiple-tags::before {
   content: '';
   position: absolute;
-  inset: 0;
+  inset: -1px;
   background: var(--genre-gradient);
   border-radius: inherit;
   opacity: 0.3;
@@ -47,7 +46,7 @@
 .reading-time.multiple-tags::after {
   content: '';
   position: absolute;
-  inset: 1px;
+  inset: 0;
   background: var(--hover-bg);
   border-radius: calc(4px - 1px);
   z-index: -1;
@@ -68,6 +67,7 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--genre-color, var(--accent-color));
+  white-space: nowrap;
 }
 
 /* Post page reading time positioning */
