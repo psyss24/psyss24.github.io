@@ -44,9 +44,3 @@ body {
   opacity: 1;
   transition: opacity 0.2s ease;
 }
-
-/* Essential layout to prevent CLS (Cumulative Layout Shift) */
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-}

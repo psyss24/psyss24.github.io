@@ -16,15 +16,5 @@ body.dark-theme .project-icon {
 }
 
 /* Dark theme reading time overrides */
-body.dark-theme .reading-time {
-    color: var(--genre-color, var(--accent-color)) !important;
-}
-
-body.dark-theme .reading-time.multiple-tags {
-    background: var(--genre-gradient) !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-}
 
 /* Additional dark theme specific styles will go here */

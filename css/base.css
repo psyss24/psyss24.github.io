@@ -30,10 +30,10 @@ html {
 body {
     background-color: var(--primary-bg);
     font-family: var(--font-body);
-    font-size: 17px;
+    font-size: 18px;
     color: var(--text-color);
     font-weight: 400;
-    line-height: 1.7;
+    line-height: 1.8;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     letter-spacing: 0.01em;
@@ -65,53 +65,57 @@ code, pre {
 
 code {
     background-color: var(--hover-bg);
-    padding: 0.125rem 0.25rem;
+    padding: 0.15rem 0.35rem;
     border-radius: 3px;
-    font-size: 0.875em;
-    color: var(--accent-color);
+    font-size: 0.85em;
+    color: var(--text-color);
     border: 1px solid var(--border-color);
 }
 
 pre {
     background-color: var(--hover-bg);
-    padding: 1rem;
-    border-radius: 6px;
+    padding: 1.25rem;
+    border-radius: 4px;
     overflow-x: auto;
     border: 1px solid var(--border-color);
     line-height: 1.5;
+    margin: 1.5rem 0;
 }
 
 pre code {
     background: none;
     padding: 0;
     border: none;
-    font-size: 0.875rem;
+    font-size: 0.85rem;
 }
 
 /* === NAVIGATION LINKS === */
 .back-to-home {
-    display: inline-flex;
-    align-items: center;
-    margin-top: 1rem;
+    display: inline-block;
+    margin: 3rem 0 0 0;
     color: var(--accent-color);
-    text-decoration: none;
+    background: none;
+    border: none;
+    font-family: var(--font-ui);
+    font-size: 1rem;
     font-weight: 500;
-    font-size: 0.9rem;
-    transition: color 0.2s ease;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    border-radius: 6px;
+    padding: 0.4em 1.1em;
+    transition: background 0.18s, color 0.18s;
+    box-shadow: none;
+    cursor: pointer;
 }
 
 .back-to-home:hover {
-    color: var(--text-color);
+    background: var(--hover-bg);
+    color: var(--accent-color);
+    text-decoration: none;
 }
 
 .back-to-home::before {
-    content: '←';
-    margin-right: 0.5rem;
-    transition: transform 0.2s ease;
-}
-
-.back-to-home:hover::before {
-    transform: translateX(-3px);
+    display: none;
 }
 
 /* === TAB CONTENT === */

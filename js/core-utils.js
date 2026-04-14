@@ -67,38 +67,9 @@ function isDesktop() {
 // simple mobile scroll animations
 function initMobileScrollAnimations() {
     const cards = document.querySelectorAll('.post, .project-card');
-    if (window.innerWidth > 768) {
-        // on desktop, remove animation classes
-        cards.forEach(card => {
-            card.classList.remove('animate-ready', 'animate-in');
-        });
-        return;
-    }
-
-    // intersection observer for scroll animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-                entry.target.classList.remove('animate-ready');
-                obs.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    // only add .animate-ready and observe cards not already animated in
+    // keep card behavior identical on desktop and mobile
     cards.forEach(card => {
-        if (!card.classList.contains('animate-in')) {
-            card.classList.add('animate-ready');
-            observer.observe(card);
-        } else {
-            card.classList.remove('animate-ready');
-        }
+        card.classList.remove('animate-ready', 'animate-in');
     });
 }
 

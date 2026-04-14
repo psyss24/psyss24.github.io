@@ -94,13 +94,38 @@ function createPostCard(post, tags) {
     return article;
 }
 
+// load post slugs from manifest for auto-discovery
+async function loadPostIndex() {
+    try {
+        const response = await fetch('posts/index.json', { cache: 'no-store' });
+        if (!response.ok) throw new Error('Post index not found');
+
+        const manifest = await response.json();
+        const entries = Array.isArray(manifest) ? manifest : manifest.posts;
+        if (!Array.isArray(entries)) throw new Error('Invalid post index format');
+
+        return entries
+            .map(entry => {
+                if (typeof entry === 'string') {
+                    return { filename: entry };
+                }
+
+                if (entry && typeof entry.filename === 'string') {
+                    return { filename: entry.filename };
+                }
+
+                return null;
+            })
+            .filter(Boolean);
+    } catch (error) {
+        console.error('Failed to load post index:', error);
+        return [];
+    }
+}
+
 // make the cool (post/journal) cards from markdown files
 async function loadPostPreviews() {
-    const posts = [
-        { filename: 'money', excerpt: 'The form of money has seen many changes, though its foundation still lies in trust and agreement' },
-        { filename: 'bitcoin', excerpt: 'Bitcoin\'s history is one of accumulation: of code, of ideas, and of value. At first, it was a technical experiment. Then a protest. Then a market.' }
-        // i shall add more posts soon ^(tm)
-    ];
+    const posts = await loadPostIndex();
     
     const journalContainer = document.getElementById('journal');
     if (!journalContainer) return;
@@ -153,5 +178,6 @@ window.PostManager = {
     extractTitleFromMarkdown,
     parseTagsFromMarkdown,
     createPostCard,
+    loadPostIndex,
     loadPostPreviews
 };

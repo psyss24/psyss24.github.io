@@ -14,27 +14,28 @@
 */
 
 /* === GOOGLE FONTS === */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
 
 /* === ROOT VARIABLES (Light Theme) === */
 :root {
-    /* Colors - Light Theme */
-    --primary-bg: #f8f9fa;
-    --secondary-bg: #fdfdfd;
-    --text-color: #5a6169;
-    --accent-color: #3c4043;
-    --border-color: #e8eaed;
-    --muted-text: #7a8087;
-    --hover-bg: #f5f7fa;
-    --subtle-shadow: rgba(60, 64, 67, 0.05);
+    /* Colors - Light Theme (Minimal, academic) */
+    --primary-bg: #ffffff;
+    --secondary-bg: #ffffff;
+    --text-color: #333333;
+    --accent-color: #111111;
+    --border-color: #e0e0e0;
+    --muted-text: #666666;
+    --hover-bg: #f9f9f9;
+    --subtle-shadow: rgba(0, 0, 0, 0.05);
+    --link-color: #0066cc;
+    --link-hover: #004499;
 
-    /* Typography */
-    --font-headline: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    --font-body: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    --font-mono: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+    /* Typography - Serif-based academic style */
+    --font-headline: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --font-body: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --font-ui: 'Source Serif 4', Georgia, serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', Monaco, Consolas, monospace;
 }
 
 /* === BODY BACKGROUND VARIANTS === */
@@ -61,97 +62,14 @@ body.dark-theme.post-body {
 
 /* === DARK THEME VARIABLES === */
 body.dark-theme {
-    --primary-bg: #181a1b;
-    --secondary-bg: #232526;
-    --text-color: #e3e6eb;
-    --accent-color: #e3e6eb;
-    --border-color: #232526;
-    --muted-text: #a0a4ab;
-    --hover-bg: #232526;
-    --subtle-shadow: rgba(0,0,0,0.25);
-    --card-gradient: linear-gradient(135deg, #232526 0%, #23272a 60%, #181a1b 100%);
-}
-
-/* === GENRE COLOR SYSTEM === */
-/* Unified genre color definitions for consistent theming */
-.post-page:has(.genre-tag.economics),
-.post:has(.genre-tag.economics) {
-  --genre-color: #4caf50;
-  --genre-color-rgb: 76, 175, 80;
-  --genre-gradient: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
-  --border-color: rgba(76, 175, 80, 0.3);
-  --glow-color: rgba(76, 175, 80, 0.35);
-  --highlight-color: rgba(76, 175, 80, 0.1);
-}
-
-.post-page:has(.genre-tag.neuroscience),
-.post:has(.genre-tag.neuroscience) {
-  --genre-color: #ba68c8;
-  --genre-color-rgb: 186, 104, 200;
-  --genre-gradient: linear-gradient(135deg, #ba68c8 0%, #ce93d8 100%);
-  --border-color: rgba(186, 104, 200, 0.3);
-  --glow-color: rgba(186, 104, 200, 0.35);
-  --highlight-color: rgba(186, 104, 200, 0.1);
-}
-
-.post-page:has(.genre-tag.technology),
-.post:has(.genre-tag.technology) {
-  --genre-color: #64b5f6;
-  --genre-color-rgb: 100, 181, 246;
-  --genre-gradient: linear-gradient(135deg, #64b5f6 0%, #90caf9 100%);
-  --border-color: rgba(100, 181, 246, 0.3);
-  --glow-color: rgba(100, 181, 246, 0.35);
-  --highlight-color: rgba(100, 181, 246, 0.1);
-}
-
-.post-page:has(.genre-tag.philosophy),
-.post:has(.genre-tag.philosophy) {
-  --genre-color: #ba68c8;
-  --genre-color-rgb: 186, 104, 200;
-  --genre-gradient: linear-gradient(135deg, #ba68c8 0%, #ce93d8 100%);
-  --border-color: rgba(186, 104, 200, 0.3);
-  --glow-color: rgba(186, 104, 200, 0.35);
-  --highlight-color: rgba(186, 104, 200, 0.1);
-}
-
-.post-page:has(.genre-tag.personal),
-.post:has(.genre-tag.personal) {
-  --genre-color: #ffb74d;
-  --genre-color-rgb: 255, 183, 77;
-  --genre-gradient: linear-gradient(135deg, #ffb74d 0%, #ffcc80 100%);
-  --border-color: rgba(255, 183, 77, 0.3);
-  --glow-color: rgba(255, 183, 77, 0.35);
-  --highlight-color: rgba(255, 183, 77, 0.1);
-}
-
-.post-page:has(.genre-tag.other),
-.post:has(.genre-tag.other) {
-  --genre-color: #ffb74d;
-  --genre-color-rgb: 255, 183, 77;
-  --genre-gradient: linear-gradient(135deg, #ffb74d 0%, #ffcc80 100%);
-  --border-color: rgba(255, 183, 77, 0.3);
-  --glow-color: rgba(255, 183, 77, 0.35);
-  --highlight-color: rgba(255, 183, 77, 0.1);
-}
-
-/* === BODY BACKGROUND VARIANTS === */
-/* Dot pattern background variations */
-body {
-  /* Light mode, home page (and base for all pages) */
-  --dot-opacity: 0.3;
-}
-
-body.dark-theme {
-  /* Dark mode, home page (and base for all dark pages) */
-  --dot-opacity: 0.2;
-}
-
-body.post-body {
-  /* Blog post page: no static dot background, only animated dots from JS */
-  --dot-opacity: 0.2;
-}
-
-body.dark-theme.post-body {
-  /* Blog post page in dark mode: lower dot opacity for readability */
-  --dot-opacity: 0.22;
+    --primary-bg: #1a1a1a;
+    --secondary-bg: #1a1a1a;
+    --text-color: #d4d4d4;
+    --accent-color: #e8e8e8;
+    --border-color: #333333;
+    --muted-text: #999999;
+    --hover-bg: #222222;
+    --subtle-shadow: rgba(0,0,0,0.3);
+    --link-color: #6db3f2;
+    --link-hover: #9ecbf6;
 }

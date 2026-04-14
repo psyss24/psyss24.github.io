@@ -15,10 +15,11 @@
 /* === DEFINITION TERMS === */
 .definition-term {
     position: relative;
-    background: var(--genre-gradient, var(--accent-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    background: none;
+    color: var(--accent-color);
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+    background-clip: unset;
     font-weight: 500;
     padding: 0.1em 0.3em;
     margin: 0 0.1em;
@@ -43,8 +44,8 @@
 }
 
 .definition-term:hover {
-    color: var(--text-color);
-    -webkit-text-fill-color: var(--text-color);
+    color: var(--accent-color);
+    -webkit-text-fill-color: var(--accent-color);
 }
 
 /* Invisible bridge to prevent tooltip from disappearing */
@@ -66,8 +67,8 @@
     left: 100%;
     transform: translateY(-50%);
     margin-left: 0.5rem;
-    background: var(--secondary-bg);
-    color: var(--text-color);
+    background: #fff;
+    color: #111;
     padding: 0.75rem 1rem;
     border-radius: 8px;
     font-size: 0.8rem;
@@ -89,6 +90,11 @@
     white-space: normal;
 }
 
+body.dark-theme .definition-tooltip {
+    background: #111;
+    color: #fff;
+}
+
 .definition-tooltip::before {
     content: '';
     position: absolute;
@@ -96,9 +102,15 @@
     left: 0;
     width: 2px;
     height: 100%;
-    background: var(--genre-gradient, #4caf50);
+    background: #fff;
     border-radius: 8px 0 0 8px;
-    opacity: 0.8;
+    opacity: 1;
+}
+body.dark-theme .definition-tooltip::before {
+    background: #fff;
+}
+
+.definition-tooltip::before {
     z-index: 1;
 }
 
@@ -169,28 +181,11 @@
     left: 0 !important;
     width: 2px !important;
     height: 100% !important;
-    background: var(--genre-gradient, #4caf50) !important;
+    background: #e0e0e0 !important;
     border-radius: 8px 0 0 8px !important;
-    opacity: 0.8 !important;
+    opacity: 1 !important;
+}
+body.dark-theme .post-page .definition-tooltip::before {
+    background: #333 !important;
 }
 
-/* === GENRE-SPECIFIC TOOLTIP COLORS === */
-.economics .definition-term {
-    --genre-color-rgb: 76, 175, 80;
-}
-
-.technology .definition-term {
-    --genre-color-rgb: 100, 181, 246;
-}
-
-.philosophy .definition-term {
-    --genre-color-rgb: 186, 104, 200;
-}
-
-.personal .definition-term {
-    --genre-color-rgb: 255, 183, 77;
-}
-
-.other .definition-term {
-    --genre-color-rgb: 255, 183, 77;
-}

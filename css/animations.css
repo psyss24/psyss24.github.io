@@ -65,36 +65,3 @@ body {
 .read-more:hover {
     transform: translateX(3px);
 }
-
-/* === PAGE TRANSITIONS === */
-.dot-transition-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 9999;
-    pointer-events: none;
-    background: var(--primary-bg);
-    opacity: 0;
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.dot-transition-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 9998;
-    pointer-events: none;
-    transition: opacity 0.8s cubic-bezier(0.2, 0, 0.2, 1), 
-                transform 0.8s cubic-bezier(0.2, 0, 0.2, 1);
-}
-
-/* === HOVER EFFECTS === */
-body {
-    transition: opacity 0.2s ease;
-}
-
-/* More animation styles will be extracted here */

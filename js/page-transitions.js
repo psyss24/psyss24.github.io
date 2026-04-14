@@ -66,7 +66,7 @@ function createReverseTransition(callback) {
 // attach dot transition animation to post links
 function attachDotTransitionToPostLinks() {
     // find all post links (both h2 links and read-more links)
-    const postLinks = document.querySelectorAll('a[href^="html/post.html"]');
+    const postLinks = document.querySelectorAll('a[href^="post.html"]');
     
     postLinks.forEach(link => {
         link.addEventListener('click', function(e) {
