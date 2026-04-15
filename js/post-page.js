@@ -79,10 +79,179 @@ function renderLatex(postContentElement) {
     });
 }
 
+function isAbsoluteOrSpecialUrl(url) {
+    return /^(?:[a-z]+:)?\/\//i.test(url) ||
+        url.startsWith('#') ||
+        url.startsWith('data:') ||
+        url.startsWith('blob:');
+}
+
+function encodePathSegment(segment) {
+    try {
+        return encodeURIComponent(decodeURIComponent(segment));
+    } catch (_error) {
+        return encodeURIComponent(segment);
+    }
+}
+
+function resolvePostImageSrc(src) {
+    if (!src || isAbsoluteOrSpecialUrl(src)) return src;
+
+    const [pathAndQuery, hashPart] = src.split('#');
+    const [pathPart, queryPart] = pathAndQuery.split('?');
+
+    let normalizedPath = pathPart
+        .replace(/^(\.\/)+/, '')
+        .replace(/^\/+/, '');
+
+    while (normalizedPath.startsWith('../')) {
+        normalizedPath = normalizedPath.slice(3);
+    }
+
+    const encodedPath = normalizedPath
+        .split('/')
+        .filter(part => part.length > 0)
+        .map(encodePathSegment)
+        .join('/');
+
+    if (!encodedPath) return src;
+
+    // Resolve common root-level media references while keeping post-local images convenient.
+    const isRootLevelContent =
+        normalizedPath.startsWith('posts/') ||
+        normalizedPath.startsWith('media/');
+
+    let resolved = isRootLevelContent ? encodedPath : `posts/${encodedPath}`;
+
+    if (queryPart !== undefined) {
+        resolved += `?${queryPart}`;
+    }
+
+    if (hashPart !== undefined) {
+        resolved += `#${hashPart}`;
+    }
+
+    return resolved;
+}
+
+function markImageBlockParagraph(paragraph) {
+    const children = Array.from(paragraph.children);
+    if (children.length !== 1) return;
+
+    const onlyChild = children[0];
+    const isStandaloneImage =
+        onlyChild.tagName === 'IMG' ||
+        (onlyChild.tagName === 'A' &&
+            onlyChild.children.length === 1 &&
+            onlyChild.children[0].tagName === 'IMG');
+
+    if (isStandaloneImage) {
+        paragraph.classList.add('post-image-block');
+    }
+}
+
+function buildDarkVariantSrc(src) {
+    if (!src || !/media\/nn_plots\//.test(src)) return null;
+    if (/-dark\.[a-z0-9]+(?:[?#].*)?$/i.test(src)) return src;
+
+    const [pathAndQuery, hashPart] = src.split('#');
+    const [pathPart, queryPart] = pathAndQuery.split('?');
+    const darkPath = pathPart.replace(/(\.[^.\/]+)$/i, '-dark$1');
+
+    let darkSrc = darkPath;
+    if (queryPart !== undefined) darkSrc += `?${queryPart}`;
+    if (hashPart !== undefined) darkSrc += `#${hashPart}`;
+    return darkSrc;
+}
+
+function updatePostThemeImages(isDark) {
+    document.querySelectorAll('.post-page img[data-light-src][data-dark-src]').forEach(img => {
+        const targetSrc = isDark ? img.dataset.darkSrc : img.dataset.lightSrc;
+        if (targetSrc && img.getAttribute('src') !== targetSrc) {
+            img.setAttribute('src', targetSrc);
+        }
+    });
+}
+
+function enhancePostImages(postContentElement) {
+    if (!postContentElement) return;
+
+    postContentElement.querySelectorAll('img').forEach(img => {
+        const rawSrc = img.getAttribute('src') || '';
+        const resolvedSrc = resolvePostImageSrc(rawSrc);
+
+        if (resolvedSrc && resolvedSrc !== rawSrc) {
+            img.setAttribute('src', resolvedSrc);
+        }
+
+        const lightSrc = img.getAttribute('src') || resolvedSrc;
+        const darkSrc = buildDarkVariantSrc(lightSrc);
+        if (lightSrc && darkSrc) {
+            img.dataset.lightSrc = lightSrc;
+            img.dataset.darkSrc = darkSrc;
+
+            if (!img.dataset.darkFallbackBound) {
+                img.addEventListener('error', () => {
+                    const currentSrc = img.getAttribute('src') || '';
+                    if (img.dataset.darkSrc && currentSrc === img.dataset.darkSrc && img.dataset.lightSrc) {
+                        img.setAttribute('src', img.dataset.lightSrc);
+                    }
+                });
+                img.dataset.darkFallbackBound = 'true';
+            }
+        }
+
+        img.loading = 'lazy';
+        img.decoding = 'async';
+
+        const parent = img.parentElement;
+        if (parent && parent.tagName === 'P') {
+            markImageBlockParagraph(parent);
+        } else if (parent && parent.tagName === 'A' && parent.parentElement && parent.parentElement.tagName === 'P') {
+            markImageBlockParagraph(parent.parentElement);
+        }
+    });
+
+    updatePostThemeImages(document.body.classList.contains('dark-theme'));
+}
+
+function protectMathFromMarkdownParsing(markdown) {
+    const protectedSegments = [];
+    let segmentCounter = 0;
+
+    const createToken = (type) => `MATH_${type}_${segmentCounter++}_TOKEN`;
+
+    // protect block math first so inline regex does not split it
+    let protectedMarkdown = markdown.replace(/\$\$([\s\S]+?)\$\$/g, (fullMatch, expression) => {
+        const token = createToken('BLOCK');
+        protectedSegments.push({ token, content: `$$${expression}$$` });
+        return token;
+    });
+
+    // protect inline math; keep leading character so punctuation/spacing is preserved
+    protectedMarkdown = protectedMarkdown.replace(/(^|[^\\$])\$([^$\n]+?)\$/g, (fullMatch, prefix, expression) => {
+        const token = createToken('INLINE');
+        protectedSegments.push({ token, content: `$${expression}$` });
+        return `${prefix}${token}`;
+    });
+
+    return { protectedMarkdown, protectedSegments };
+}
+
+function restoreProtectedMath(html, protectedSegments) {
+    let restoredHtml = html;
+
+    protectedSegments.forEach(({ token, content }) => {
+        restoredHtml = restoredHtml.split(token).join(content);
+    });
+
+    return restoredHtml;
+}
+
 // load and render markdown
 async function loadPost(postName) {
         try {
-            const response = await fetch(`posts/${postName}.md`);
+            const response = await fetch(`posts/${encodeURIComponent(postName)}.md`);
             if (!response.ok) throw new Error('Post not found');        const markdown = await response.text();
         
         // parse tags from markdown
@@ -96,8 +265,11 @@ async function loadPost(postName) {
         
         // remove (#) and () suffixes from definitions before markdown parsing
         cleanMarkdown = cleanMarkdown.replace(/\]\(\#?\)/g, ']');
-        
-        const html = marked.parse(cleanMarkdown);
+
+        // protect latex so markdown parser does not consume math symbols like underscores
+        const { protectedMarkdown, protectedSegments } = protectMathFromMarkdownParsing(cleanMarkdown);
+        const html = marked.parse(protectedMarkdown);
+        const htmlWithMath = restoreProtectedMath(html, protectedSegments);
         
         // update page title with post title
         const titleMatch = cleanMarkdown.match(/^# (.+)$/m);
@@ -106,9 +278,12 @@ async function loadPost(postName) {
         }
         
         // apply custom styling to parsed HTML
-        const styledHTML = styleMarkdownContent(html, tags);
+        const styledHTML = styleMarkdownContent(htmlWithMath, tags);
         const postContentElement = document.getElementById('post-content');
         postContentElement.innerHTML = styledHTML;
+
+        // upgrade markdown images (responsive styles + reliable relative src resolution)
+        enhancePostImages(postContentElement);
         
         // store raw markdown for reading time calculation
         postContentElement.dataset.rawMarkdown = markdown;
@@ -242,6 +417,11 @@ window.PostPage = {
     convertReferenceLinksToInline,
     applyGenreColors,
     styleMarkdownContent,
+    resolvePostImageSrc,
+    updatePostThemeImages,
+    enhancePostImages,
+    protectMathFromMarkdownParsing,
+    restoreProtectedMath,
     renderLatex,
     initPostPage,
     parseTagsFromMarkdown,

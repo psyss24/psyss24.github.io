@@ -281,9 +281,14 @@ function parseDefinitions(element) {
             let lastIndex = 0;
             
             definitions.forEach(def => {
+                const hasLeadingBold = def.start >= 2 && text.slice(def.start - 2, def.start) === '**';
+                const hasTrailingBold = text.slice(def.end, def.end + 2) === '**';
+                const isBoldWrapped = hasLeadingBold && hasTrailingBold;
+                const textStart = isBoldWrapped ? def.start - 2 : def.start;
+
                 // add text before the definition
-                if (def.start > lastIndex) {
-                    fragment.appendChild(document.createTextNode(text.slice(lastIndex, def.start)));
+                if (textStart > lastIndex) {
+                    fragment.appendChild(document.createTextNode(text.slice(lastIndex, textStart)));
                 }
                 
                 // create definition element
@@ -299,9 +304,15 @@ function parseDefinitions(element) {
                 TooltipManager.register(termElement, tooltipElement);
                 
                 termElement.appendChild(tooltipElement);
-                fragment.appendChild(termElement);
+                if (isBoldWrapped) {
+                    const strongElement = document.createElement('strong');
+                    strongElement.appendChild(termElement);
+                    fragment.appendChild(strongElement);
+                } else {
+                    fragment.appendChild(termElement);
+                }
                 
-                lastIndex = def.end;
+                lastIndex = isBoldWrapped ? def.end + 2 : def.end;
             });
             
             // add remaining text

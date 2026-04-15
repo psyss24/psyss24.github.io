@@ -109,7 +109,7 @@ That “temporary” measure was never reversed and the world had just transitio
 With the end of gold convertibility, central banks gained powerful new tools; they could print money freely and set interest rates to steer the economy by adjusting the cost of borrowing. This meant they could respond dynamically to recessions or crises.
 For example in the US, 2008 saw a catastrophic collapse in housing markets and the ensuing credit crunch meant interest rates were already approaching zero; the U.S. Federal Reserve then initiated (quantitative easing)[a policy of creating digital money to buy financial assets like government bonds and mortgage backed securities]. 
 
-The goal was to inject liquidity into a frozen banking system. By doing so, the Fed expanded its balance sheet from under [$1 trillion in 2007 to over $4 trillion by 2014][21]. It powerfully showcased fiat’s might; limitless money creation used to shore up fragile banks and prop up financial institutions.
+The goal was to inject liquidity into a frozen banking system. By doing so, the Fed expanded its balance sheet from under [1 trillion dollars in 2007 to over 4 trillion by 2014][21]. It powerfully showcased fiat’s might; limitless money creation used to shore up fragile banks and prop up financial institutions.
 
 But this new freedom came with cost. Inflation becomes a matter of psychology, if people lose faith in fiat (as in [Zimbabwe in the 2000s][22] or [Venezuela in the 2010s][23]) the collapse is swift. Furthermore debt and credit can expand indefinitely. 
 

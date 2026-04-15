@@ -6,7 +6,7 @@ function extractExcerptFromMarkdown(markdown) {
     // remove tags first
     const cleanMarkdown = markdown.replace(/^\{[^}]+\}\s*\n?/m, '');
     
-    // first, look for intro paragraph (first substantial paragraph after title)
+    // first, look for intro paragraph (first valid paragraph after title)
     const lines = cleanMarkdown.split('\n');
     const titleIndex = lines.findIndex(line => line.startsWith('# '));
     if (titleIndex !== -1) {
@@ -15,8 +15,7 @@ function extractExcerptFromMarkdown(markdown) {
             // skip empty lines, headers, and italic-only lines
             if (line && 
                 !line.startsWith('#') && 
-                !line.match(/^\*[^*]+\*$/) && // skip lines that are entirely italic
-                line.length > 50) { // ensure it's substantial content
+                !line.match(/^\*[^*]+\*$/)) { // skip lines that are entirely italic
                 return line.substring(0, 250) + (line.length > 250 ? '...' : '');
             }
         }
@@ -57,6 +56,7 @@ function createPostCard(post, tags) {
     const article = document.createElement('article');
     article.className = 'post';
     article.setAttribute('data-auto-generated', 'true');
+    const encodedFilename = encodeURIComponent(post.filename);
     
     const normalizedTags = tags.map(tag => window.ColorUtils.normaliseTag(tag));
     
@@ -79,7 +79,7 @@ function createPostCard(post, tags) {
     }).join('');
     
     article.innerHTML = `
-        <h2><a href="post.html?post=${post.filename}">${post.title}</a></h2>
+        <h2><a href="post.html?post=${encodedFilename}">${post.title}</a></h2>
         <div style="position: relative;">
             <p>${post.excerpt}</p>
             <div class="post-tags">
@@ -87,40 +87,64 @@ function createPostCard(post, tags) {
             </div>
         </div>
         <div class="post-footer">
-            <a href="post.html?post=${post.filename}" class="read-more">Read More</a>
+            <a href="post.html?post=${encodedFilename}" class="read-more">Read More</a>
         </div>
     `;
     
     return article;
 }
 
-// load post slugs from manifest for auto-discovery
-async function loadPostIndex() {
+// discover markdown files in posts/ without a hardcoded list
+async function discoverPostsFromDirectoryListing() {
     try {
-        const response = await fetch('posts/index.json', { cache: 'no-store' });
-        if (!response.ok) throw new Error('Post index not found');
+        const response = await fetch('posts/', { cache: 'no-store' });
+        if (!response.ok) throw new Error('Directory listing not available');
 
-        const manifest = await response.json();
-        const entries = Array.isArray(manifest) ? manifest : manifest.posts;
-        if (!Array.isArray(entries)) throw new Error('Invalid post index format');
+        const html = await response.text();
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const links = Array.from(doc.querySelectorAll('a[href]'))
+            .map(link => link.getAttribute('href') || '')
+            .map(href => decodeURIComponent(href.split('/').pop() || ''))
+            .filter(name => name.toLowerCase().endsWith('.md'));
 
-        return entries
-            .map(entry => {
-                if (typeof entry === 'string') {
-                    return { filename: entry };
-                }
-
-                if (entry && typeof entry.filename === 'string') {
-                    return { filename: entry.filename };
-                }
-
-                return null;
-            })
-            .filter(Boolean);
+        const uniqueFiles = Array.from(new Set(links));
+        return uniqueFiles
+            .map(name => ({ filename: name.replace(/\.md$/i, '') }))
+            .sort((a, b) => a.filename.localeCompare(b.filename));
     } catch (error) {
-        console.error('Failed to load post index:', error);
+        console.warn('Directory listing discovery unavailable:', error);
         return [];
     }
+}
+
+async function discoverPostsFromGitHubApi() {
+    try {
+        const response = await fetch('https://api.github.com/repos/psyss24/psyss24.github.io/contents/posts?ref=main', {
+            cache: 'no-store',
+            headers: {
+                Accept: 'application/vnd.github+json'
+            }
+        });
+        if (!response.ok) throw new Error(`GitHub API returned ${response.status}`);
+
+        const entries = await response.json();
+        if (!Array.isArray(entries)) throw new Error('Invalid GitHub response format');
+
+        return entries
+            .filter(entry => entry && entry.type === 'file' && typeof entry.name === 'string' && entry.name.toLowerCase().endsWith('.md'))
+            .map(entry => ({ filename: entry.name.replace(/\.md$/i, '') }))
+            .sort((a, b) => a.filename.localeCompare(b.filename));
+    } catch (error) {
+        console.error('Failed to auto-discover posts from GitHub:', error);
+        return [];
+    }
+}
+
+async function loadPostIndex() {
+    const directoryPosts = await discoverPostsFromDirectoryListing();
+    if (directoryPosts.length > 0) return directoryPosts;
+
+    return discoverPostsFromGitHubApi();
 }
 
 // make the cool (post/journal) cards from markdown files
@@ -136,7 +160,7 @@ async function loadPostPreviews() {
     
     for (const post of posts) {
         try {
-            const response = await fetch(`posts/${post.filename}.md`);
+            const response = await fetch(`posts/${encodeURIComponent(post.filename)}.md`);
             if (!response.ok) continue;
             
             const markdown = await response.text();
@@ -178,6 +202,8 @@ window.PostManager = {
     extractTitleFromMarkdown,
     parseTagsFromMarkdown,
     createPostCard,
+    discoverPostsFromDirectoryListing,
+    discoverPostsFromGitHubApi,
     loadPostIndex,
     loadPostPreviews
 };

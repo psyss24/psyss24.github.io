@@ -23,6 +23,10 @@ function setTheme(isDark) {
 
     updateProjectIcons(isDark);
 
+    if (window.PostPage && window.PostPage.updatePostThemeImages) {
+        window.PostPage.updatePostThemeImages(isDark);
+    }
+
     // update all theme-toggle buttons
     document.querySelectorAll('.theme-toggle').forEach(btn => {
         btn.textContent = isDark ? 'Light' : 'Dark';
