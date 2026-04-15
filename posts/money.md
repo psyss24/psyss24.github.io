@@ -2,7 +2,7 @@
 
 # The Movement of Money
 
-On the progressive abstraction of money, away from physical value to symblising it.
+On the progressive abstraction of money, away from physical value to symbolic.
 
 
 ## But what even is money, exactly?
