@@ -63,6 +63,22 @@ function generateGenreColors(normalizedTags, colorMap) {
     }
 }
 
+function renderLatex(postContentElement) {
+    if (!postContentElement || !window.renderMathInElement) return;
+
+    window.renderMathInElement(postContentElement, {
+        delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false },
+            { left: '\\[', right: '\\]', display: true },
+            { left: '\\(', right: '\\)', display: false }
+        ],
+        throwOnError: false,
+        strict: false,
+        ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    });
+}
+
 // load and render markdown
 async function loadPost(postName) {
         try {
@@ -114,6 +130,9 @@ async function loadPost(postName) {
                 window.parseDefinitions(postContent);
             }
         }
+
+        // render latex equations after content/tooltip processing
+        renderLatex(postContentElement);
         
     } catch (error) {
         document.getElementById('post-content').innerHTML = `
@@ -223,6 +242,7 @@ window.PostPage = {
     convertReferenceLinksToInline,
     applyGenreColors,
     styleMarkdownContent,
+    renderLatex,
     initPostPage,
     parseTagsFromMarkdown,
     normalizeTag,

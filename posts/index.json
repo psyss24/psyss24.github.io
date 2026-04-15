@@ -1,5 +1,6 @@
 {
   "posts": [
+    { "filename": "latex-test" },
     { "filename": "money" },
     { "filename": "bitcoin" }
   ]

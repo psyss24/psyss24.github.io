@@ -2,7 +2,7 @@
 
 # Bitcoin, from Rebel Currency to Institutional Asset
 
-How did a currency designed to bypass traditional finance became embraced by it?
+How did a currency designed to bypass traditional finance become embraced by it?
 
 ## Bitcoin basics
 Bitcoin is more than code running on computers. It is a decentralised digital network that lets people send value across the internet without asking permission from banks or governments. At its heart is the blockchain, a public ledger maintained by thousands of independent nodes. Every transaction is recorded in this ledger, and because the records are cryptographically linked, they cannot be faked or quietly rewritten. For the first time, money could exist as pure information, verified not by institutions but by mathematics.
@@ -62,7 +62,7 @@ The first major exchange, Mt. Gox, originally designed for trading Magic: The Ga
 
 Bitcoin’s initial price surge came in 2013, fueled by factors such as the European debt crisis, which prompted individuals to seek alternatives to traditional banks. The currency rose from around $13 in January to over $1,000 by November, drawing mainstream attention. The rise was brief: in December 2013, China prohibited financial institutions from using Bitcoin, and in February 2014, Mt. Gox filed for bankruptcy after losing roughly 850,000 bitcoins to theft, worth $450 million at the time.
 
-Despite these setbacks, the technology underpinning Bitcoin advanced. The community wrestled with scaling, debating ways to increase 
+Despite these setbacks, the technology behind Bitcoin advanced. The community wrestled with scaling, debating ways to increase 
 (transaction throughput)[Transaction throughput refers to the number of transactions a system can process within a given time frame; usually measured as transactions per second (TPS). In the context of blockchains, databases, or payment systems, throughput is a key performance metric that tells you how fast and scalable the system is under real-world conditions.](#), the number of transactions a system can process per second. These debates led to the 2017 activation of (Segregated Witness)[ a major Bitcoin protocol upgrade that was activated in August 2017. Its primary goal was to solve transaction malleability and increase Bitcoin’s transaction throughput, without increasing the block size directly. ](#) (SegWit), which solved transaction malleability and improved capacity without enlarging block sizes. SegWit also paved the way for the Lightning Network, a Layer 2 protocol built on top of Bitcoin (and other blockchains) that enables fast, cheap, and scalable transactions by moving them off chain, while still preserving the security and decentralisation of the underlying blockchain.
 
 ## Bitcoins maturation and institutional adoption
