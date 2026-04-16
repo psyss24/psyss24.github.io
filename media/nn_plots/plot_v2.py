@@ -175,23 +175,73 @@ def fig7():
 
 # --- 7. Redundancy (Family of Solutions) ---
 def fig8():
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4))
-    # Target: a simple tent shape
-    # Sol 1: Two units
-    ax1.plot(X, np.maximum(0, X+1) - np.maximum(0, X) - np.maximum(0, X) + np.maximum(0, X-1), color=COLORS[1], lw=2)
-    ax1.set_title("Solution A (Different Folds)", fontsize=11)
-    
-    # Sol 2: Different combination
-    y_tent = np.where(1 - np.abs(X) > 0, 1 - np.abs(X), 0)
-    ax2.plot(X, y_tent, color=COLORS[1], lw=2) # Rough approximation
-    # Better: sum of different units
-    y2 = 0.5*np.maximum(0, X+1) + 0.5*np.maximum(0, -X+1) - 0.5
-    ax2.plot(X, np.maximum(0, y2), color=COLORS[1], lw=2, alpha=0.5, ls='--')
-    ax2.set_title("Solution B (Same Output)", fontsize=11)
-    
-    for ax in [ax1, ax2]:
-        ax.set_ylim(-0.2, 1.2); ax.axhline(0, color=AXIS_COLOR, lw=0.5)
-    save_fig("07_redundancy")
+    x = np.linspace(-2.2, 2.2, 600)
+    target = np.maximum(0, 1 - np.abs(x))
+
+    # Solution A: classic three-hinge decomposition.
+    a1 = np.maximum(0, x + 1)
+    a2 = -2.0 * np.maximum(0, x)
+    a3 = np.maximum(0, x - 1)
+    y_a = a1 + a2 + a3
+
+    # Solution B: mirrored hinge family with an explicit bias term.
+    b1 = np.maximum(0, x + 1)
+    b2 = -np.maximum(0, x)
+    b3 = np.maximum(0, -x + 1)
+    b4 = -np.maximum(0, -x)
+    b_bias = -1.0
+    y_b = b_bias + b1 + b2 + b3 + b4
+
+    fig = plt.figure(figsize=(12, 6.6))
+    fig.set_layout_engine('none')
+    grid = fig.add_gridspec(2, 2, height_ratios=[1.0, 1.35], hspace=0.18, wspace=0.16)
+
+    ax_a_units = fig.add_subplot(grid[0, 0])
+    ax_b_units = fig.add_subplot(grid[0, 1], sharex=ax_a_units)
+    ax_a_out = fig.add_subplot(grid[1, 0], sharex=ax_a_units)
+    ax_b_out = fig.add_subplot(grid[1, 1], sharex=ax_a_units, sharey=ax_a_out)
+
+    # Internal components for Solution A.
+    ax_a_units.plot(x, a1, color=COLORS[1], ls='--', lw=1.7, alpha=0.8, label='h1')
+    ax_a_units.plot(x, a2, color=COLORS[3], ls='--', lw=1.7, alpha=0.8, label='h2')
+    ax_a_units.plot(x, a3, color=COLORS[4], ls='--', lw=1.7, alpha=0.8, label='h3')
+    ax_a_units.set_title("Solution A Internals", fontsize=10)
+    ax_a_units.legend(frameon=False, ncol=3, fontsize=8, loc='upper center')
+
+    # Internal components for Solution B.
+    ax_b_units.plot(x, b1, color=COLORS[1], ls='--', lw=1.7, alpha=0.8, label='u1')
+    ax_b_units.plot(x, b2, color=COLORS[3], ls='--', lw=1.7, alpha=0.8, label='u2')
+    ax_b_units.plot(x, b3, color=COLORS[4], ls='--', lw=1.7, alpha=0.8, label='u3')
+    ax_b_units.plot(x, b4, color=COLORS[2], ls='--', lw=1.7, alpha=0.8, label='u4')
+    ax_b_units.plot(x, np.full_like(x, b_bias), color=AXIS_COLOR, ls=':', lw=1.4, alpha=0.8, label='bias')
+    ax_b_units.set_title("Solution B Internals", fontsize=10)
+    ax_b_units.legend(frameon=False, ncol=5, fontsize=8, loc='upper center')
+
+    # Outputs: both match the same target exactly.
+    ax_a_out.plot(x, target, color=AXIS_COLOR, ls=':', lw=2.0, alpha=0.85, label='target')
+    ax_a_out.plot(x, y_a, color=COLORS[0], lw=2.8, label='sum (A)')
+    ax_a_out.set_title("Output of Solution A", fontsize=10)
+
+    ax_b_out.plot(x, target, color=AXIS_COLOR, ls=':', lw=2.0, alpha=0.85, label='target')
+    ax_b_out.plot(x, y_b, color=COLORS[0], lw=2.8, label='sum (B)')
+    ax_b_out.set_title("Output of Solution B", fontsize=10)
+
+    for ax in [ax_a_units, ax_b_units, ax_a_out, ax_b_out]:
+        ax.axhline(0, color=AXIS_COLOR, lw=0.5, alpha=0.7, zorder=0)
+        for knot in (-1, 0, 1):
+            ax.axvline(knot, color=AXIS_COLOR, lw=0.45, alpha=0.2, zorder=0)
+        ax.set_xlim(-2.1, 2.1)
+
+    for ax in [ax_a_units, ax_b_units]:
+        ax.set_xticks([])
+        ax.set_yticks([])
+
+    for ax in [ax_a_out, ax_b_out]:
+        ax.set_ylim(-0.12, 1.15)
+        ax.legend(frameon=False, fontsize=8, loc='upper right')
+
+    fig.subplots_adjust(left=0.05, right=0.98, bottom=0.08, top=0.95)
+    save_fig("07_redundancy", tight=False)
 
 if __name__ == "__main__":
     for mode in ("light", "dark"):

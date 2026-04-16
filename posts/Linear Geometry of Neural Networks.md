@@ -118,7 +118,7 @@ While a shallow network can theoretically approximate any function by adding eno
 In a shallow network, the input space is divided into linear regions based on the activation patterns of its hidden units. However, when we add a second layer, it does not take the original input $x$. Instead, it takes the already partitioned output of the first layer.
 
 ![Single fold plot](media/nn_plots/05_single_fold.png)
-*Figure 5: Visualizing the folding effect of depth. The second layer takes the first layer's hinge and wraps it back on itself, creating a mountain peak from simple linear primitives.*
+*Figure 5: Visualising the folding effect of depth. The second layer takes the first layer's hinge and wraps it back on itself, creating a mountain peak from simple linear primitives.*
 
   
 
@@ -156,7 +156,7 @@ Deep layers grant us the ability to create exponentially more regions with fewer
 Shallow networks are often brittle; because they lack intermediate layers, there is often only one specific way for the parameters to align to solve a complex problem. With deep networks because there are many different combinations of folds across multiple layers that can result in the same global output, the network has access to a **large family of similar solutions**. This redundancy makes moderately deep networks easier to train, as the optimisation algorithm is more likely to fall into a functional configuration.
 
 ![Redundancy plot](media/nn_plots/07_redundancy.png)
-*Figure 7: Redundancy in deep networks. Two different internal configurations (different folds and parameters) can result in the same functional output, making optimization more robust.*
+*Figure 7: Redundancy in deep networks. The top row shows two different internal decompositions, while the bottom row shows that both sums reproduce the exact same output function.*
 
   
 
