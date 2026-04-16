@@ -1,6 +1,34 @@
 // post management module
 // handles post loading, card creation, and markdown processing
 
+const PREFERRED_POST_ORDER = [
+    'linear geometry of neural networks',
+    'measurement and modeling of volatility',
+    'bitcoin',
+    'money'
+];
+
+function normalisePostFilename(filename) {
+    return (filename || '').trim().toLowerCase();
+}
+
+function sortPostsForDisplay(posts) {
+    const pinnedOrder = new Map(
+        PREFERRED_POST_ORDER.map((name, index) => [name, index])
+    );
+
+    return [...posts].sort((a, b) => {
+        const aName = normalisePostFilename(a.filename);
+        const bName = normalisePostFilename(b.filename);
+
+        const aRank = pinnedOrder.has(aName) ? pinnedOrder.get(aName) : Number.POSITIVE_INFINITY;
+        const bRank = pinnedOrder.has(bName) ? pinnedOrder.get(bName) : Number.POSITIVE_INFINITY;
+
+        if (aRank !== bRank) return aRank - bRank;
+        return a.filename.localeCompare(b.filename);
+    });
+}
+
 // extract excerpt from markdown
 function extractExcerptFromMarkdown(markdown) {
     // remove tags first
@@ -142,9 +170,10 @@ async function discoverPostsFromGitHubApi() {
 
 async function loadPostIndex() {
     const directoryPosts = await discoverPostsFromDirectoryListing();
-    if (directoryPosts.length > 0) return directoryPosts;
+    if (directoryPosts.length > 0) return sortPostsForDisplay(directoryPosts);
 
-    return discoverPostsFromGitHubApi();
+    const githubPosts = await discoverPostsFromGitHubApi();
+    return sortPostsForDisplay(githubPosts);
 }
 
 // make the cool (post/journal) cards from markdown files
@@ -204,6 +233,7 @@ window.PostManager = {
     createPostCard,
     discoverPostsFromDirectoryListing,
     discoverPostsFromGitHubApi,
+    sortPostsForDisplay,
     loadPostIndex,
     loadPostPreviews
 };

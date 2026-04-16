@@ -163,47 +163,26 @@ Shallow networks are often brittle; because they lack intermediate layers, there
   
 ## 4. Matrix Management
 
-As networks grow to include billions of parameters, calculating these hinges 
-one by one becomes impossible. We need a way to move all those fences 
-simultaneously. This is where (Matrix Notation)[a compact mathematical 
-language used to represent large grids of numbers and operations, allowing us 
-to compute millions of neuron activations at once.](#) comes in.
+As networks grow to include billions of parameters, calculating these hinges one by one becomes impossible. We need a way to move all those fences simultaneously. This is where (Matrix Notation)[a compact mathematical language used to represent large grids of numbers and operations, allowing us to compute millions of neuron activations at once.](#) comes in.
 
 
-We group all the slopes into a weight matrix ($\Omega$) and all the thresholds 
-into a bias vector ($\beta$), where $h$ represents the activation of a hidden 
-unit and $k$ indexes which layer we are computing:
+We group all the slopes into a weight matrix ($\Omega$) and all the thresholds into a bias vector ($\beta$), where $h$ represents the activation of a hidden unit and $k$ indexes which layer we are computing:
 
 $$h_k = a[\beta_{k-1} + \Omega_{k-1} h_{k-1}]$$
 $$y = \beta_K + \Omega_K h_K$$
 
-Multiplying an input by $\Omega$ literally transforms space, rotating, 
-stretching, or shearing the coordinate system. The hyperplanes from Section 2 
-do not move on their own; it is the weight matrix that repositions them as the 
-network learns.
+Multiplying an input by $\Omega$ literally transforms space, rotating, stretching, or shearing the coordinate system. The hyperplanes from Section 2 do not move on their own; it is the weight matrix that repositions them as the network learns.
 
-Stacking layers means composing these transformations one after another. Each 
-$\Omega$ folds the space once more and the network learns by adjusting those 
-folds until the resulting piecewise patchwork perfectly matches the data 
-(whether that data represents pixels in an image or the volatility of a stock 
-price).
+Stacking layers means composing these transformations one after another. Each $\Omega$ folds the space once more and the network learns by adjusting those folds until the resulting piecewise patchwork perfectly matches the data (whether that data represents pixels in an image or the volatility of a stock price).
 
 ## 5. The Final Layer
 
 Every layer transform the space so that the problem becomes easier to solve. The final layer has a different job and that is to give an answer.
 
-What that answer looks like depends on what you are asking. If the network is 
-deciding between categories, the final layer produces one number per class. 
-These numbers are raw scores called (logits)[the unnormalised output scores 
-of the final layer, representing how strongly the network votes for each 
-class before being converted to probabilities.](#), reflecting how 
-strongly the network votes for each option. A function called 
-(Softmax)[a mathematical function that converts a vector of raw scores into 
-a probability distribution, ensuring all values are positive and sum to 
-one.](#) then squashes them into a probability distribution that sums to 
-one. If the network is predicting a continuous value, the final layer skips 
-this step entirely and outputs a single number directly.
+What that answer looks like depends on what you are asking. If the network is deciding between categories, the final layer produces one number per class. These numbers are raw scores called (logits)[the unnormalised output scores of the final layer, representing how strongly the network votes for each 
+class before being converted to probabilities.](#), reflecting how strongly the network votes for each option. A function called (Softmax)[a mathematical function that converts a vector of raw scores into a probability distribution, ensuring all values are positive and sum to 
+one.](#) then squashes them into a probability distribution that sums to one. If the network is predicting a continuous value, the final layer skips this step entirely and outputs a single number directly.
 
 The final layer is drawing a decision boundary through the transformed space it inherited from all the layers before. By the time data reaches it, the previous layers have done their folding, ideally warping the space so that different classes sit in cleanly separable regions. The final layer then can simply find the hyperplane that separates them.
 
-What began as a single hinge snapping a line has become a composition of matrix transformations, folding a high dimensional space until the shape of the data and the shape of the network are one and the same.
+What begins as a single hinge snapping a line eventually becomes a composition of matrix transformations, folding a high dimensional space until the shape of the data and the shape of the network are one and the same.
