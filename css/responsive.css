@@ -208,6 +208,17 @@
     #journal, #projects {
         padding-top: 80px;
     }
+
+    .index-page .home-quote {
+        padding-top: 80px;
+        margin: 0 auto 1.3rem auto;
+        max-width: 92%;
+    }
+
+    .index-page #journal,
+    .index-page #projects {
+        padding-top: 0;
+    }
     
     /* Mobile Animations */
     .post, .project-card {

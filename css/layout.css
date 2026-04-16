@@ -152,3 +152,16 @@ footer {
 .nav-tab:hover {
     color: var(--accent-color);
 }
+
+/* === HOME QUOTE === */
+.index-page .home-quote {
+    font-family: var(--font-body);
+    color: var(--muted-text);
+    font-size: 0.84rem;
+    font-style: italic;
+    line-height: 1.45;
+    text-align: center;
+    max-width: 36rem;
+    margin: -0.3rem auto 1.7rem auto;
+    opacity: 0.9;
+}
