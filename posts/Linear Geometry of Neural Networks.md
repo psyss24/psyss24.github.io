@@ -34,9 +34,7 @@ In a neural network, the activation function in a (hidden unit)[an individual 'n
 
 There isn't much you can do with a simple linear line which is why we need some mechanism to introduce non-linearity, specifically we pass in our linear equation into something called an activation function that decides if a neuron's signal is _important_ enough to pass forward.
 
-Without it, no matter how many layers you add to a network, the math would always collapse into one
-
-single straight line. Here I'll describe the ReLU activation function. There are many more activation functions each different from one another, but I feel ReLU is the simplest. Also, many textbooks offer ReLU as the first activation function to introduce neural networks with and I won't break that tradition.
+Without it, no matter how many layers you add to a network, the math would always collapse into one single straight line. Here I'll describe the ReLU activation function. There are many more activation functions each different from one another, but I feel ReLU is the simplest. Also, many textbooks offer ReLU as the first activation function to introduce neural networks with and I won't break that tradition.
 
   
   
