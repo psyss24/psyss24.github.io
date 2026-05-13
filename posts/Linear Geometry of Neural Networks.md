@@ -12,7 +12,7 @@ Neural networks under the hood are quite mechanical and I found, when learning i
 
   
 
-## 1. Hinges Make Lines Snap
+## Hinges Make Lines Snap
 
   
 
@@ -69,7 +69,7 @@ Mathematically, the (parameters)[the internal settings weights and biases that a
 
   
 
-## 2. Higher Dimensions, Fences and Neighborhoods
+## Higher Dimensions, Fences and Neighborhoods
 
   
 
@@ -101,7 +101,7 @@ By optimising the orientation (weights) and location (biases) of these fences, t
 
   
 
-## 3. Benefits of Deep Layers
+## Benefits of Deep Layers
 
   
 
@@ -109,7 +109,7 @@ While a shallow network can theoretically approximate any function by adding eno
 
   
 
-### 3.1 Folding in Deep Layers
+### Folding in Deep Layers
 
   
 
@@ -140,7 +140,7 @@ Geometrically, the first layer folds the input space and subsequent layers wrap 
 
 * **Deep:** A network with $K$ layers of $D$ units can generate up to $(D+1)^K$ regions.
 
-### 3.2 Structure and Optimisation
+### Structure and Optimisation
 
 ![Hierarchical assembly plot](media/nn_plots/06_hierarchical_assembly.png)
 *Figure 6: Local-to-global processing. Early layers identify simple primitives like lines and hinges, which deeper layers then assemble into complex global objects.*
@@ -159,7 +159,7 @@ Shallow networks are often brittle; because they lack intermediate layers, there
   
 
   
-## 4. Matrix Management
+## Matrix Management
 
 As networks grow to include billions of parameters, calculating these hinges one by one becomes impossible. We need a way to move all those fences simultaneously. This is where (Matrix Notation)[a compact mathematical language used to represent large grids of numbers and operations, allowing us to compute millions of neuron activations at once.](#) comes in.
 
@@ -173,7 +173,7 @@ Multiplying an input by $\Omega$ literally transforms space, rotating, stretchin
 
 Stacking layers means composing these transformations one after another. Each $\Omega$ folds the space once more and the network learns by adjusting those folds until the resulting piecewise patchwork perfectly matches the data (whether that data represents pixels in an image or the volatility of a stock price).
 
-## 5. The Final Layer
+## The Final Layer
 
 Every layer transform the space so that the problem becomes easier to solve. The final layer has a different job and that is to give an answer.
 
