@@ -1,6 +1,6 @@
 # The Measurement and Modeling of Financial Volatility
 
-Price is what we see, risk is what we infer; I summarise the development of volatility forecasting models, focusing on how each one probes the assumptions of the last.
+Price is what we see, risk is what we infer; I summarise the development of volatility forecasting models and their improvements on one another.
 
 
 When we look at the financial markets we usually (and for good reason) focus on the price of an asset. If a stock is 100 today and 105 tomorrow we see a 5% gain. But price alone can only tell part of the story. To understand the safety or risk of that asset there is also a *hidden* dimension: **(volatility)[a measure of the dispersion or spread of returns; high volatility indicates sharp price swings while low volatility suggests stability.](#)**. 
