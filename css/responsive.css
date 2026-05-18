@@ -103,10 +103,17 @@
         order: 1;
     }
     
+    .post-meta-row > .post-date {
+        flex: 0 0 auto;
+        order: 2;
+        margin-left: auto;
+        text-align: right;
+    }
+    
     /* Tag container on right, tags stack vertically */
     .post-meta-row > .tag-container {
         flex: 0 0 auto;
-        order: 2;
+        order: 3;
         display: flex;
         flex-direction: column;
         gap: 0.3rem;

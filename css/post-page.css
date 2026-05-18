@@ -69,13 +69,18 @@
     margin-bottom: 1.5rem;
 }
 
-.post-page ol,
-.post-page ul {
-    color: var(--text-color);
-    font-size: 1.05rem;
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-    padding-left: 1.5rem;
+.post-page p.post-intro {
+    color: var(--muted-text);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-top: 0;
+    margin-bottom: 1.75rem;
+    padding-left: 0;
+    border-left: none;
+    font-style: italic;
+    opacity: 0.88;
+}
+
 }
 
 .post-page li {

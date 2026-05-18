@@ -173,6 +173,98 @@ function updatePostThemeImages(isDark) {
     });
 }
 
+function parseGitHubLinkHeader(linkHeader) {
+    if (!linkHeader) return {};
+
+    return linkHeader.split(',').reduce((acc, part) => {
+        const match = part.match(/<([^>]+)>;\s*rel="([^"]+)"/);
+        if (match) {
+            acc[match[2]] = match[1];
+        }
+        return acc;
+    }, {});
+}
+
+async function fetchPostPublishedDate(postName) {
+    if (!postName) return null;
+
+    const repoOwner = 'psyss24';
+    const repoName = 'psyss24.github.io';
+    const branch = 'main';
+    const path = `posts/${postName}.md`;
+    const encodedPath = encodeURIComponent(path);
+    const baseUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/commits?path=${encodedPath}&per_page=1&sha=${encodeURIComponent(branch)}`;
+
+    try {
+        const firstResponse = await fetch(baseUrl, {
+            cache: 'no-store',
+            headers: {
+                Accept: 'application/vnd.github+json'
+            }
+        });
+
+        if (!firstResponse.ok) {
+            throw new Error(`GitHub API returned ${firstResponse.status}`);
+        }
+
+        const linkHeader = firstResponse.headers.get('Link');
+        const links = parseGitHubLinkHeader(linkHeader);
+        let commitData = null;
+
+        if (links.last) {
+            const lastPageResponse = await fetch(links.last, {
+                cache: 'no-store',
+                headers: {
+                    Accept: 'application/vnd.github+json'
+                }
+            });
+            if (!lastPageResponse.ok) {
+                throw new Error(`GitHub API last page returned ${lastPageResponse.status}`);
+            }
+            const lastPageCommits = await lastPageResponse.json();
+            commitData = Array.isArray(lastPageCommits) ? lastPageCommits[0] : null;
+        } else {
+            const firstPageCommits = await firstResponse.json();
+            commitData = Array.isArray(firstPageCommits) ? firstPageCommits[0] : null;
+        }
+
+        if (!commitData) {
+            return null;
+        }
+
+        const publishedAt = commitData?.commit?.author?.date || commitData?.commit?.committer?.date;
+        return publishedAt ? formatPublishedDate(publishedAt) : null;
+    } catch (error) {
+        console.warn('Unable to fetch published date from GitHub:', error);
+        return null;
+    }
+}
+
+function formatPublishedDate(isoString) {
+    if (!isoString) return null;
+    const date = new Date(isoString);
+    if (Number.isNaN(date.getTime())) return null;
+
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+}
+
+function insertPublishedDate(formattedDate) {
+    const dateElement = document.querySelector('.post-meta-row .post-date');
+    if (!dateElement) return;
+
+    if (formattedDate) {
+        dateElement.textContent = `Published ${formattedDate}`;
+        dateElement.style.display = 'block';
+    } else {
+        dateElement.textContent = '';
+        dateElement.style.display = 'none';
+    }
+}
+
 function enhancePostImages(postContentElement) {
     if (!postContentElement) return;
 
@@ -287,6 +379,9 @@ async function loadPost(postName) {
         
         // store raw markdown for reading time calculation
         postContentElement.dataset.rawMarkdown = markdown;
+
+        // insert published date from GitHub commit history
+        insertPublishedDate(await fetchPostPublishedDate(postName));
         
         // apply genre colors to post page
         applyGenreColors(tags);
@@ -384,11 +479,11 @@ function styleMarkdownContent(html, tags) {
     // add multiple-tags class if there are multiple tags
     const readingTimeClass = tags.length > 1 ? 'reading-time multiple-tags' : 'reading-time';
     
-    return html
+    let styledHtml = html
         // style main title (first h1) and add genre tags below it
         .replace(
             /^<h1>(.*?)<\/h1>/,
-            `<h1>$1</h1><div class="post-meta-row"><div class="${readingTimeClass}"></div><div class="tag-container">${genreTags}</div></div>`
+            `<h1>$1</h1><div class="post-meta-row"><div class="${readingTimeClass}"></div><div class="post-date"></div><div class="tag-container">${genreTags}</div></div>`
         )
         // publication date next (first em in italics)
         .replace(/^<p><em>Published on (.*?)<\/em><\/p>/, '<div class="post-date">Published on $1</div>')
@@ -396,6 +491,10 @@ function styleMarkdownContent(html, tags) {
         .replace(/^<blockquote>\s*<p>(.*?)<\/p>\s*<\/blockquote>/, '<p class="post-intro">$1</p>')
         // then closing section (content after hr)
         .replace(/<hr>\s*<p><em>(.*?)<\/em><\/p>/, '<div class="post-closing"><p>$1</p></div>');
+
+    // promote the first paragraph after the title to post intro style
+    styledHtml = styledHtml.replace(/(<div class="post-meta-row">[\s\S]*?<\/div>)\s*<p>(.*?)<\/p>/, '$1<p class="post-intro">$2</p>');
+    return styledHtml;
 }
 
 // initialize post page

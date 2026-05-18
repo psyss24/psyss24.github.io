@@ -26,6 +26,7 @@
     --accent-color: #111111;
     --border-color: #e0e0e0;
     --muted-text: #666666;
+    --meta-text: rgba(0, 0, 0, 0.58);
     --hover-bg: #f9f9f9;
     --subtle-shadow: rgba(0, 0, 0, 0.05);
     --link-color: #0066cc;
@@ -68,6 +69,7 @@ body.dark-theme {
     --accent-color: #e8e8e8;
     --border-color: #333333;
     --muted-text: #999999;
+    --meta-text: rgba(255, 255, 255, 0.72);
     --hover-bg: #222222;
     --subtle-shadow: rgba(0,0,0,0.3);
     --link-color: #6db3f2;

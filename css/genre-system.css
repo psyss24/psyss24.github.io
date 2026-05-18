@@ -49,14 +49,37 @@
 
 /* === POST META LAYOUT === */
 .post-meta-row {
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
   margin-top: 0;
   margin-bottom: 1.5rem;
   width: 100%;
 }
 
+.post-meta-row > .reading-time,
+.post-meta-row > .post-date {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--meta-text);
+  white-space: nowrap;
+}
+
 .post-meta-row > .reading-time {
-  flex-shrink: 0;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+.post-meta-row > .post-date {
+  margin: 0;
+  flex: 0 0 auto;
+  margin-left: auto;
+  text-align: right;
 }
 
 .post-meta-row > .tag-container {
