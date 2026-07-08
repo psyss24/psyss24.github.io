@@ -139,12 +139,12 @@ class TooltipManager {
 function adjustMobileTooltip(term) {
     const tooltip = term.querySelector('.definition-tooltip');
     if (!tooltip) return;
-    
+
     // Force tooltip below positioning for mobile
     tooltip.classList.add('tooltip-below');
     tooltip.classList.remove('shift-left', 'shift-right');
-    
-    // Reset any desktop positioning
+
+    // Reset any previous inline positioning so measurements are clean
     tooltip.style.left = '';
     tooltip.style.right = '';
     tooltip.style.top = '';
@@ -155,41 +155,49 @@ function adjustMobileTooltip(term) {
     tooltip.style.width = '';
     tooltip.style.minWidth = '';
     tooltip.style.maxWidth = '';
-    
-    // Position tooltip after next frame to ensure proper sizing
-    setTimeout(() => {
-        const termRect = term.getBoundingClientRect();
+
+    // Use rAF so the browser has laid out the reset styles before we measure
+    requestAnimationFrame(() => {
         const viewportWidth = window.innerWidth;
         const margin = 16;
-        
-        // Set width based on available space
         const availableWidth = viewportWidth - (2 * margin);
         const preferredWidth = Math.min(280, availableWidth);
-        
+
+        // Set a concrete width so we can measure accurately
         tooltip.style.width = `${preferredWidth}px`;
         tooltip.style.maxWidth = `${availableWidth}px`;
-        
-        // Position horizontally
-        const tooltipRect = tooltip.getBoundingClientRect();
-        const termCenter = termRect.left + (termRect.width / 2);
-        const tooltipHalfWidth = tooltipRect.width / 2;
-        
-        let leftOffset = termCenter - tooltipHalfWidth;
-        
-        // Ensure tooltip doesn't go off screen
-        if (leftOffset < margin) {
-            leftOffset = margin;
-        } else if (leftOffset + tooltipRect.width > viewportWidth - margin) {
-            leftOffset = viewportWidth - margin - tooltipRect.width;
+
+        // Measure term and tooltip positions in viewport coordinates
+        const termRect = term.getBoundingClientRect();
+        const tooltipWidth = tooltip.offsetWidth;
+        const termCenter = termRect.left + termRect.width / 2;
+
+        // Ideal: centre the tooltip under the term
+        let tooltipLeft = termCenter - tooltipWidth / 2;
+
+        // Clamp so the tooltip stays within the viewport margins
+        if (tooltipLeft < margin) {
+            tooltipLeft = margin;
+        } else if (tooltipLeft + tooltipWidth > viewportWidth - margin) {
+            tooltipLeft = viewportWidth - margin - tooltipWidth;
         }
-        
-        // Apply positioning relative to term
-        const termLeftRelative = termRect.left;
-        const finalLeft = leftOffset - termLeftRelative;
-        
-        tooltip.style.left = `${finalLeft}px`;
-    }, 10);
+
+        // The tooltip is position:absolute inside the term, so convert
+        // the desired viewport-x into an offset relative to the term's left edge
+        const offsetLeft = tooltipLeft - termRect.left;
+        tooltip.style.left = `${offsetLeft}px`;
+
+        // Point the CSS arrow at the centre of the term
+        const arrowPos = termCenter - tooltipLeft;
+        // Clamp the arrow so it stays within the tooltip's rounded corners
+        const arrowMin = 12;
+        const arrowMax = tooltipWidth - 12;
+        const clampedArrow = Math.max(arrowMin, Math.min(arrowPos, arrowMax));
+        tooltip.style.setProperty('--arrow-left', `${clampedArrow}px`);
+        tooltip.style.setProperty('--arrow-transform', 'translateX(-50%)');
+    });
 }
+
 
 // Definition parser (this took a lot longer than expected)
 function parseDefinitions(element) {

@@ -131,7 +131,8 @@ body.dark-theme .definition-tooltip::before {
 
 /* === TOOLTIP INTERACTIONS === */
 .definition-term:hover .definition-tooltip,
-.definition-tooltip:hover {
+.definition-tooltip:hover,
+.definition-term.tooltip-active .definition-tooltip {
     opacity: 1;
     visibility: visible;
     transform: translateY(-50%);
@@ -156,7 +157,6 @@ body.dark-theme .definition-tooltip::before {
 
 /* === TOOLTIP BELOW POSITIONING === */
 .definition-tooltip.tooltip-below {
-    left: 0 !important;
     top: 100% !important;
     transform: translateY(0.5rem) !important;
     margin-left: 0 !important;
