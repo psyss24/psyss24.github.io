@@ -117,6 +117,63 @@ function checkMobileMetaRowLayout() {
     // else: normal horizontal layout (no additional classes)
 }
 
+// parse GitHub API Link header for pagination
+function parseGitHubLinkHeader(linkHeader) {
+    if (!linkHeader) return {};
+
+    return linkHeader.split(',').reduce((acc, part) => {
+        const match = part.match(/<([^>]+)>;\s*rel="([^"]+)"/);
+        if (match) {
+            acc[match[2]] = match[1];
+        }
+        return acc;
+    }, {});
+}
+
+// fetch the ISO date string of a post's first commit (publish date)
+async function fetchPostPublishedDateISO(postName) {
+    if (!postName) return null;
+
+    const repoOwner = 'psyss24';
+    const repoName = 'psyss24.github.io';
+    const branch = 'main';
+    const path = `posts/${postName}.md`;
+    const encodedPath = encodeURIComponent(path);
+    const baseUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/commits?path=${encodedPath}&per_page=1&sha=${encodeURIComponent(branch)}`;
+
+    try {
+        const firstResponse = await fetch(baseUrl, {
+            cache: 'no-store',
+            headers: { Accept: 'application/vnd.github+json' }
+        });
+
+        if (!firstResponse.ok) throw new Error(`GitHub API returned ${firstResponse.status}`);
+
+        const linkHeader = firstResponse.headers.get('Link');
+        const links = parseGitHubLinkHeader(linkHeader);
+        let commitData = null;
+
+        if (links.last) {
+            const lastPageResponse = await fetch(links.last, {
+                cache: 'no-store',
+                headers: { Accept: 'application/vnd.github+json' }
+            });
+            if (!lastPageResponse.ok) throw new Error(`GitHub API last page returned ${lastPageResponse.status}`);
+            const lastPageCommits = await lastPageResponse.json();
+            commitData = Array.isArray(lastPageCommits) ? lastPageCommits[0] : null;
+        } else {
+            const firstPageCommits = await firstResponse.json();
+            commitData = Array.isArray(firstPageCommits) ? firstPageCommits[0] : null;
+        }
+
+        if (!commitData) return null;
+        return commitData?.commit?.author?.date || commitData?.commit?.committer?.date || null;
+    } catch (error) {
+        console.warn(`Unable to fetch published date for "${postName}":`, error);
+        return null;
+    }
+}
+
 // export functions to global scope
 window.CoreUtils = {
     isMobileDevice,
@@ -128,6 +185,11 @@ window.CoreUtils = {
 window.ColorUtils = {
     generateGenreColors,
     normaliseTag
+};
+
+window.GitHubUtils = {
+    parseGitHubLinkHeader,
+    fetchPostPublishedDateISO
 };
 
 // legacy global exports for compatibility

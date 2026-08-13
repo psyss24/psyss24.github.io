@@ -1,33 +1,23 @@
-// post management module
-// handles post loading, card creation, and markdown processing
-
-const PREFERRED_POST_ORDER = [
-    'linear geometry of neural networks',
-    'measurement and modelling of financial volatility',
-    'bitcoin',
-    'money'
-];
-
-function normalisePostFilename(filename) {
-    return (filename || '').trim().toLowerCase();
-}
-
-function sortPostsForDisplay(posts) {
-    const pinnedOrder = new Map(
-        PREFERRED_POST_ORDER.map((name, index) => [name, index])
+// sort posts by publish date, newest first (stack order)
+// fetches the first-commit date for each post from the GitHub API
+async function sortPostsByDate(posts) {
+    // fetch all publish dates in parallel
+    const postsWithDates = await Promise.all(
+        posts.map(async (post) => {
+            const isoDate = await window.GitHubUtils.fetchPostPublishedDateISO(post.filename);
+            return { ...post, publishedAt: isoDate };
+        })
     );
 
-    return [...posts].sort((a, b) => {
-        const aName = normalisePostFilename(a.filename);
-        const bName = normalisePostFilename(b.filename);
-
-        const aRank = pinnedOrder.has(aName) ? pinnedOrder.get(aName) : Number.POSITIVE_INFINITY;
-        const bRank = pinnedOrder.has(bName) ? pinnedOrder.get(bName) : Number.POSITIVE_INFINITY;
-
-        if (aRank !== bRank) return aRank - bRank;
-        return a.filename.localeCompare(b.filename);
+    // sort newest first; posts without dates sink to the bottom
+    return postsWithDates.sort((a, b) => {
+        const dateA = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
+        const dateB = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
+        if (dateA !== dateB) return dateB - dateA; // newest first
+        return a.filename.localeCompare(b.filename); // alphabetical tiebreaker
     });
 }
+
 
 // extract excerpt from markdown
 function extractExcerptFromMarkdown(markdown) {
@@ -170,10 +160,10 @@ async function discoverPostsFromGitHubApi() {
 
 async function loadPostIndex() {
     const directoryPosts = await discoverPostsFromDirectoryListing();
-    if (directoryPosts.length > 0) return sortPostsForDisplay(directoryPosts);
+    if (directoryPosts.length > 0) return sortPostsByDate(directoryPosts);
 
     const githubPosts = await discoverPostsFromGitHubApi();
-    return sortPostsForDisplay(githubPosts);
+    return sortPostsByDate(githubPosts);
 }
 
 // make the cool (post/journal) cards from markdown files
@@ -233,7 +223,7 @@ window.PostManager = {
     createPostCard,
     discoverPostsFromDirectoryListing,
     discoverPostsFromGitHubApi,
-    sortPostsForDisplay,
+    sortPostsByDate,
     loadPostIndex,
     loadPostPreviews
 };
