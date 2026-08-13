@@ -1,6 +1,6 @@
 {Economics, Technology}
 
-# Bitcoin, from Rebel Currency to Institutional Asset
+# Bitcoin & Irony
 
 How did a currency designed to bypass traditional finance become embraced by it?
 
