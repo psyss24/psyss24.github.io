@@ -1,4 +1,4 @@
-# The Measurement and Modeling of Financial Volatility
+# Measurement & Modelling of Financial Volatility
 
 Price is what we see, risk is what we infer; I summarise the development of volatility forecasting models and their improvements on one another.
 
