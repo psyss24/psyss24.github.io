@@ -3,7 +3,7 @@
 
 const PREFERRED_POST_ORDER = [
     'linear geometry of neural networks',
-    'measurement and modeling of volatility',
+    'measurement and modelling of financial volatility',
     'bitcoin',
     'money'
 ];
