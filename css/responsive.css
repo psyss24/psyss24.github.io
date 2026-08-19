@@ -202,8 +202,9 @@
 
     .index-page .home-quote {
         padding-top: 80px;
-        margin: 0 auto 1.3rem auto;
-        max-width: 92%;
+        margin: 0 0 1.5rem 0;
+        max-width: 100%;
+        text-align: left;
     }
 
     .index-page #journal,

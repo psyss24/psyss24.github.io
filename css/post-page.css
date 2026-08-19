@@ -70,15 +70,16 @@
 }
 
 .post-page p.post-intro {
-    color: var(--muted-text);
-    font-size: 0.95rem;
-    line-height: 1.75;
+    color: var(--text-color);
+    font-size: 1.15rem;
+    line-height: 1.6;
     margin-top: 0;
-    margin-bottom: 1.75rem;
+    margin-bottom: 2rem;
     padding-left: 0;
     border-left: none;
-    font-style: italic;
-    opacity: 0.88;
+    font-style: normal;
+    opacity: 0.9;
+    font-weight: 400;
 }
 
 .post-page li {
