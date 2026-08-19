@@ -177,31 +177,36 @@ async function loadPostPreviews() {
     const existingPosts = journalContainer.querySelectorAll('.post[data-auto-generated="true"]');
     existingPosts.forEach(post => post.remove());
     
-    for (const post of posts) {
+    // Fetch all markdown files in parallel to prevent network waterfall
+    const postDataPromises = posts.map(async (post) => {
         try {
             const response = await fetch(`posts/${encodeURIComponent(post.filename)}.md`);
-            if (!response.ok) continue;
-            
+            if (!response.ok) return null;
             const markdown = await response.text();
-            const tags = parseTagsFromMarkdown(markdown);
-            
-            // get title from markdown
-            const title = extractTitleFromMarkdown(markdown);
-            
-            // get excerpt from markdown
-            const excerpt = extractExcerptFromMarkdown(markdown);
-            
-            // make post card
-            const postCard = createPostCard({
-                ...post,
-                title: title || post.filename,
-                excerpt: excerpt
-            }, tags);
-            
-            journalContainer.appendChild(postCard);
+            return { post, markdown };
         } catch (error) {
             console.error(`Error loading post ${post.filename}:`, error);
+            return null;
         }
+    });
+
+    const results = await Promise.all(postDataPromises);
+    
+    for (const result of results) {
+        if (!result) continue;
+        const { post, markdown } = result;
+        
+        const tags = parseTagsFromMarkdown(markdown);
+        const title = extractTitleFromMarkdown(markdown);
+        const excerpt = extractExcerptFromMarkdown(markdown);
+        
+        const postCard = createPostCard({
+            ...post,
+            title: title || post.filename,
+            excerpt: excerpt
+        }, tags);
+        
+        journalContainer.appendChild(postCard);
     }
     
     // add the cool arrows to readmore

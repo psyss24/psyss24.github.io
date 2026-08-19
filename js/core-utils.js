@@ -134,6 +134,15 @@ function parseGitHubLinkHeader(linkHeader) {
 async function fetchPostPublishedDateISO(postName) {
     if (!postName) return null;
 
+    // The first commit date of a post never changes, so we can cache it permanently
+    const cacheKey = `post_date_${postName}`;
+    try {
+        const cachedDate = localStorage.getItem(cacheKey);
+        if (cachedDate) return cachedDate;
+    } catch (e) {
+        // ignore local storage errors
+    }
+
     const repoOwner = 'psyss24';
     const repoName = 'psyss24.github.io';
     const branch = 'main';
@@ -143,7 +152,7 @@ async function fetchPostPublishedDateISO(postName) {
 
     try {
         const firstResponse = await fetch(baseUrl, {
-            cache: 'no-store',
+            cache: 'force-cache',
             headers: { Accept: 'application/vnd.github+json' }
         });
 
@@ -155,7 +164,7 @@ async function fetchPostPublishedDateISO(postName) {
 
         if (links.last) {
             const lastPageResponse = await fetch(links.last, {
-                cache: 'no-store',
+                cache: 'force-cache',
                 headers: { Accept: 'application/vnd.github+json' }
             });
             if (!lastPageResponse.ok) throw new Error(`GitHub API last page returned ${lastPageResponse.status}`);
@@ -167,7 +176,17 @@ async function fetchPostPublishedDateISO(postName) {
         }
 
         if (!commitData) return null;
-        return commitData?.commit?.author?.date || commitData?.commit?.committer?.date || null;
+        const isoDate = commitData?.commit?.author?.date || commitData?.commit?.committer?.date || null;
+        
+        if (isoDate) {
+            try {
+                localStorage.setItem(cacheKey, isoDate);
+            } catch (e) {
+                // ignore storage quota errors
+            }
+        }
+        
+        return isoDate;
     } catch (error) {
         console.warn(`Unable to fetch published date for "${postName}":`, error);
         return null;
