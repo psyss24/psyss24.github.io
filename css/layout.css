@@ -9,7 +9,7 @@
 /* === CONTAINER === */
 .container {
     position: relative;
-    max-width: 650px;
+    max-width: 700px;
     width: 90%;
     margin: 0 auto;
     padding: 0 1rem 4rem 1rem;
@@ -24,7 +24,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 1.5rem 0.9rem 1.5rem;
+    padding: 1.1rem 1.5rem 1rem 1.5rem;
     background: transparent !important;
     border-bottom: 1px solid var(--border-color);
 }
@@ -125,7 +125,7 @@ footer {
 /* === NAVIGATION TABS === */
 .nav-tabs {
     display: flex;
-    gap: 1.5rem;
+    gap: 1.8rem;
     margin-bottom: 2rem;
     padding-top: 1.5rem;
     border-bottom: none;
@@ -136,12 +136,12 @@ footer {
     font-family: var(--font-ui);
     color: var(--muted-text);
     text-decoration: none;
-    padding: 0;
+    padding: 0 0 0.25rem 0;
     font-size: 1rem;
     font-weight: 400;
     letter-spacing: 0;
-    transition: color 0.2s ease;
-    border-bottom: none;
+    transition: color 0.2s ease, border-color 0.2s ease;
+    border-bottom: 2px solid transparent;
 }
 
 .nav-tab.active {
@@ -157,11 +157,11 @@ footer {
 .index-page .home-quote {
     font-family: var(--font-body);
     color: var(--muted-text);
-    font-size: 0.84rem;
+    font-size: 0.88rem;
     font-style: italic;
     line-height: 1.45;
     text-align: center;
     max-width: 36rem;
     margin: -0.3rem auto 1.7rem auto;
-    opacity: 0.9;
+    opacity: 0.85;
 }

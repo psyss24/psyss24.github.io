@@ -24,7 +24,7 @@
   font-family: var(--font-ui);
   display: block;
   margin: 0 0 0.75rem 0;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -62,7 +62,7 @@
 .post-meta-row > .reading-time,
 .post-meta-row > .post-date {
   font-family: var(--font-ui);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -92,7 +92,7 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 2px;
+  height: 3px;
   background: transparent;
   z-index: 9999;
 }
@@ -100,16 +100,16 @@
 .reading-progress-bar__inner {
   height: 100%;
   width: 0%;
-  background: #111 !important;
+  background: var(--link-color) !important;
   border-radius: 0;
-  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 1px 6px 0 rgba(74, 111, 165, 0.3) !important;
   filter: none !important;
   will-change: width;
   transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 body.dark-theme .reading-progress-bar__inner {
-  background: #fff !important;
-  box-shadow: 0 1px 8px 0 #fff !important;
+  background: var(--link-color) !important;
+  box-shadow: 0 1px 8px 0 rgba(125, 160, 202, 0.4) !important;
 }
 
 /* === GENRE TAG STYLES === */

@@ -14,15 +14,15 @@
 /* === PROJECT LISTINGS === */
 .project-card {
     background: transparent;
-    padding: 1.25rem 0;
-    margin-bottom: 0.5rem;
-    border-radius: 0;
+    padding: 1.4rem 0.75rem;
+    margin-bottom: 0.25rem;
+    border-radius: 8px;
     transition: background-color 0.2s ease;
     position: relative;
     overflow: visible;
     display: block;
     box-shadow: none;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: none;
 }
 
 .project-card:last-child {
@@ -51,9 +51,9 @@
 .project-card h3 {
     font-family: var(--font-headline);
     color: var(--accent-color);
-    margin-bottom: 0.4rem;
-    font-size: 1.15rem;
-    font-weight: 500;
+    margin-bottom: 0.35rem;
+    font-size: 1.2rem;
+    font-weight: 600;
     line-height: 1.35;
     letter-spacing: -0.01em;
 }
@@ -65,7 +65,7 @@
 }
 
 .project-card h3 a:hover {
-    color: var(--muted-text);
+    color: var(--link-color);
 }
 
 .project-card p {
@@ -104,7 +104,7 @@
 }
 
 .project-link {
-    color: var(--link-color, #0066cc);
+    color: var(--link-color);
     text-decoration: none;
     font-size: 0.85rem;
     font-weight: 400;
@@ -126,14 +126,14 @@
 /* === POST/BLOG LISTINGS === */
 .post {
     background: transparent;
-    padding: 1.25rem 0;
-    margin-bottom: 0.5rem;
-    border-radius: 0;
+    padding: 1.4rem 0.75rem;
+    margin-bottom: 0.25rem;
+    border-radius: 8px;
     transition: background-color 0.2s ease;
     position: relative;
     overflow: visible;
     box-shadow: none;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: none;
 }
 
 .post:last-child {
@@ -158,9 +158,9 @@
     font-family: var(--font-headline);
     color: var(--accent-color);
     margin-top: 0;
-    margin-bottom: 0.4rem;
-    font-size: 1.25rem;
-    font-weight: 500;
+    margin-bottom: 0.35rem;
+    font-size: 1.3rem;
+    font-weight: 600;
     line-height: 1.35;
     letter-spacing: -0.01em;
     position: relative;
@@ -177,7 +177,7 @@
 }
 
 .post h2 a:hover {
-    color: var(--muted-text);
+    color: var(--link-color);
 }
 
 .post-caption {

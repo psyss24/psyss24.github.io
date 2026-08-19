@@ -15,6 +15,12 @@ body.dark-theme .project-icon {
     background: none;
 }
 
-/* Dark theme reading time overrides */
+/* Popover Tooltip shadow in dark mode (needs to be darker for contrast) */
+body.dark-theme .definition-tooltip {
+    box-shadow: 4px 4px 24px 0 rgba(0, 0, 0, 0.5);
+}
 
-/* Additional dark theme specific styles will go here */
+/* Blockquote background tint in dark mode */
+body.dark-theme .post-page blockquote {
+    background-color: var(--secondary-bg);
+}
