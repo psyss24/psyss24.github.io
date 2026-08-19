@@ -15,22 +15,22 @@
 .definition-term {
     position: relative;
     background: none;
-    color: var(--link-color);
-    font-weight: 400;
-    padding: 0;
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 0 0.1em;
     margin: 0;
     border-radius: 0;
-    border-bottom: 1px dotted var(--link-color);
-    transition: border-bottom-style 0.2s ease, color 0.2s ease;
+    border-bottom: 2px dotted var(--muted-text);
+    transition: border-bottom-color 0.2s ease, color 0.2s ease;
     display: inline;
     text-decoration: none;
     white-space: nowrap;
-    cursor: pointer;
+    cursor: help;
 }
 
 .definition-term:hover {
-    color: var(--link-hover);
-    border-bottom: 1px solid var(--link-hover);
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
 }
 
 /* Invisible bridge to prevent tooltip from disappearing */
@@ -69,23 +69,24 @@
     margin-left: 0.5rem;
     background-color: var(--primary-bg);
     color: var(--text-color);
-    padding: 1rem 1.25rem;
-    border-radius: 10px;
-    font-size: 0.85rem;
-    line-height: 1.5;
+    padding: 1.25rem 1.5rem;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    line-height: 1.6;
     font-weight: 400;
     font-family: var(--font-body);
-    max-width: 400px;
-    min-width: 280px;
+    max-width: 480px;
+    min-width: 300px;
     width: max-content;
     text-align: left;
-    box-shadow: 4px 4px 24px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 6px 6px 36px 0 rgba(0, 0, 0, 0.25);
     opacity: 0;
     visibility: hidden;
     z-index: 1000;
     pointer-events: none;
     border: 1px solid var(--border-color);
     white-space: normal;
+    cursor: default;
     
     /* Animation base properties */
     transition: opacity 0.3s ease, visibility 0.3s ease;

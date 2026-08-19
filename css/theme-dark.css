@@ -17,7 +17,7 @@ body.dark-theme .project-icon {
 
 /* Popover Tooltip shadow in dark mode (needs to be darker for contrast) */
 body.dark-theme .definition-tooltip {
-    box-shadow: 4px 4px 24px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 6px 6px 36px 0 rgba(0, 0, 0, 0.6);
 }
 
 /* Blockquote background tint in dark mode */
