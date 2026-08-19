@@ -32,10 +32,10 @@
     --link-color: #4a6fa5;
     --link-hover: #2e4a7a;
 
-    /* Typography - Sans-serif throughout for modern Quartz aesthetic */
-    --font-headline: 'Source Sans 3', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-body: 'Source Sans 3', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-ui: 'Source Sans 3', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+    /* Typography - Inter throughout for a tightly focused, cohesive aesthetic */
+    --font-headline: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
     --font-mono: 'JetBrains Mono', 'SF Mono', Monaco, Consolas, monospace;
 }
