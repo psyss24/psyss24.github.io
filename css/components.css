@@ -190,10 +190,10 @@
 
 .post p {
     color: var(--muted-text);
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     line-height: 1.6;
     margin-bottom: 0;
-    font-weight: 400;
+    font-weight: 300;
 }
 
 /* Hide post footer and tags for minimal style */

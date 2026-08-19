@@ -156,10 +156,10 @@ footer {
 /* === HOME QUOTE / INTRO TEXT === */
 .index-page .home-quote {
     font-family: var(--font-ui);
-    color: var(--text-color);
-    font-size: 1.1rem;
+    color: var(--muted-text);
+    font-size: 1.15rem;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 300;
     line-height: 1.6;
     text-align: left;
     max-width: 100%;
