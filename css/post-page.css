@@ -22,7 +22,7 @@
     box-shadow: none;
     padding: 0;
     margin: 0;
-    max-width: 700px;
+    max-width: 100%;
     margin: 0 auto;
     counter-reset: equation;
 }
